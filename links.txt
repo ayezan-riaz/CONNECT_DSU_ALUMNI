@@ -1,0 +1,3 @@
+Icons: 
+(duetone) https://preview.keenthemes.com/html/metronic/docs/icons/keenicons
+(bootstrap) https://icons.getbootstrap.com/
