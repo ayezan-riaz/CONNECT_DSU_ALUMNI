@@ -4,7 +4,8 @@ import { HeaderNotificationsMenu, HeaderUserMenu, Search, ThemeModeSwitcher } fr
 import { useLayout } from '../../core'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import DefaultImage from '../../../../../../DevAMS/src/app/pages/alumni/assets/DefaultImage.jpg'
+//import DefaultImage from '../../../../../../DevAMS/src/app/pages/alumni/assets/DefaultImage.jpg'
+import profile from '../../../../app/pages/alumni/assets/ayezan.jpg'	
 const itemClass = 'ms-1 ms-lg-3'
 const btnClass =
   'btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px'
@@ -77,7 +78,7 @@ const Navbar = () => {
           data-kt-menu-attach='parent'
           data-kt-menu-placement='bottom-end'
         >
-          <img src={DefaultImage} alt='Metronic' />
+          <img src={profile} alt='Metronic' />
           {/* <img src={`https://amsbackend-ghub.onrender.com/alumni/${img}`} alt='' /> */}
           {/* <img src={`https://amsbackend-ghub.onrender.com/alumni/${img}`}  /> */}
         </div>

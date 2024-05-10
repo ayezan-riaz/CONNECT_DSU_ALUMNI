@@ -29,6 +29,10 @@ const HeaderUserMenu: FC = () => {
   useEffect(() => {
     fetchAcademicsByUserId()
   }, [])
+
+
+
+
   const { currentUser, logout } = useAuth()
   return (
     <div
@@ -39,13 +43,13 @@ const HeaderUserMenu: FC = () => {
         <div className='menu-content d-flex align-items-center px-3'>
           <div className='symbol symbol-50px me-5'>
             {/* <img src={`https://amsbackend-ghub.onrender.com/alumni/${img}`} alt='logo' /> */}
-            <img src={DefaultImage} alt='Metronic' />
+            <img src={img || DefaultImage} alt='Metronic' />
           </div>
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
               {currentUser?.first_name} {currentUser?.first_name}
-              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span>
+              {/* <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span> */}
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
               {currentUser?.email}
@@ -70,7 +74,7 @@ const HeaderUserMenu: FC = () => {
 
       <div className='separator my-2'></div>
 
-      <Languages />
+      {/* <Languages /> */}
 
       <div className='menu-item px-5 my-1'>
         <Link to='/alumni/account/settings' className='menu-link px-5'>

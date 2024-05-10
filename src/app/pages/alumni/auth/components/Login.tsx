@@ -1,13 +1,13 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react'
-import * as Yup from 'yup'
-import clsx from 'clsx'
-import { Link } from 'react-router-dom'
-import { useFormik } from 'formik'
-import { getUserByToken, login } from '../core/_requests'
-
-import { toAbsoluteUrl } from '../../../../../_metronic/helpers'
-import { useAuth } from '../core/Auth'
+import { useEffect, useState } from 'react';
+import * as Yup from 'yup';
+import clsx from 'clsx';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import axios from 'axios'; // Import Axios
+import { useAuth } from '../core/Auth';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { Console } from 'console';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,63 +19,65 @@ const loginSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
-})
+});
 
 const initialValues = {
   email: 'admin@demo.com',
   password: 'demo',
-}
-
-/*
-  Formik+YUP+Typescript:
-  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
-  https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
-*/
+};
 
 export function Login() {
-  const [loading, setLoading] = useState(false)
-  const { saveAuth, setCurrentUser } = useAuth()
 
+  const [loading, setLoading] = useState(false);
+  const { saveAuth, setCurrentUser } = useAuth();
+  // const history = useHistory(); // React Router history object to redirect
+  // const navigate = useNavigate();
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
     onSubmit: async (values, { setStatus, setSubmitting }) => {
-      console.log(values)
-      setLoading(true)
+      setLoading(true);
       try {
-        //const {data: auth} = await login(values.email, values.password)
-        const auth = {
-          //api_token: 'token-123',
-          //refreshToken: 'refresh-token-123',
-          api_token: '$token12345',
-          created_at: '2023-03-02T12:40:30.000000Z',
-          email: 'goSaad@outlook.com',
-          email_verified_at: '2023-03-02T12:40:30.000000Z',
-          first_name: 'Saad',
-          id: 2,
-          last_name: 'Luqman',
-          updated_at: '2023-03-02T12:40:30.000000Z',
-        }
-        saveAuth(auth)
-        //const {data: user} = await getUserByToken(auth.api_token)
-        const user = {
-          id: 1,
-          username: 'saad',
-          password: 'abcd',
-          email: 'gosaad@outlook.com',
-          first_name: 'saad',
-          last_name: 'Luqman',
-        }
-        setCurrentUser(user)
+        const response = await axios.post('https://amsbackend-ghub.onrender.com/login', {
+          email: values.email,
+          password: values.password,
+        });
+
+        const { access_token } = response.data;
+        // console.log('AcessToken: ', access_token)
+        saveAuth(access_token); // Save access token to local storage
+
+        // Fetch user details using the access token
+        const userResponse = await axios.get('https://amsbackend-ghub.onrender.com/protected', {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+        const { sub } = userResponse.data;
+        console.log("Sub", sub);
+        localStorage.setItem('sub', sub);
+        // saveAuth(sub);Save Sub to local storage
+        // const user = response.data;
+        // setCurrentUser(user);
+        setCurrentUser(response.data);
+        setLoading(false);
+
+        // Use <Navigate /> to redirect to the dashboard on successful login
+        return <Navigate to='/dashboard' />;
       } catch (error) {
-        console.error(error)
-        saveAuth(undefined)
-        setStatus('The login details are incorrect')
-        setSubmitting(false)
-        setLoading(false)
+        console.error(error);
+        // Here, save the error response message instead of data
+        setStatus('The login details are incorrect'); // You might want to use error.response.data.message or a more detailed error message from the server.
+        setSubmitting(false);
+        setLoading(false);
       }
     },
-  })
+  });
+
+
+
+  // Rest of the component code remains the same
+  // ...
 
   return (
     <form
@@ -86,7 +88,7 @@ export function Login() {
     >
       {/* begin::Heading */}
       <div className='text-center mb-11'>
-        <h1 className=' fw-bolder mb-3 text-dark'>Test Welcome To The Alumni Portal</h1>
+        <h1 className=' fw-bolder mb-3 text-dark'>Welcome To The Alumni Portal</h1>
       </div>
 
       {formik.status ? (
@@ -163,6 +165,7 @@ export function Login() {
 
       {/* begin::Action */}
       <div className='d-grid mb-10'>
+
         <button
           type='submit'
           id='kt_sign_in_submit'

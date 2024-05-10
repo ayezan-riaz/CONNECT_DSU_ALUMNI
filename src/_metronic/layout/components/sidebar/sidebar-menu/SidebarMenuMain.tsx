@@ -60,7 +60,15 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='JobPost' to='/alumni/jobPost/jobPosting' icon='archive' />
         <SidebarMenuItem title='View Jobs' to='/alumni/viewJobs/viewAllJobs' icon='archive' />
       </SidebarMenuItemWithSub>
-
+      <SidebarMenuItemWithSub
+        title='Events'
+        to='/alumni/events'
+        fontIcon='bi-person'
+        icon='profile-circle'
+      >
+        <SidebarMenuItem title='Events' to='/alumni/events/jobPosting' icon='archive' />
+        <SidebarMenuItem title='News' to='/alumni/viewJobs/viewAllJobs' icon='archive' />
+      </SidebarMenuItemWithSub>
       {/* <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>

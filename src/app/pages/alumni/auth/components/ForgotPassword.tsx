@@ -1,13 +1,15 @@
-import {useState} from 'react'
-import * as Yup from 'yup'
-import clsx from 'clsx'
-import {Link} from 'react-router-dom'
-import {useFormik} from 'formik'
-import {requestPassword} from '../core/_requests'
+
+
+import React, { useState } from 'react';
+import * as Yup from 'yup';
+import clsx from 'clsx';
+import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import axios from 'axios'; // Import Axios
 
 const initialValues = {
-  email: 'admin@demo.com',
-}
+  email: '',
+};
 
 const forgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
@@ -15,33 +17,40 @@ const forgotPasswordSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
-})
+});
 
 export function ForgotPassword() {
-  const [loading, setLoading] = useState(false)
-  const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined)
+  const [loading, setLoading] = useState(false);
+  const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined);
   const formik = useFormik({
     initialValues,
     validationSchema: forgotPasswordSchema,
-    onSubmit: (values, {setStatus, setSubmitting}) => {
-      setLoading(true)
-      setHasErrors(undefined)
-      setTimeout(() => {
-        requestPassword(values.email)
-          .then(({data: {result}}) => {
-            setHasErrors(false)
-            setLoading(false)
-          })
-          .catch(() => {
-            setHasErrors(true)
-            setLoading(false)
-            setSubmitting(false)
-            setStatus('The login detail is incorrect')
-          })
-      }, 1000)
-    },
-  })
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
+      setLoading(true);
+      setHasErrors(undefined);
 
+      try {
+        const response = await axios.post(
+          'https://amsbackend-ghub.onrender.com/applyPasswordReset',
+          { email: values.email }
+        );
+
+        // Assuming the token is returned in the API response as response.data.token
+        const token = response.data;
+
+        // Save the token to local storage
+        localStorage.setItem('authToken', token);
+        console.log("Token: => ", token)
+        setHasErrors(false);
+        setLoading(false);
+      } catch (error) {
+        setHasErrors(true);
+        setLoading(false);
+        setSubmitting(false);
+        setStatus('The login detail is incorrect');
+      }
+    },
+  });
   return (
     <form
       className='form w-100 fv-plugins-bootstrap5 fv-plugins-framework'
@@ -87,7 +96,7 @@ export function ForgotPassword() {
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control bg-transparent',
-            {'is-invalid': formik.touched.email && formik.errors.email},
+            { 'is-invalid': formik.touched.email && formik.errors.email },
             {
               'is-valid': formik.touched.email && !formik.errors.email,
             }
@@ -105,8 +114,15 @@ export function ForgotPassword() {
 
       {/* begin::Form group */}
       <div className='d-flex flex-wrap justify-content-center pb-lg-0'>
-        <button type='submit' id='kt_password_reset_submit' className='btn btn-primary me-4'>
-          <span className='indicator-label'>Submit</span>
+        <button
+          type='submit'
+          id='kt_password_reset_submit'
+          className='btn me-4'
+          style={{ color: 'white', backgroundColor: '#80171D', }}
+        >
+          <span className='indicator-label' style={{ color: 'white', backgroundColor: '#80171D' }}>
+            Submit
+          </span>
           {loading && (
             <span className='indicator-progress'>
               Please wait...

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
@@ -57,8 +57,9 @@ export function Login() {
         console.log("Sub", sub);
         localStorage.setItem('sub', sub);
         // saveAuth(sub);Save Sub to local storage
-        const user = response.data;
-        setCurrentUser(user);
+        // const user = response.data;
+        // setCurrentUser(user);
+        setCurrentUser(response.data);
         setLoading(false);
 
         // Use <Navigate /> to redirect to the dashboard on successful login
@@ -72,6 +73,8 @@ export function Login() {
       }
     },
   });
+
+
 
   // Rest of the component code remains the same
   // ...

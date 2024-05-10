@@ -21,8 +21,26 @@ export function MenuInner() {
         <MenuItem title='Work' to='/alumni/account/work' icon='badge' />
         <MenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
       </MenuInnerWithSub>
-
-
+      <MenuInnerWithSub
+        title='Job'
+        to='/alumni/jobPost'
+        menuPlacement='bottom-start'
+        menuTrigger='click'
+      >
+        <MenuItem title='JobPost' to='/alumni/jobPost/jobPosting' icon='archive' />
+        <MenuItem title='View Jobs' to='/alumni/viewJobs/viewAllJobs' icon='setting-2' />
+        
+      </MenuInnerWithSub>
+      <MenuInnerWithSub
+        title='Events'
+        to='/alumni/events'
+        menuPlacement='bottom-start'
+        menuTrigger='click'
+      >
+        <MenuItem title='Event' to='/alumni/jobPost/jobPosting' icon='archive' />
+        <MenuItem title='News' to='/alumni/viewJobs/viewAllJobs' icon='setting-2' />
+        
+      </MenuInnerWithSub>
 
 
       {/* <MenuInnerWithSub
