@@ -1,3 +1,4 @@
+import { Modal, Button, Form } from 'react-bootstrap';
 import React, { useState } from 'react'
 import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg'
 import {EventModal} from './eventModal'; // Import the EventModal component
@@ -14,19 +15,34 @@ interface Events {
 const ViewEvent:React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Events | null>(null); // Track the selected event
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Track delete confirmation
 
 
   // Function to open the modal
-  const openModal = (event: Events) => {
+  const openModal = (event: Events | null) => {
     setSelectedEvent(event);
     setShowModal(true);
   };
-
   // Function to close the modal
   const closeModal = () => {
     setShowModal(false);
   };
+// Function to handle delete confirmation
+const handleDeleteConfirmation = () => {
+  // Perform delete action here, e.g., call a delete API
+  console.log('Deleting event with ID:', selectedEvent?.Id);
 
+  // Close the confirmation modal
+  setDeleteConfirmation(false);
+  // Clear the selected event
+  setSelectedEvent(null);
+};
+
+// Function to handle delete action
+const handleDelete = (event: Events) => {
+  setSelectedEvent(event);
+  setDeleteConfirmation(true);
+};
 
   const events: Events[] = [
 {
@@ -59,14 +75,8 @@ const ViewEvent:React.FC = () => {
   return (
     <div>
       <div className="row mb-5">
-  <div className="col-2 offset-10">
-  <button className="btn btn-primary des" onClick={() => openModal({
-            Id: -1, // Set a dummy Id to indicate it's a new event
-            Name: '',
-            Description: '',
-            Image: '',
-            EventDate: new Date(),
-          })}>
+  <div className="col-lg-2  col-md-2 col-sm-6 offset-md-10 offset-lg-10 offset-sm-6">
+  <button className="btn btn-primary des" onClick={() => openModal(null)}>
             Add new Event
           </button>
    {/* <button className="btn btn-primary des" onClick={openModal} 
@@ -114,8 +124,9 @@ const ViewEvent:React.FC = () => {
   {events.map((event, index) => (
     <div key={index} className="col-md-4">
       <div className="card-xl-stretch me-md-6">
-      <span style={{textAlign: 'right'}} ><i className="fa fa-times-circle" style={{ fontSize: ' 20px',color: '#80171d', cursor: 'pointer'}}
- ></i></span>
+      <span style={{ textAlign: 'right' }}>
+                <i className="fa fa-times-circle" style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }} onClick={() => handleDelete(event)}></i>
+              </span>
         <a
           className="d-block overlay mb-4"
           data-fslightbox="lightbox-hot-sales"
@@ -161,6 +172,17 @@ const ViewEvent:React.FC = () => {
 
  {/* Render the EventModal */}
  <EventModal isOpen={showModal} onClose={closeModal} selectedEvent={selectedEvent} />
+  {/* Confirmation Modal */}
+  <Modal show={deleteConfirmation} onHide={() => setDeleteConfirmation(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this event?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setDeleteConfirmation(false)}>No</Button>
+          <Button variant="primary" onClick={handleDeleteConfirmation}>Yes</Button>
+        </Modal.Footer>
+      </Modal>
 {/* <script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.7/build/spline-viewer.js"></script>
 <spline-viewer url="https://prod.spline.design/6vWTQIXXYAkaAk-2/scene.splinecode"></spline-viewer> */}
     </div>
