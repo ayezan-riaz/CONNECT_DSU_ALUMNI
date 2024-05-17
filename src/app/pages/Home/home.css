@@ -1,0 +1,13 @@
+.navbar > .container, .navbar > .container-fluid, .navbar > .container-sm, .navbar > .container-md, .navbar > .container-lg, .navbar > .container-xl, .navbar > .container-xxl {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #81181b;
+    padding-left: 10px;
+    color: white;
+}
+a.nav-link {
+    color: white;
+    font-size: 15px;
+}

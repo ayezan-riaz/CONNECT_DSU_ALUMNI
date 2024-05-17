@@ -51,7 +51,7 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
       </SidebarMenuItemWithSub>
 
-      <SidebarMenuItemWithSub
+      {/* <SidebarMenuItemWithSub
         title='Job'
         to='/alumni/jobPost'
         fontIcon='bi-person'
@@ -60,15 +60,60 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='JobPost' to='/alumni/jobPost/jobPosting' icon='archive' />
         <SidebarMenuItem title='View Jobs' to='/alumni/viewJobs/viewAllJobs' icon='archive' />
       </SidebarMenuItemWithSub>
+       */}
+       <SidebarMenuItem
+        to='/alumni/dsu/jobs'
+        icon='element-11'
+        title='Jobs'
+        fontIcon='bi-app-indicator'
+      />
       <SidebarMenuItemWithSub
         title='Events'
-        to='/alumni/events'
+        to='/alumni/dsu'
         fontIcon='bi-person'
         icon='profile-circle'
       >
-        <SidebarMenuItem title='Events' to='/alumni/events/jobPosting' icon='archive' />
-        <SidebarMenuItem title='News' to='/alumni/viewJobs/viewAllJobs' icon='archive' />
+        <SidebarMenuItem title='Events' to='/alumni/dsu/event' icon='archive' />
+        <SidebarMenuItem title='News' to='/alumni/dsu/news' icon='archive' />
       </SidebarMenuItemWithSub>
+
+      <SidebarMenuItem
+        to='/alumni/dsu/association'
+        icon='element-11'
+        title='Association'
+        fontIcon='bi-app-indicator'
+      />
+         <SidebarMenuItem
+        to='/alumni/dsu/card'
+        icon='element-11'
+        title='Alumni Card'
+        fontIcon='bi-app-indicator'
+      />
+
+<SidebarMenuItem
+        to='/alumni/dsu/corporate'
+        icon='element-11'
+        title='Corporate Partner'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/alumni/dsu/directory'
+        icon='element-11'
+        title='Alumni Directory'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/alumni/dsu/donation'
+        icon='element-11'
+        title='Donations'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/alumni/dsu/testimonial'
+        icon='element-11'
+        title='Testimonial'
+        fontIcon='bi-app-indicator'
+      />
       {/* <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>

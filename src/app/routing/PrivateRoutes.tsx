@@ -28,7 +28,7 @@ const PrivateRoutes = () => {
 
   // Alumni Routes
   const AlumniAccountPage = lazy(() => import('../pages/alumni/account/AccountPage'))
-
+const DsuPage =lazy(()=>import('../pages/alumni/dsu/DsuPage'))
   const JobPosting = lazy(() => import('../pages/alumni/jobPost/JobPosting'))
   const ViewAllJobs = lazy(() => import('../pages/alumni/viewJobs/viewAllJobs'))
 
@@ -84,6 +84,15 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <AlumniAccountPage />
+            </SuspensedView>
+          }
+        />
+
+           <Route
+          path='/alumni/dsu/*'
+          element={
+            <SuspensedView>
+              <DsuPage />
             </SuspensedView>
           }
         />

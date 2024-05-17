@@ -14,6 +14,7 @@ import home from '../../pages/alumni/assets/home.png'
 // import {Step1} from './components/Register/wizards/components/steps/Step1'
 //import { Vertical } from '../wizards/components/Vertical'
 import { Vertical } from './components/Register/wizards/components/Vertical'
+import Home from '../../pages/Home/home'
 const AuthLayout = () => {
   useEffect(() => {
     document.body.classList.add('bg-body')
@@ -23,6 +24,10 @@ const AuthLayout = () => {
   }, [])
 
   return (
+    // <>
+    //    <Outlet />
+    
+    // </>
     <div
       className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed'
       style={{
@@ -43,11 +48,7 @@ const AuthLayout = () => {
         {/* end::Wrapper */}
       </div>
       {/* begin::Footer */}
-      <div className='d-flex flex-column-reverse flex-md-row justify-content-end align-items-center p-10'>
-        <div className='d-flex fw-bold fs-6'>
-          <p className='text-dark px-2'>Developed by Suffa Soft</p>
-        </div>
-      </div>
+   
       {/* end::Footer */}
     </div>
   )
@@ -56,6 +57,7 @@ const AuthLayout = () => {
 const AuthPage = () => (
   <Routes>
     <Route element={<AuthLayout />}>
+      {/* <Route path='home' element={<Home />} /> */}
       <Route path='login' element={<Login />} />
       <Route path='registration' element={<Vertical />} />
       <Route path='forgot-password' element={<ForgotPassword />} />
