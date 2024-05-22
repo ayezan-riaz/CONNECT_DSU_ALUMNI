@@ -2,6 +2,9 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import React, { useState } from 'react'
 import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg'
 import {EventModal} from './eventModal'; // Import the EventModal component
+import Event1 from '../../../../assets/event1.jpeg'
+import Event2 from '../../../../assets/event2.jpeg'
+import Event3 from '../../../../assets/event3.jpg'
 import './event.css'
 interface Events {
   Id: number;
@@ -49,14 +52,14 @@ const handleDelete = (event: Events) => {
   Id: 1,
   Name: 'Admin Panel - How To Started the Dashboard Tutorial',
   Description: 'We’ve been focused on making a the from also not been afraid to and step away been focused create eye',
-  Image: eventBackground,
+  Image: Event1,
   EventDate: new Date('2023-01-01T00:00:00'),
 },
 {
   Id: 2,
   Name: 'Admin Panel - How To Started the Dashboard Tutorial',
   Description: 'We’ve been focused on making a the from also not been afraid to and step away been focused create eye',
-  Image: eventBackground,
+  Image: Event2,
   EventDate: new Date('2023-01-01T00:00:00'),
 },
 
@@ -64,7 +67,7 @@ const handleDelete = (event: Events) => {
   Id: 3,
   Name: 'Admin Panel - How To Started the Dashboard Tutorial',
   Description: 'We’ve been focused on making a the from also not been afraid to and step away been focused create eye',
-  Image:eventBackground,
+  Image:Event3,
   EventDate: new Date('2023-01-01T00:00:00'),
 },
 

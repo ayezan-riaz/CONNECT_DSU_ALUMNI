@@ -6,7 +6,7 @@ import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import DefaultImage from '../../../../app/pages/alumni/assets/DefaultImage.jpg'
+import DefaultImage from '../../../../app/pages/alumni/assets/ayezan.jpg'
 const localid = localStorage.getItem('sub');
 
 const HeaderUserMenu: FC = () => {

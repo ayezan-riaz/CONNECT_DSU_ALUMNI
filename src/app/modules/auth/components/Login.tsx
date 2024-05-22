@@ -86,9 +86,16 @@ export function Login() {
       noValidate
       id='kt_login_signin_form'
     >
+     
       {/* begin::Heading */}
       <div className='text-center mb-11'>
-        <h1 className=' fw-bolder mb-3 text-dark'>Welcome To The Alumni Portal</h1>
+        <h1 className=' fw-bolder mb-3 text-dark'>
+        <Link to="/home">
+      <span>
+        <i className='fas fa-arrow-circle-left' style={{color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer'}}></i>
+      </span>
+    </Link>    
+          Welcome To The Alumni Portal</h1>
       </div>
 
       {formik.status ? (

@@ -1,0 +1,9 @@
+.c-item {
+    height: 0%;
+  } 
+  
+  .c-img {
+    /* height:%; */
+    object-fit: cover;
+    filter: brightness(0.6);
+  }

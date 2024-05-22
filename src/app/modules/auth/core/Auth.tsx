@@ -85,11 +85,11 @@ const AuthInit: FC<WithChildren> = ({children}) => {
 
       const data = {
         id: 1,
-        username: 'SyedSaadLuqman',
+        username: 'ayezan',
         password: 'abcd',
-        email: 'gosaad@outlook.com',
-        first_name: 'Saad',
-        last_name: 'Luqman',
+        email: 'ayezanriaz8@gmail.com',
+        first_name: 'Ayezan',
+        last_name: 'Riaz',
       }
       setCurrentUser(data)
       setShowSplashScreen(false)

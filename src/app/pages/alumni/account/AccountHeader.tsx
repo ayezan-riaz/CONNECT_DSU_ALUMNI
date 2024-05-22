@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Dropdown1 } from '../../../../_metronic/partials'
 import { useLocation } from 'react-router'
 import axios from 'axios'
-import DefaultImage from '../assets/DefaultImage.jpg'
+import DefaultImage from '../assets/ayezan.jpg'
 
 const localid = localStorage.getItem('sub');
 

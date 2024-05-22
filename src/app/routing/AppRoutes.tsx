@@ -66,6 +66,7 @@ import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
 //import {Logout, AuthPage, useAuth} from '../pages/alumni/auth'
 import {App} from '../App'
+
 //import {Step1} from '../modules/auth/components/Register/wizards/components/steps/Step1'
 
 /**
@@ -90,8 +91,12 @@ const AppRoutes: FC = () => {
             </>
           ) : (
             <>
-              <Route path='auth/*' element={<AuthPage />} />
-              <Route path='*' element={<Navigate to='/auth' />} />
+     {/* Render AuthPage by default for home route */}
+     <Route path='home/*' element={<AuthPage />} />
+              {/* Render AuthPage for login route */}
+              <Route path='login/*' element={<AuthPage />} />
+              {/* Redirect to home for other routes */}
+              <Route path='*' element={<Navigate to='/home' />} />
               {/* <Route
                 path='/auth/components/Register/wizards/components/steps/Step1'
                 element={<Step1 />}
