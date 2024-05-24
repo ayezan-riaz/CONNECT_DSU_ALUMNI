@@ -90,57 +90,86 @@ const AuthLayout = () => {
     }
   }, [])
 
-  // Conditionally render content based on the current URL path
-  let authContent;
-  if (window.location.pathname === '/login') {
-    authContent = (
-      <div
-        className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed'
-        style={{
-          backgroundImage: `url(${home})`,
-        }}
-      >
-        {/* begin::Content */}
-        <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
-          {/* begin::Logo */}
-          <a href='#' className='mb-12'>
-            <img alt='Logo' src={logo} className='h-100px' />
-          </a>
-          {/* end::Logo */}
-          {/* begin::Wrapper */}
-          <div className=' bg-body rounded shadow-sm p-10 p-lg-15 mx-auto '>
-            <Login />
-          </div>
-          {/* end::Wrapper */}
-        </div>
-        {/* begin::Footer */}
-     
-        {/* end::Footer */}
-      </div>
-    );
-  } else if (window.location.pathname === '/home') {
-    authContent = (
-      <Outlet />
-    );
-  }
-
   return (
-    <>
-      {authContent}
+    <div
+      className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed'
+      style={{
+        backgroundImage: `url(${home})`,
+      }}
+    >
+      {/* begin::Content */}
+      <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
+        {/* begin::Logo */}
+        <a href='#' className='mb-12'>
+          <img alt='Logo' src={logo} className='h-100px' />
+        </a>
+        {/* end::Logo */}
+        {/* begin::Wrapper */}
+        <div className=' bg-body rounded shadow-sm p-10 p-lg-15 mx-auto '>
+          <Outlet />
+        </div>
+        {/* end::Wrapper */}
+      </div>
+      {/* begin::Footer */}
+      {/* <div className='d-flex flex-column-reverse flex-md-row justify-content-end align-items-center p-10'>
+        <div className='d-flex fw-bold fs-6'>
+          <p className='text-dark px-2'>Developed by Suffa Soft</p>
+        </div>
+      </div> */}
+      {/* end::Footer */}
+    </div>
+  )
+  // Conditionally render content based on the current URL path
+  // let authContent;
+  // if (window.location.pathname === '/auth') {
+  //   authContent = (
+  //     <div
+  //       className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed'
+  //       style={{
+  //         backgroundImage: `url(${home})`,
+  //       }}
+  //     >
+  //       {/* begin::Content */}
+  //       <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
+  //         {/* begin::Logo */}
+  //         <a href='#' className='mb-12'>
+  //           <img alt='Logo' src={logo} className='h-100px' />
+  //         </a>
+  //         {/* end::Logo */}
+  //         {/* begin::Wrapper */}
+  //         <div className=' bg-body rounded shadow-sm p-10 p-lg-15 mx-auto '>
+  //           <Login />
+  //         </div>
+  //         {/* end::Wrapper */}
+  //       </div>
+  //       {/* begin::Footer */}
+     
+  //       {/* end::Footer */}
+  //     </div>
+  //   );
+  // } else if (window.location.pathname === '/home') {
+  //   authContent = (
+  //     <Outlet />
+  //   );
+  // }
+
+  // return (
+  //   <>
+  //     {authContent}
  
-    </>
-  );
+    // </>
+  // );
 }
 
 const AuthPage = () => (
   <Routes>
     <Route element={<AuthLayout />}>
-      <Route path='home' element={<Home />} />
+      {/* <Route path='home' element={<Home />} /> */}
       <Route path='login' element={<Login />} />
       <Route path='registration' element={<Vertical />} />
       <Route path='forgot-password' element={<ForgotPassword />} />
       <Route path='forgot-password-create' element={<UpdatePassword />} />
-      <Route index element={<Home />} />
+      <Route index element={<Login />} />
     </Route>
   </Routes>
 )

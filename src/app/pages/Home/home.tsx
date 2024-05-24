@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers';
 import HomeHeader from './components/homeHeader/homeHeader';
 import Carousel from './components/carousel/carousel';
+import HomeEvents from './components/HomeEvents/homeEvents';
 
 
 const Home :React.FC = () => {
@@ -18,17 +19,15 @@ const Home :React.FC = () => {
 
   // <Home>
  <>
-<HomeHeader />
-<div style={{marginTop:"170px"}} >
+ <div className='row'>
 
+<HomeHeader />
 <Carousel/>
+ </div>
+<div className="container">
+
+<HomeEvents/>
 </div>
-{/* <div className="container">
-  <div className="box" style={{ backgroundImage: "url(img/1.jpg)" }} />
-  <div className="box" style={{ backgroundImage: "url(img/2.jpg)" }} />
-  <div className="box" style={{ backgroundImage: "url(img/3.jpg)" }} />
-  <div className="box" style={{ backgroundImage: "url(img/4.jpg)" }} />
-</div> */}
 
    
         </>

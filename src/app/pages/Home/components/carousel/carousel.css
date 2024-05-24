@@ -1,5 +1,6 @@
 .c-item {
     height: 0%;
+    margin-bottom: 50px;
   } 
   
   .c-img {
@@ -7,3 +8,33 @@
     object-fit: cover;
     filter: brightness(0.6);
   }
+
+
+  /* Custom CSS for different margin-top values */
+/* @media (max-width: 767.98px) {
+  .carousel-custom-margin {
+    margin-top: 175px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel-custom-margin {
+    margin-top: 175px !important;
+  }
+} */
+
+/* Custom CSS for different margin-top and margin-bottom values */
+@media (max-width: 767.98px) {
+    .carousel-custom-margin {
+      margin-top: 10.3125rem !important; /* 165px / 16 = 10.3125rem */
+      margin-bottom: 3.125rem !important; /* 50px / 16 = 3.125rem */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .carousel-custom-margin {
+      margin-top: 10.9375rem !important; /* 175px / 16 = 10.9375rem */
+      margin-bottom: 6.25rem !important; /* 100px / 16 = 6.25rem */
+    }
+  }
+  

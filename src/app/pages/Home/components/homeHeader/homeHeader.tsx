@@ -19,40 +19,21 @@ const HomeHeader :React.FC= () => {
   return (
 <>
 <div className="fixed-top bg" >
- <div className='col-lg-12 col-md-12 col-sm-12 bg '>
-{/* <div className="social-icons-container">
-  <div className="social-icon-box facebook">
-    <div className="icon-face">
-      <i className="fa fa-facebook" />
-    </div>
-  </div>
-  <div className="social-icon-box twitter">
-    <div className="icon-face">
-      <i className="fa fa-twitter" />
-    </div>
-  </div>
-  <div className="social-icon-box instagram">
-    <div className="icon-face">
-      <i className="fa fa-instagram" />
-    </div>
-  </div>
-  <div className="social-icon-box linkedin">
-    <div className="icon-face">
-      <i className="fa fa-linkedin" />
-    </div>
-  </div>
-  <div className="social-icon-box github">
-    <div className="icon-face">
-      <i className="fa fa-github" />
-    </div>
-  </div>
-</div> */}
-
-        <KTSVG path="media/icons/duotune/social/soc006.svg" className="svg-icon-muted svg-icon-2hx svg-icon-white" />
-
-        <KTSVG path="media/icons/duotune/social/soc004.svg" className="svg-icon-muted svg-icon-2hx" />
-        {/* <img src={toAbsoluteUrl("media/icons/duotune/social/soc006.svg")} style={{color:"white"}} /> */}
+<div className="row">
+          {/* Icon Section */}
+          <div className="col-12 d-flex justify-content-start align-items-center bg  p-2">
+            <a href="https://www.facebook.com/dha.suffa/" className="fa fa-facebook text-white mx-2" /> |
+            <a href="https://twitter.com/lifeatdsu" className="fa fa-twitter text-white mx-2" /> |
+            <a href="https://www.instagram.com" className="fa fa-instagram text-white mx-2" /> |
+            <a href="https://www.linkedin.com/school/dha-suffa-university/" className="fa fa-linkedin text-white mx-2" /> |
+            <a href="https://www.youtube.com/c/DHASuffaUniversityOfficial/videos" className="fa fa-youtube text-white mx-2" /> |
+            <a href="https://www.dsu.edu.pk/wp-content/uploads/2024/01/DSU_NEWSLETTER_2023_RECOVER_NEW.pdf" className="fa fa-rss text-white mx-2"></a>
+          </div>
         </div>
+ {/* <div className='col-lg-12 col-md-12 col-sm-12 bg '>
+
+     
+        </div> */}
         <div className='col-lg-12 col-md-12 col-sm-12 bg '>
       
         <div className="slider">
@@ -135,7 +116,7 @@ const HomeHeader :React.FC= () => {
                             <a className="nav-link" href="#"> <span className='bg'>Contact Us  </span></a>
                         </li>
                         </Link>
-                        <Link to="/login">
+                        <Link to="/auth">
 
 <li className="nav-item">
     <a className="nav-link" href="#"> <span className='bg'>Login  </span></a>
