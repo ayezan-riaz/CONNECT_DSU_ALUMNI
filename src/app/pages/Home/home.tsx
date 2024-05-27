@@ -7,6 +7,8 @@ import { KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers';
 import HomeHeader from './components/homeHeader/homeHeader';
 import Carousel from './components/carousel/carousel';
 import HomeEvents from './components/HomeEvents/homeEvents';
+import Reward from './components/RewardsAndBenefits/Reward/reward';
+import OurAlumni from './components/ourAlumni/ourAlumni';
 
 
 const Home :React.FC = () => {
@@ -25,8 +27,9 @@ const Home :React.FC = () => {
 <Carousel/>
  </div>
 <div className="container">
-
-<HomeEvents/>
+<Reward/>
+<OurAlumni />
+{/* <HomeEvents/> */}
 </div>
 
    
