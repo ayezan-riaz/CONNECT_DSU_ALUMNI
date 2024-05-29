@@ -2,7 +2,9 @@ import React, { FC, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-
+// Load environment variables
+// require('dotenv').config();
+const API = process.env.API_PATH;
 const Step1Schema = Yup.object().shape({
     registrationId: Yup.string().required('Registration Id is required'),
 });
@@ -45,7 +47,8 @@ const StepWizard: FC = () => {
         try {
             // Call the API to verify university email
             const response = await axios.post(
-                'https://amsbackend-ghub.onrender.com/registrations/verifyUniversityEmail',
+                `https://ams-backend-gkxg.onrender.com/registrations/verifyUniversityEmail`,
+                // 'https://amsbackend-ghub.onrender.com/registrations/verifyUniversityEmail',
                 { registrationId }
             );
             // Handle the API response as needed
@@ -59,7 +62,8 @@ const StepWizard: FC = () => {
         try {
             // Call the API to validate account email with the token
             const response = await axios.get(
-                `https://amsbackend-ghub.onrender.com/registrations/validateAccountEmail?token=${token}`
+                `${API}/registrations/validateAccountEmail?token=${token}`
+                // `https://amsbackend-ghub.onrender.com/registrations/validateAccountEmail?token=${token}`
             );
             // Handle the API response as needed
             console.log(response.data);
@@ -72,7 +76,8 @@ const StepWizard: FC = () => {
         try {
             // Call the API to register the account
             const response = await axios.post(
-                'https://amsbackend-ghub.onrender.com/registrations/registerAccount',
+                `${API}/registrations/registerAccount`,
+                // 'https://amsbackend-ghub.onrender.com/registrations/registerAccount',
                 values
             );
             // Handle the API response as needed

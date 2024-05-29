@@ -1,91 +1,12 @@
-/* .c-item {
-    height: 0%;
-    margin-bottom: 50px;
-  } 
-  
-  .c-img {
-
-    object-fit: cover;
-    filter: brightness(0.6);
-  } */
-
-
-  /* Custom CSS for different margin-top values */
-/* @media (max-width: 767.98px) {
-  .carousel-custom-margin {
-    margin-top: 175px !important;
-  }
-}
-
-@media (min-width: 768px) {
-  .carousel-custom-margin {
-    margin-top: 175px !important;
-  }
-} */
-
-/* Custom CSS for different margin-top and margin-bottom values */
-/* @media (max-width: 767.98px) {
-    .carousel-custom-margin {
-      margin-top: 10.3125rem !important; 
-      margin-bottom: 3.125rem !important; 
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .carousel-custom-margin {
-      margin-top: 10.9375rem !important; 
-      margin-bottom: 6.25rem !important;
-    }
-  }
-   */
-
-
 
 
   /* //NEW
    */
 
 
-   .carousel-item img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Ensure images cover the carousel area without stretching */
-}
+  
 
-.carousel-caption {
-    position: absolute;
-    right: 15%;
-    bottom: 20px;
-    left: 15%;
-    z-index: 10;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-}
+/* Additional carousel styles */
 
-@media (max-width: 768px) {
-    .carousel-caption {
-        right: 10%;
-        left: 10%;
-        font-size: 90%; /* Smaller text on smaller screens */
-    }
-}
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: #000; /* Better visibility */
-    border-radius: 50%;
-    width: 40px;
-    height: 40x;
-}
-
-@media (max-width: 576px) {
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        width: 30px;
-        height: 30px; /* Smaller arrows on very small devices */
-    }
-}
-
+/* //NEW */

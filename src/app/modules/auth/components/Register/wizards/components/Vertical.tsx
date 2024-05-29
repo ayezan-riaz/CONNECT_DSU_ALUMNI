@@ -15,6 +15,13 @@ import { ICreateAccount } from './CreateAccountWizardHelper';
 import { useFormik } from 'formik'; // Corrected import statement
 import React, { createContext } from "react";
 import axios from 'axios'
+// Assuming dotenv is configured to load environment variables
+// const API = process.env.API_PATH;
+
+const API ="https://ams-backend-gkxg.onrender.com";
+
+// Load environment variables
+// require('dotenv').config();
 // const CGPAContext = createContext<number | null>(null);
 interface CGPAContextData {
   step2Cgpa: number | null;
@@ -88,29 +95,49 @@ const Vertical = () => {
         // Call the corresponding API based on the current step index
         switch (stepper.current.currentStepIndex) {
           case 2:
-            // if (!step2Token) {
-            //   // If 'step2Token' is not available, show an error toast
-            //   toast.error('Requested Email not exists in Examination Records: Registration or Format Issue');
-            //   stepper.current.goPrev()
-            // } else {
-            //   try {
-            // Step 1 API Call
-            const responseStep1 = await axios.post(
-              'https://amsbackend-ghub.onrender.com/registrations/verifyUniversityEmail',
-              { uni_reg_id: values.uni_reg_id }
-            );
-
-
-            const { token } = responseStep1.data;
-            setStep2Token(token); // Store the token in the state variable
-            //   } catch (error) {
-            //     // Handle any errors that might occur during the API call
-            //     console.error('Error occurred:', error);
-            //     // Optionally, show an error toast to the user
-            //     toast.error('An error occurred while fetching data');
-            //   }
-            // }
+            try {
+              const responseStep1 = await axios.post(
+                `${API}/registrations/verifyUniversityEmail`,
+                { uni_reg_id: values.uni_reg_id }
+              );
+    
+              if (responseStep1.status !== 200 && responseStep1.status !== 201) {
+                throw new Error(responseStep1.data.message || 'Unexpected error occurred');
+              }
+    
+              const { token } = responseStep1.data;
+              setStep2Token(token);
+            } catch (err: any) {
+              const errorMessage = err.response?.data?.message || 'An error occurred while fetching data';
+              toast.error(errorMessage);
+              stepper.current.goPrev();
+            }
             break;
+          // case 2:
+          //   // if (!step2Token) {
+          //   //   // If 'step2Token' is not available, show an error toast
+          //   //   toast.error('Requested Email not exists in Examination Records: Registration or Format Issue');
+          //   //   stepper.current.goPrev()
+          //   // } else {
+          //   //   try {
+          //   // Step 1 API Call
+          //   const responseStep1 = await axios.post(
+          //       `${API}/registrations/verifyUniversityEmail`,
+          //     // 'https://amsbackend-ghub.onrender.com/registrations/verifyUniversityEmail',
+          //     { uni_reg_id: values.uni_reg_id }
+          //   );
+
+
+          //   const { token } = responseStep1.data;
+          //   setStep2Token(token); // Store the token in the state variable
+          //   //   } catch (error) {
+          //   //     // Handle any errors that might occur during the API call
+          //   //     console.error('Error occurred:', error);
+          //   //     // Optionally, show an error toast to the user
+          //   //     toast.error('An error occurred while fetching data');
+          //   //   }
+          //   // }
+          //   break;
 
 
           case 3:
@@ -122,7 +149,8 @@ const Vertical = () => {
             } else {
               try {
                 const responseStep2 = await axios.post(
-                  'https://amsbackend-ghub.onrender.com/registrations/getUniversityEmailTokenData',
+                  `${API}/registrations/getUniversityEmailTokenData`,
+                  // 'https://amsbackend-ghub.onrender.com/registrations/getUniversityEmailTokenData',
                   { token: step2Token } // Pass the token as part of the request body
                 );
 
@@ -161,7 +189,8 @@ const Vertical = () => {
           case 4:
             // Step 3 API Call
             await axios.post(
-              'https://amsbackend-ghub.onrender.com/registrations/registerAccount',
+              `${API}/registrations/registerAccount`,
+              // 'https://amsbackend-ghub.onrender.com/registrations/registerAccount',
               {
                 email: values.email,
                 phone: values.phone,
@@ -179,7 +208,8 @@ const Vertical = () => {
             } else {
               try {
                 const responseStep3 = await axios.post(
-                  'https://amsbackend-ghub.onrender.com/registrations/getUniversityEmailTokenData',
+                  `${API}/registrations/getUniversityEmailTokenData`,	
+                  // 'https://amsbackend-ghub.onrender.com/registrations/getUniversityEmailTokenData',
                   { token: step2Token } // Pass the token as part of the request body
                 );
               } catch (error) {

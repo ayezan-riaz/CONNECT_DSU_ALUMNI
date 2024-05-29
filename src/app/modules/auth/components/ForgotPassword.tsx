@@ -6,7 +6,8 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios'; // Import Axios
-
+// Load environment variables
+// require('dotenv').config();
 const initialValues = {
   email: '',
 };
@@ -18,7 +19,7 @@ const forgotPasswordSchema = Yup.object().shape({
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
 });
-
+const API = process.env.API_PATH;
 export function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined);
@@ -31,7 +32,8 @@ export function ForgotPassword() {
 
       try {
         const response = await axios.post(
-          'https://amsbackend-ghub.onrender.com/applyPasswordReset',
+          `${API}/applyPasswordReset`,
+          // 'https://amsbackend-ghub.onrender.com/applyPasswordReset',
           { email: values.email }
         );
 

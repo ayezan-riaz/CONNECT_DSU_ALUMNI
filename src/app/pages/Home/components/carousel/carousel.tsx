@@ -156,7 +156,7 @@ const carouselItems = [
 // Carousel component
 const Carousel: React.FC = () => {
   return (
-    <div className="container-fluid" style={{ padding: 0 }}>
+    <div className="row" >
       <div className="row">
         <div className="col-12" style={{ padding: 0 }}>
           <div id="hero-carousel" className="carousel slide" data-bs-ride="carousel" style={{ marginTop: "175px", width: "100vw", overflowX: "hidden" }}>

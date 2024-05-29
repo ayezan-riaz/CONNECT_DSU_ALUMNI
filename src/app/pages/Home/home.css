@@ -22,3 +22,118 @@
 	border-radius: 50px;
 	transition: all 0.9s ease;
 } */
+/* Ensure there's no horizontal scrolling */
+body {
+	overflow-x: hidden;
+  }
+  
+  /* Remove padding and margin for row to avoid overflow */
+  .row.no-gutters {
+	margin-right: 0;
+	margin-left: 0;
+  }
+  
+  /* Additional responsive styles if needed */
+  
+  /* Header and navigation styles */
+  .navbar {
+	width: 100%;
+	background-color: #81181b; /* Dark red background */
+	z-index: 1030; /* High z-index to stay on top */
+	transition: all 0.3s;
+	color: white;
+  }
+  
+  .navbar-nav {
+	flex-direction: row;
+  }
+  
+  .nav-item {
+	padding: 0 10px;
+  }
+  
+  @media (max-width: 992px) {
+	.navbar-nav {
+	  flex-direction: column;
+	}
+  }
+  
+  /* Carousel styles */
+  .carousel-item img {
+	width: 100%;
+	height: auto;
+	object-fit: cover; /* Ensure images cover the carousel area without stretching */
+  }
+  
+  .carousel-caption {
+	position: absolute;
+	right: 15%;
+	bottom: 20px;
+	left: 15%;
+	z-index: 10;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+  }
+  
+  @media (max-width: 768px) {
+	.carousel-caption {
+	  right: 10%;
+	  left: 10%;
+	  font-size: 90%; /* Smaller text on smaller screens */
+	}
+  }
+  
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+	background-color: #000; /* Better visibility */
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+  }
+  
+  @media (max-width: 576px) {
+	.carousel-control-prev-icon,
+	.carousel-control-next-icon {
+	  width: 30px;
+	  height: 30px; /* Smaller arrows on very small devices */
+	}
+  }
+  
+  /* Other component styles */
+  
+  /* Ensure container adapts to different screen sizes */
+  .container {
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: auto;
+	margin-left: auto;
+  }
+  
+  @media (min-width: 576px) {
+	.container {
+	  max-width: 540px;
+	}
+  }
+  
+  @media (min-width: 768px) {
+	.container {
+	  max-width: 720px;
+	}
+  }
+  
+  @media (min-width: 992px) {
+	.container {
+	  max-width: 960px;
+	}
+  }
+  
+  @media (min-width: 1200px) {
+	.container {
+	  max-width: 1140px;
+	}
+  }
+  

@@ -25,7 +25,7 @@ const Step1: FC = () => {
           Already have an Account?
           <a href='/auth/login' className=' fw-bolder' style={{ color: '#80171D' }}>
             {' '}
-            Sign In  </a>
+            Sign In Running </a>
 
         </div>
       </div>

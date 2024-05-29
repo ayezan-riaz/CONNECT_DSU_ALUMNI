@@ -88,7 +88,7 @@ export function Login() {
     >
       {/* begin::Heading */}
       <div className='text-center mb-11'>
-        <h1 className=' fw-bolder mb-3 text-dark'>Welcome To The Alumni Portal</h1>
+        <h1 className=' fw-bolder mb-3 text-dark'> running Welcome To The Alumni Portal</h1>
       </div>
 
       {formik.status ? (

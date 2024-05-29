@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios'; // Import Axios
 import { requestPassword } from '../core/_requests';
-
+// Load environment variables
+// require('dotenv').config();
 const initialValues = {
     password: '',
 };
@@ -16,7 +17,7 @@ const forgotPasswordSchema = Yup.object().shape({
         .max(50, 'Maximum 50 symbols')
         .required('Password is required'),
 });
-
+const API = process.env.API_PATH;
 export function UpdatePassword() {
     const [loading, setLoading] = useState(false);
     const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined);
@@ -33,7 +34,8 @@ export function UpdatePassword() {
                 const token = new URLSearchParams(window.location.search).get('token');
                 console.log('Token=> ', token);
                 const response = await axios.post(
-                    `https://amsbackend-ghub.onrender.com/resetPassword?token=${(token)}`,
+                        `${API}/resetPassword?token=${(token)}`,
+                    // `https://amsbackend-ghub.onrender.com/resetPassword?token=${(token)}`,
                     { password: values.password }
                 );
                 console.log(values)

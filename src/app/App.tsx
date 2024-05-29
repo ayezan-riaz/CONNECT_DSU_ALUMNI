@@ -7,6 +7,8 @@ import { AuthInit } from './modules/auth'
 //import { AuthInit } from './pages/alumni/auth'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 const App = () => {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>

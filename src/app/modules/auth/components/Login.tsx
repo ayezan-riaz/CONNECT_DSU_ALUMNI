@@ -8,7 +8,8 @@ import { useAuth } from '../core/Auth';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { Console } from 'console';
-
+// Load environment variables
+// require('dotenv').config();
 const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -26,6 +27,7 @@ const initialValues = {
   password: 'demo',
 };
 
+const API = process.env.API_PATH;
 export function Login() {
 
   const [loading, setLoading] = useState(false);
@@ -38,17 +40,20 @@ export function Login() {
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true);
       try {
-        const response = await axios.post('https://amsbackend-ghub.onrender.com/login', {
+        const response = await axios.post(`${API}/login`, {
           email: values.email,
           password: values.password,
         });
-
+       
         const { access_token } = response.data;
         // console.log('AcessToken: ', access_token)
         saveAuth(access_token); // Save access token to local storage
 
         // Fetch user details using the access token
-        const userResponse = await axios.get('https://amsbackend-ghub.onrender.com/protected', {
+        const userResponse = await axios.get(
+          `${API}/protected`,
+          // 'https://amsbackend-ghub.onrender.com/protected',
+           {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
