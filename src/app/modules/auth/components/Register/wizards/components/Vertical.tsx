@@ -106,6 +106,7 @@ const Vertical = () => {
               }
     
               const { token } = responseStep1.data;
+              // const {uni_email} = responseStep1?.data?.message
               setStep2Token(token);
             } catch (err: any) {
               const errorMessage = err.response?.data?.message || 'An error occurred while fetching data';
@@ -244,7 +245,7 @@ const Vertical = () => {
 
     loadStepper()
   }, [stepperRef])
-
+  
   return (
     <div
       ref={stepperRef}
