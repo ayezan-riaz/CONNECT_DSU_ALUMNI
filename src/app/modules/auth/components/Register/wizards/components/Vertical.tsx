@@ -440,6 +440,7 @@ const Vertical = () => {
               </div>
 
               <div data-kt-stepper-element='content'>
+              
                 <Step2 />
               </div>
 
