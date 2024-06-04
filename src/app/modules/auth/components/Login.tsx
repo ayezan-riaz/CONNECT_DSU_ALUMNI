@@ -40,24 +40,24 @@ export function Login() {
     onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true);
       try {
-        const response = await axios.post(`${API}/login`, {
+        const response = await axios.post(`https://ams-backend-gkxg.onrender.com/api/login`, {
           email: values.email,
           password: values.password,
         });
-       
+
         const { access_token } = response.data;
         // console.log('AcessToken: ', access_token)
         saveAuth(access_token); // Save access token to local storage
 
         // Fetch user details using the access token
         const userResponse = await axios.get(
-          `${API}/protected`,
+          `https://ams-backend-gkxg.onrender.com/api/protected`,
           // 'https://amsbackend-ghub.onrender.com/protected',
-           {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        });
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          });
         const { sub } = userResponse.data;
         console.log("Sub", sub);
         localStorage.setItem('sub', sub);
@@ -91,15 +91,15 @@ export function Login() {
       noValidate
       id='kt_login_signin_form'
     >
-     
+
       {/* begin::Heading */}
       <div className='text-center mb-11'>
         <h1 className=' fw-bolder mb-3 text-dark'>
-        <Link to="/home">
-      <span>
-        <i className='fas fa-arrow-circle-left' style={{color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer'}}></i>
-      </span>
-    </Link>    
+          <Link to="/home">
+            <span>
+              <i className='fas fa-arrow-circle-left' style={{ color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer' }}></i>
+            </span>
+          </Link>
           Welcome To The Alumni Portal</h1>
       </div>
 

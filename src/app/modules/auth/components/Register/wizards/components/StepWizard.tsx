@@ -47,7 +47,7 @@ const StepWizard: FC = () => {
         try {
             // Call the API to verify university email
             const response = await axios.post(
-                `https://ams-backend-gkxg.onrender.com/registrations/verifyUniversityEmail`,
+                `${API}/registrations/verifyUniversityEmail`,
                 // 'https://amsbackend-ghub.onrender.com/registrations/verifyUniversityEmail',
                 { registrationId }
             );

@@ -59,14 +59,16 @@
  * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
  */
 
-import {FC} from 'react'
-import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
-import {PrivateRoutes} from './PrivateRoutes'
-import {ErrorsPage} from '../modules/errors/ErrorsPage'
-import {Logout, AuthPage, useAuth} from '../modules/auth'
+import { FC } from 'react'
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import { PrivateRoutes } from './PrivateRoutes'
+import { ErrorsPage } from '../modules/errors/ErrorsPage'
+import { Logout, AuthPage, useAuth } from '../modules/auth'
 //import {Logout, AuthPage, useAuth} from '../pages/alumni/auth'
-import {App} from '../App'
+import { App } from '../App'
 import Home from '../pages/Home/home'
+import HomePageRoutes from '../pages/Home/homeDsuPageRoutes'
+// import Event from '../pages/Home/components/HomeEvents/homeEvents'
 //import {Step1} from '../modules/auth/components/Register/wizards/components/steps/Step1'
 
 /**
@@ -74,10 +76,10 @@ import Home from '../pages/Home/home'
  *
  * @see https://facebook.github.io/create-react-app/docs/using-the-public-folder
  */
-const {PUBLIC_URL} = process.env
+const { PUBLIC_URL } = process.env
 
 const AppRoutes: FC = () => {
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth()
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
@@ -91,11 +93,14 @@ const AppRoutes: FC = () => {
             </>
           ) : (
             <>
-     {/* Render AuthPage by default for home route */}
-     <Route path='home/*' element={<Home />} />
+              {/* Render AuthPage by default for home route */}
+              {/* <Route path='dsu/*' element={<Home />} /> */}
               {/* Render AuthPage for login route */}
               <Route path='auth/*' element={<AuthPage />} />
-              <Route path='*' element={<Navigate to='/home' />} />
+              <Route path='dsu/*' element={<HomePageRoutes />} />
+
+              {/* <Route path='event/*' element={<Event />} /> */}
+              <Route path='*' element={<Navigate to='/auth' />} />
               {/* Redirect to home for other routes */}
               {/* <Route path='*' element={<Navigate to='/home' />} /> */}
               {/* <Route
@@ -110,4 +115,4 @@ const AppRoutes: FC = () => {
   )
 }
 
-export {AppRoutes}
+export { AppRoutes }

@@ -32,7 +32,7 @@ export function ForgotPassword() {
 
       try {
         const response = await axios.post(
-          `${API}/applyPasswordReset`,
+          `https://ams-backend-gkxg.onrender.com/api/applyPasswordReset`,
           // 'https://amsbackend-ghub.onrender.com/applyPasswordReset',
           { email: values.email }
         );
