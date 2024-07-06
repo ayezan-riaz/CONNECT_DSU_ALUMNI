@@ -100,7 +100,7 @@ export function Login() {
               <i className='fas fa-arrow-circle-left' style={{ color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer' }}></i>
             </span>
           </Link>
-          Welcome To The Alumni Portal</h1>
+          Done  Welcome To The Alumni Portal</h1>
       </div>
 
       {formik.status ? (

@@ -100,7 +100,7 @@ const AppRoutes: FC = () => {
               <Route path='dsu/*' element={<HomePageRoutes />} />
 
               {/* <Route path='event/*' element={<Event />} /> */}
-              <Route path='*' element={<Navigate to='/auth' />} />
+              <Route path='*' element={<Navigate to='/dsu/home' />} />
               {/* Redirect to home for other routes */}
               {/* <Route path='*' element={<Navigate to='/home' />} /> */}
               {/* <Route

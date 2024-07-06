@@ -1,42 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { Event } from './eventTypes'; // Import the common Event type
 
 interface EventModalProps {
-  isOpen: boolean; // Indicates whether the modal is open or closed
-  onClose: () => void; // Function to close the modal
-  selectedEvent: Event | null; // Selected event to edit or null for adding new event
-}
-interface Event {
-  id: number;
-  name: string;
-  description: string;
-  date: string;
-  event_image: string;
+  isOpen: boolean;
+  onClose: () => void;
+  selectedEvent: Event | null;
+  fetchEvents: () => void;
 }
 
-const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, selectedEvent }) => {
+const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, selectedEvent, fetchEvents }) => {
   const [formData, setFormData] = useState<Event>({
-    id: selectedEvent ? selectedEvent.id : -1, // Set a dummy id for new event
-    name: selectedEvent ? selectedEvent.name : '',
-    description: selectedEvent ? selectedEvent.description : '',
-    event_image: selectedEvent ? selectedEvent.event_image : '',
-    date: selectedEvent ? selectedEvent.date : '',
+    id: -1,
+    name: '',
+    description: '',
+    event_images: '',
+    date: '',
   });
 
-  // Update form data when selected event changes
   useEffect(() => {
     if (selectedEvent) {
+      axios.get(`https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`)
+        .then(response => {
+          const eventData = response.data;
+          setFormData({
+            id: eventData.id,
+            name: eventData.name,
+            description: eventData.description,
+            event_images: '', // Do not pre-fill event images for edit
+            date: eventData.date.split('T')[0],
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching event details:', error);
+          toast.error('Failed to fetch event details');
+        });
+    } else {
       setFormData({
-        id: selectedEvent.id,
-        name: selectedEvent.name,
-        description: selectedEvent.description,
-        event_image: selectedEvent.event_image,
-        date: selectedEvent.date,
+        id: -1,
+        name: '',
+        description: '',
+        event_images: '',
+        date: '',
       });
     }
-  }, [selectedEvent]);
+  }, [selectedEvent, isOpen]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,43 +56,73 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, selectedEvent 
       return;
     }
 
-    const formPayload = new FormData();
-    formPayload.append('name', formData.name);
-    formPayload.append('description', formData.description);
-    formPayload.append('date', formData.date);
-    if (formData.event_image) {
-      formPayload.append('event_image', formData.event_image as unknown as Blob); // Ensure correct file append
+    let payload: any;
+    let headers;
+
+    if (selectedEvent) {
+      payload = JSON.stringify({
+        name: formData.name,
+        description: formData.description,
+        date: formData.date,
+      });
+      headers = {
+        'Content-Type': 'application/json'
+      };
+    } else {
+      payload = new FormData();
+      payload.append('name', formData.name);
+      payload.append('description', formData.description);
+      payload.append('date', formData.date);
+
+      if (typeof formData.event_images !== 'string') {
+        formData.event_images.forEach((file) => {
+          payload.append('event_imagess', file);
+        });
+      }
+      headers = {
+        'Content-Type': 'multipart/form-data'
+      };
     }
 
     try {
       if (selectedEvent) {
-        await axios.put(`https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`, formPayload);
+        await axios.patch(`https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`, payload, {
+          headers
+        });
         toast.success('Event updated successfully');
       } else {
-        await axios.post('https://ams-backend-gkxg.onrender.com/api/events', formPayload);
+        await axios.post('https://ams-backend-gkxg.onrender.com/api/events', payload, {
+          headers
+        });
         toast.success('Event added successfully');
       }
+      fetchEvents();
       onClose();
-    } catch (error) {
-      console.error('Error submitting event:', error);
+    } catch (err) {
+      const error = err as AxiosError;
+      console.error('Error submitting event:', error.response ? error.response.data : error.message);
       toast.error('Failed to submit event');
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData: Event) => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      setFormData((prevData: Event) => ({
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      if (files.length > 10) {
+        toast.error('You can only upload a maximum of 10 images');
+        return;
+      }
+      setFormData((prevData) => ({
         ...prevData,
-        event_image: file as unknown as string, // Type assertion for image
+        event_images: files,
       }));
     }
   };
@@ -115,7 +155,6 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, selectedEvent 
               placeholder="Enter description"
             />
           </Form.Group>
-
           <Form.Group className="mb-3">
             <Form.Label>Event Date</Form.Label>
             <Form.Control
@@ -125,14 +164,17 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, selectedEvent 
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Event Image</Form.Label>
-            <Form.Control
-              type="file"
-              name="event_image"
-              onChange={handleFileChange}
-            />
-          </Form.Group>
+          {!selectedEvent && (
+            <Form.Group className="mb-3">
+              <Form.Label>Event Images</Form.Label>
+              <Form.Control
+                type="file"
+                name="event_images"
+                onChange={handleFileChange}
+                multiple
+              />
+            </Form.Group>
+          )}
           <Button variant="primary" type="submit">
             {selectedEvent ? 'Update Event' : 'Add Event'}
           </Button>
