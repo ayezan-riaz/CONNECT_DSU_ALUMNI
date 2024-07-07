@@ -76,7 +76,7 @@ const EventModal: React.FC<EventModalProps> = ({ isOpen, onClose, selectedEvent,
 
       if (typeof formData.event_images !== 'string') {
         formData.event_images.forEach((file) => {
-          payload.append('event_imagess', file);
+          payload.append('event_images', file);
         });
       }
       headers = {

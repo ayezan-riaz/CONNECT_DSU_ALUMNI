@@ -1,15 +1,16 @@
 import React from 'react'
 import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
 import { PageLink, PageTitle } from '../../../../_metronic/layout/core'
-import {Events}  from './components/event/Events'
-import {Association} from './components/association/Association'
-import {Card} from './components/card/Card'
+import { Events } from './components/event/Events'
+import { Association } from './components/association/Association'
+import { Card } from './components/card/Card'
 import { CorportaePartner } from './components/corporatePartner/CorportaePartner'
 import { Directory } from './components/directory/Directory'
 import { News } from './components/news/News'
 import { Testimonials } from './components/testimonials/Testimonials'
-import {Donation } from './components/donation/Donation'
+import { Donation } from './components/donation/Donation'
 import { Job } from './components/jobs/Job'
+import { EventDetails } from './components/event/EventDetails'
 const accountBreadCrumbs: Array<PageLink> = [
   {
     title: 'Dsu',
@@ -45,6 +46,8 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
+        {/* <Route path='eventDetail/:id' element={<EventDetails />} /> Add this route */}
+
         <Route
           path='association'
           element={
@@ -55,6 +58,15 @@ const DsuPage: React.FC = () => {
           }
         />
 
+        <Route
+          path='eventDetail/:id'
+          element={
+            <>
+              {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Settings</PageTitle> */}
+              <EventDetails />
+            </>
+          }
+        />
         <Route
           path='card'
           element={
@@ -84,7 +96,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-           <Route
+        <Route
           path='news'
           element={
             <>
@@ -93,7 +105,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-           <Route
+        <Route
           path='donation'
           element={
             <>
@@ -102,7 +114,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-         <Route
+        <Route
           path='jobs'
           element={
             <>
@@ -113,7 +125,7 @@ const DsuPage: React.FC = () => {
         />
 
 
-<Route
+        <Route
           path='testimonial'
           element={
             <>
@@ -122,7 +134,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-       
+
         {/* <Route index element={<Navigate to='/dsu/events' />} /> */}
       </Route>
     </Routes>

@@ -1,3 +1,10 @@
-.des{
+.des {
     cursor: pointer;
+}
+
+
+a.d-block.overlay.mb-4 {
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
 }

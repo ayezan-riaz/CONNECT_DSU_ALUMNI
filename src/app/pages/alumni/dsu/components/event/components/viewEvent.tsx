@@ -5,18 +5,20 @@ import eventBackground from '../../../../../../../app/pages/alumni/assets/eventB
 import EventModal from './eventModal'; // Import the EventModal component
 import { Event } from './eventTypes'; // Import the common Event type
 import './event.css';
+import { Link } from 'react-router-dom';
 
 const ViewEvent: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); // Track the selected event
   const [deleteConfirmation, setDeleteConfirmation] = useState(false); // Track delete confirmation
-  const Imageurl = "https://ams-backend-gkxg.onrender.com/Resourse/"
+  const Imageurl = "https://ams-backend-gkxg.onrender.com/event/"
   const fetchEvents = () => {
     axios.get<Event[]>('https://ams-backend-gkxg.onrender.com/api/events')
       .then(response => {
         debugger
         setEvents(response.data);
+        console.log("Event", response.data)
         console.log("Event", response.data[0].event_images[0])
       })
       .catch(error => {
@@ -38,15 +40,29 @@ const ViewEvent: React.FC = () => {
   };
 
   const handleDeleteConfirmation = () => {
-    console.log('Deleting event with ID:', selectedEvent?.id);
-    setDeleteConfirmation(false);
-    setSelectedEvent(null);
+    if (selectedEvent) {
+      axios.delete(`https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`)
+        .then(() => {
+          setEvents(events.filter(e => e.id !== selectedEvent.id));
+          setDeleteConfirmation(false);
+          setSelectedEvent(null);
+        })
+        .catch(error => {
+          console.error('There was a problem deleting the event:', error);
+        });
+    }
   };
-
   const handleDelete = (event: Event) => {
     setSelectedEvent(event);
     setDeleteConfirmation(true);
   };
+  const truncateDescription = (description: string, length: number) => {
+    if (description.length <= length) {
+      return description;
+    }
+    return description.slice(0, length) + '...';
+  };
+
 
   return (
     <div>
@@ -82,34 +98,43 @@ const ViewEvent: React.FC = () => {
               <span style={{ textAlign: 'right' }}>
                 <i className="fa fa-times-circle" style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }} onClick={() => handleDelete(event)}></i>
               </span>
+
               <a className="d-block overlay mb-4" data-fslightbox="lightbox-hot-sales">
                 <div
                   className="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px"
                   style={{
                     backgroundImage: `url(${Imageurl}${event.event_images[0]})`
+
                   }}
                 />
+
                 <div className="overlay-layer bg-dark card-rounded bg-opacity-25">
                   <i className="ki-duotone ki-eye fs-2x text-white" />
                 </div>
                 <div className="position-absolute text-white mb-8 ms-10 bottom-0"></div>
               </a>
+
               <div className="m-0">
-                <a
-                  href="../../demo1/dist/pages/user-profile/overview.html"
-                  className="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base"
-                >
-                  {event.name}
-                </a>
+
+                <Link to={`/alumni/dsu/eventDetail/${event.id}`}
+                  style={{ textDecoration: 'none' }}>
+                  <div
+
+                    className="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base"
+                  >
+
+                    {event.name}
+                  </div>
+                </Link>
                 <span style={{ marginLeft: '10px', cursor: 'pointer' }} onClick={() => openModal(event)}>
                   <i className="fa fa-pencil" style={{ fontSize: '15px', color: '#80171d' }}></i>
                 </span>
                 <div className="fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5">
-                  {event.description}
+                  {truncateDescription(event.description, 100)} {/* Adjust the length as needed */}
                 </div>
                 <div className="fs-6 fw-bold">
                   <span className="text-muted">
-                    Event Date: {new Date(event.date).toDateString()}
+                    {new Date(event.date).toDateString()}
                   </span>
                 </div>
               </div>
