@@ -1,18 +1,18 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { News } from './newsTypes';
+import { Event } from '../../../../pages/alumni/dsu/components/event/components/eventTypes'; 
+const Imageurl = "https://ams-backend-gkxg.onrender.com/event/";
 
-const Imageurl = "https://ams-backend-gkxg.onrender.com/news/";
-
-const ViewNewsDetail: React.FC = () => {
+const HomeEventDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const [event, setEvent] = useState<News | null>(null);
+    const [event, setEvent] = useState<Event | null>(null);
 
     useEffect(() => {
 
         if (id) {
-            axios.get<News>(`https://ams-backend-gkxg.onrender.com/api/news/${id}`)
+            axios.get<Event>(`https://ams-backend-gkxg.onrender.com/api/events/${id}`)
                 .then(response => {
                     setEvent(response.data);
                     console.log("response.data", response.data)
@@ -29,18 +29,18 @@ const ViewNewsDetail: React.FC = () => {
 
     const renderImages = () => {
         debugger
-        if (typeof event.news_image === 'string') {
-            // If news_image is a single string, display it
+        if (typeof event.event_images === 'string') {
+            // If event_images is a single string, display it
             return (
                 <div className="col-md-4">
-                    <img src={`${Imageurl}${event.news_image}`} alt="News" className="img-fluid" />
+                    <img src={`${Imageurl}${event.event_images}`} alt="Event" className="img-fluid" />
                 </div>
             );
-        } else if (Array.isArray(event.news_image)) {
-            // If news_image is an array, map through and display each image
-            return event.news_image.map((image, index) => (
+        } else if (Array.isArray(event.event_images)) {
+            // If event_images is an array, map through and display each image
+            return event.event_images.map((image, index) => (
                 <div key={index} className="col-md-4">
-                    <img src={`${Imageurl}${image}`} alt={`News ${index + 1}`} className="img-fluid" />
+                    <img src={`${Imageurl}${image}`} alt={`Event ${index + 1}`} className="img-fluid" />
                 </div>
             ));
         }
@@ -48,15 +48,18 @@ const ViewNewsDetail: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='container mt-20'>
+            <div className='row'>
+
             <h1>{event.name}</h1>
             <p>{event.description}</p>
             <div className="row">
                 {renderImages()}
             </div>
+            </div>
         </div>
     );
 };
 
-export default ViewNewsDetail;
+export default HomeEventDetail;
 

@@ -5,6 +5,9 @@ import HomeEvents from './components/HomeEvents/homeEvents'
 import Home from './home'
 import HomeHeader from './components/homeHeader/homeHeader'
 import HomeDirectory from './components/HomeDirectory/homeDirectory'
+import HomeEventDetail from './components/HomeEvents/homeEventDetail'
+import HomeNews from './components/HomeNews/homeNews'
+import HomeNewsDetail from './components/HomeNews/homeNewsDetail'
 // import { Events } from './components/event/Events'
 // import { Association } from './components/association/Association'
 // import { Card } from './components/card/Card'
@@ -68,6 +71,59 @@ const DsuPage: React.FC = () => {
                         </>
                     }
                 />
+                
+        <Route
+          path='eventDetail/:id'
+          element={
+            <>
+              <div className='row' style={{ marginTop: "175px", }}>
+                                <HomeHeader />
+
+                            </div>
+                            <div className='row'>
+                            <HomeEventDetail />
+
+                            </div>
+              {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Settings</PageTitle> */}
+     
+            </>
+          }
+        />
+            <Route
+                    path='news'
+                    element={
+                        <>
+                            {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Profile</PageTitle> */}
+                            <div className='row' style={{ marginTop: "175px", }}>
+                                <HomeHeader />
+
+                            </div>
+                            <div className='row'>
+                                <HomeNews />
+
+                            </div>
+
+                        </>
+                    }
+                />
+                 <Route
+          path='newsDetail/:id'
+          element={
+            <>
+              <div className='row' style={{ marginTop: "175px", }}>
+                                <HomeHeader />
+
+                            </div>
+                            <div className='row'>
+                            <HomeNewsDetail />
+
+                            </div>
+              {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Settings</PageTitle> */}
+     
+            </>
+          }
+        />
+                  
                 <Route
                     path='association'
                     element={
@@ -116,6 +172,8 @@ const DsuPage: React.FC = () => {
                         </>
                     }
                 />
+
+
                 <Route
                     path='news'
                     element={

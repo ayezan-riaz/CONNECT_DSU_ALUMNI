@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { News } from './newsTypes';
+import { News } from '../../../../pages/alumni/dsu/components/news/components/newsTypes'; 
 
 const Imageurl = "https://ams-backend-gkxg.onrender.com/news/";
 
-const ViewNewsDetail: React.FC = () => {
+const HomeNewsDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [event, setEvent] = useState<News | null>(null);
 
@@ -48,15 +48,18 @@ const ViewNewsDetail: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='container mt-20'>
+            <div className='row'>
+
             <h1>{event.name}</h1>
             <p>{event.description}</p>
             <div className="row">
                 {renderImages()}
             </div>
+            </div>
         </div>
     );
 };
 
-export default ViewNewsDetail;
+export default HomeNewsDetail;
 

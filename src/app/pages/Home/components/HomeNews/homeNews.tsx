@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import eventBackground from '../../../../pages/alumni/assets/eventBackground.jpg';
-import { Event } from '../../../../pages/alumni/dsu/components/event/components/eventTypes'; // Import the common Event type
-import './homeEvents.css';
+import { News } from '../../../../pages/alumni/dsu/components/news/components/newsTypes'; // Import the common Event type
+import './homeNews.css';
 import { Link } from 'react-router-dom';
 
-const HomeEvents: React.FC = () => {
-  const [events, setEvents] = useState<Event[]>([]);
-  const Imageurl = "https://ams-backend-gkxg.onrender.com/event/"
-  const fetchEvents = () => {
-    axios.get<Event[]>('https://ams-backend-gkxg.onrender.com/api/events')
+const HomeNews: React.FC = () => {
+    const [news, setNews] = useState<News[]>([]);
+  const Imageurl = "https://ams-backend-gkxg.onrender.com/news/"
+  const fetchNews = () => {
+    axios.get<News[]>('https://ams-backend-gkxg.onrender.com/api/news')
       .then(response => {
         debugger
-        setEvents(response.data);
-        console.log("Event", response.data)
-        console.log("Event", response.data[0].event_images[0])
+        setNews(response.data);
+        console.log("News", response.data)
+        console.log("News", response.data[0].news_image[0])
       })
       .catch(error => {
         console.error('There was a problem fetching the events data:', error);
@@ -22,9 +22,8 @@ const HomeEvents: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchEvents();
+    fetchNews();
   }, []);
-
 
   const truncateDescription = (description: string, length: number) => {
     if (description.length <= length) {
@@ -74,19 +73,19 @@ const HomeEvents: React.FC = () => {
 
       </div>
       <div className='row'>
-        <h1 className='text-css'>Events</h1>
+        <h1 className='text-css'>NEWS</h1>
       </div>
 
       <div className='container'>
         <div className="row" >
-          {events.map((event) => (
-            <div key={event.id} className="col-md-4" style={{marginTop:'20px'}}>
+          {news.map((item) => (
+            <div key={item.id} className="col-md-4" style={{marginTop:'20px'}}>
               <div className="card-xl-stretch me-md-6">
               <a href="#" className="d-block overlay mb-4" data-fslightbox="lightbox-hot-sales">
                 <div
                   className="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px"
                   style={{
-                    backgroundImage: `url(${Imageurl}${event.event_images[0]})`
+                    backgroundImage: `url(${Imageurl}${item.news_image[0]})`
 
                   }}
                 />
@@ -104,22 +103,22 @@ const HomeEvents: React.FC = () => {
                   >
                     {event.name}
                   </a> */}
-                       <Link to={`/dsu/eventDetail/${event.id}`}
+                       <Link to={`/dsu/newsDetail/${item.id}`}
                   style={{ textDecoration: 'none' }}>
                   <div
 
                     className="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base"
                   >
 
-                    {event.name}
+                    {item.name}
                   </div>
                 </Link>
                   <div className="fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5">
-                  {truncateDescription(event.description, 100)} {/* Adjust the length as needed */}
+                  {truncateDescription(item.description, 100)} {/* Adjust the length as needed */}
                 </div>
                   <div className="fs-6 fw-bold">
                     <span className="text-muted">
-                {new Date(event.date).toDateString()}
+                {new Date(item.date).toDateString()}
                     </span>
                   </div>
                 </div>
@@ -135,4 +134,4 @@ const HomeEvents: React.FC = () => {
   )
 };
 
-export default HomeEvents;
+export default HomeNews;

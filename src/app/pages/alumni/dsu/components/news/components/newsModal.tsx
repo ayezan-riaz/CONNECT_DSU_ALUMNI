@@ -1,53 +1,111 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import axios, { AxiosError } from 'axios';
+import { News } from './newsTypes'; // Import the common News type
 
 interface NewsModalProps {
-  isOpen: boolean; // Indicates whether the modal is open or closed
-  onClose: () => void; // Function to close the modal
+  isOpen: boolean;
+  onClose: () => void;
+  selectedNews: News | null;
+  fetchNews: () => void;
 }
 
-const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
-    Name: '',
-    Description: '',
-    NewsDate: '',
-    Image: '',
+const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose, selectedNews, fetchNews }) => {
+  const [formData, setFormData] = useState<News>({
+    id: -1,
+    name: '',
+    description: '',
+    news_image: '',
+    date: '',
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (selectedNews) {
+      axios.get(`https://ams-backend-gkxg.onrender.com/api/news/${selectedNews.id}`)
+        .then(response => {
+          const newsData = response.data;
+          setFormData({
+            id: newsData.id,
+            name: newsData.name,
+            description: newsData.description,
+            news_image: '', // Do not pre-fill News images for edit
+            date: newsData.date.split('T')[0],
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching News details:', error);
+          toast.error('Failed to fetch News details');
+        });
+    } else {
+      setFormData({
+        id: -1,
+        name: '',
+        description: '',
+        news_image: '',
+        date: '',
+      });
+    }
+  }, [selectedNews, isOpen]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Basic form validation
-    if (!formData.Name.trim() || !formData.Description.trim() || !formData.NewsDate.trim()) {
+    if (!formData.name.trim() || !formData.description.trim() || !formData.date) {
       toast.error('Please fill in all fields');
       return;
     }
 
-    // Create an object with the form data
-    const newsData = {
-      Name: formData.Name,
-      Description: formData.Description,
-      NewsDate: formData.NewsDate,
-      Image: formData.Image,
-    };
+    let payload: any;
+    let headers;
 
-    // Handle the event data as needed (e.g., send it to a server)
-    console.log('Event Data:', newsData);
+    if (selectedNews) {
+      payload = JSON.stringify({
+        name: formData.name,
+        description: formData.description,
+        date: formData.date,
+      });
+      headers = {
+        'Content-Type': 'application/json'
+      };
+    } else {
+      payload = new FormData();
+      payload.append('name', formData.name);
+      payload.append('description', formData.description);
+      payload.append('date', formData.date);
 
-    // Clear the form fields
-    setFormData({
-      Name: '',
-      Description: '',
-      NewsDate: '',
-      Image: '',
-    });
+      if (typeof formData.news_image !== 'string') {
+        formData.news_image.forEach((file) => {
+          payload.append('news_image', file);
+        });
+      }
+      headers = {
+        'Content-Type': 'multipart/form-data'
+      };
+    }
 
-    // Close the modal
-    onClose();
+    try {
+      if (selectedNews) {
+        await axios.patch(`https://ams-backend-gkxg.onrender.com/api/news/${selectedNews.id}`, payload, {
+          headers
+        });
+        toast.success('News updated successfully');
+      } else {
+        await axios.post('https://ams-backend-gkxg.onrender.com/api/news', payload, {
+          headers
+        });
+        toast.success('News added successfully');
+      }
+      fetchNews();
+      onClose();
+    } catch (err) {
+      const error = err as AxiosError;
+      console.error('Error submitting News:', error.response ? error.response.data : error.message);
+      toast.error('Failed to submit News');
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -55,10 +113,24 @@ const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
     }));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      if (files.length > 10) {
+        toast.error('You can only upload a maximum of 10 images');
+        return;
+      }
+      setFormData((prevData) => ({
+        ...prevData,
+        news_image: files,
+      }));
+    }
+  };
+
   return (
     <Modal show={isOpen} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add New News</Modal.Title>
+        <Modal.Title>{selectedNews ? 'Edit News' : 'Add News'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
@@ -66,8 +138,8 @@ const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
-              name="Name"
-              value={formData.Name}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               placeholder="Enter name"
             />
@@ -77,8 +149,8 @@ const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
             <Form.Control
               as="textarea"
               rows={3}
-              name="Description"
-              value={formData.Description}
+              name="description"
+              value={formData.description}
               onChange={handleChange}
               placeholder="Enter description"
             />
@@ -87,26 +159,24 @@ const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
             <Form.Label>News Date</Form.Label>
             <Form.Control
               type="date"
-              name="NewsDate"
-              value={formData.NewsDate}
+              name="date"
+              value={formData.date}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Image</Form.Label>
-            <Form.Control
-              type="file"
-              name="Image"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setFormData((prevData) => ({
-                  ...prevData,
-                  Image: e.target.files ? e.target.files[0].name : '',
-                }))
-              }
-            />
-          </Form.Group>
+          {!selectedNews && (
+            <Form.Group className="mb-3">
+              <Form.Label>News Images</Form.Label>
+              <Form.Control
+                type="file"
+                name="news_image"
+                onChange={handleFileChange}
+                multiple
+              />
+            </Form.Group>
+          )}
           <Button variant="primary" type="submit">
-            Add News
+            {selectedNews ? 'Update News' : 'Add News'}
           </Button>
         </Form>
       </Modal.Body>
@@ -114,4 +184,4 @@ const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export {NewsModal};
+export default NewsModal;
