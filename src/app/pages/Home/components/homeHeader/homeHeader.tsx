@@ -100,7 +100,7 @@ const HomeHeader: React.FC = () => {
                       </a>
                     </li>
                   </Link>
-                  <Link to='/about'>
+                  <Link to='/mydsu'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>
                         {' '}
@@ -123,12 +123,12 @@ const HomeHeader: React.FC = () => {
                       </a>
                       <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
                         <li>
-                          <Link className='dropdown-item' to='/dsu/news'>
+                          <Link className='dropdown-item' to='/dsu/reward'>
                           Reward
                           </Link>
                         </li>
                         <li>
-                          <Link className='dropdown-item' to='/dsu/event'>
+                          <Link className='dropdown-item' to='/dsu/benefits'>
                           Benefits
                           </Link>
                         </li>
@@ -137,7 +137,7 @@ const HomeHeader: React.FC = () => {
                   </Link>
               
 
-                  <Link to='/about'>
+                  <Link to='/testimonial'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>
                         {' '}
@@ -152,7 +152,7 @@ const HomeHeader: React.FC = () => {
                         </li>
                         </Link>   */}
 
-                  <Link to='/about'>
+                  <Link to='/alumni'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>
                         {' '}
@@ -193,7 +193,7 @@ const HomeHeader: React.FC = () => {
                                         </li>
                                      */}
 
-                  <Link to='/login'>
+                  <Link to='/donation'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>
                         {' '}
@@ -201,7 +201,7 @@ const HomeHeader: React.FC = () => {
                       </a>
                     </li>
                   </Link>
-                  <Link to='/login'>
+                  <Link to='/contact'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>
                         {' '}
