@@ -1,0 +1,62 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { News } from './newsTypes';
+
+const Imageurl = "https://ams-backend-gkxg.onrender.com/event/";
+
+const ViewNewsDetail: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+    const [event, setEvent] = useState<News | null>(null);
+
+    useEffect(() => {
+
+        if (id) {
+            axios.get<News>(`https://ams-backend-gkxg.onrender.com/api/events/${id}`)
+                .then(response => {
+                    setEvent(response.data);
+                    console.log("response.data", response.data)
+                })
+                .catch(error => {
+                    console.error('There was a problem fetching the event data:', error);
+                });
+        }
+    }, [id]);
+
+    if (!event) {
+        return <div>Loading...</div>;
+    }
+
+    const renderImages = () => {
+        debugger
+        if (typeof event.news_images === 'string') {
+            // If news_images is a single string, display it
+            return (
+                <div className="col-md-4">
+                    <img src={`${Imageurl}${event.news_images}`} alt="News" className="img-fluid" />
+                </div>
+            );
+        } else if (Array.isArray(event.news_images)) {
+            // If news_images is an array, map through and display each image
+            return event.news_images.map((image, index) => (
+                <div key={index} className="col-md-4">
+                    <img src={`${Imageurl}${image}`} alt={`News ${index + 1}`} className="img-fluid" />
+                </div>
+            ));
+        }
+        return null;
+    };
+
+    return (
+        <div>
+            <h1>{event.name}</h1>
+            <p>{event.description}</p>
+            <div className="row">
+                {renderImages()}
+            </div>
+        </div>
+    );
+};
+
+export default ViewNewsDetail;
+

@@ -4,6 +4,7 @@ import { PageLink, PageTitle } from '../../../_metronic/layout/core'
 import HomeEvents from './components/HomeEvents/homeEvents'
 import Home from './home'
 import HomeHeader from './components/homeHeader/homeHeader'
+import HomeDirectory from './components/HomeDirectory/homeDirectory'
 // import { Events } from './components/event/Events'
 // import { Association } from './components/association/Association'
 // import { Card } from './components/card/Card'
@@ -101,8 +102,17 @@ const DsuPage: React.FC = () => {
                     path='directory'
                     element={
                         <>
+                         <div className='row' style={{ marginTop: "175px", }}>
+                                <HomeHeader />
+
+                            </div>
+                            <div className='row'>
+                                <HomeDirectory />
+
+                            </div>
                             {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Work</PageTitle> */}
                             {/* <Directory /> */}
+                            {/* {HomeDirectory} */}
                         </>
                     }
                 />

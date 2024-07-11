@@ -99,7 +99,7 @@ const ViewEvent: React.FC = () => {
                 <i className="fa fa-times-circle" style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }} onClick={() => handleDelete(event)}></i>
               </span>
 
-              <a className="d-block overlay mb-4" data-fslightbox="lightbox-hot-sales">
+              <a href="#" className="d-block overlay mb-4" data-fslightbox="lightbox-hot-sales">
                 <div
                   className="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px"
                   style={{
