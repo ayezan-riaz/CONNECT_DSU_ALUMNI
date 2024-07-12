@@ -1,37 +1,33 @@
 import clsx from 'clsx'
-import { KTIcon, toAbsoluteUrl } from '../../../helpers'
-import { HeaderNotificationsMenu, HeaderUserMenu, Search, ThemeModeSwitcher } from '../../../partials'
-import { useLayout } from '../../core'
-import { useEffect, useState } from 'react'
+import {KTIcon, toAbsoluteUrl} from '../../../helpers'
+import {HeaderNotificationsMenu, HeaderUserMenu, Search, ThemeModeSwitcher} from '../../../partials'
+import {useLayout} from '../../core'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
 //import DefaultImage from '../../../../../../DevAMS/src/app/pages/alumni/assets/DefaultImage.jpg'
-import profile from '../../../../app/pages/alumni/assets/ayezan.jpg'	
+import profile from '../../../../app/pages/alumni/assets/ayezan.jpg'
 const itemClass = 'ms-1 ms-lg-3'
 const btnClass =
   'btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px w-md-40px h-md-40px'
 const userAvatarClass = 'symbol-35px symbol-md-40px'
 const btnIconClass = 'fs-1'
 
-
-const localid = localStorage.getItem('sub');
+const localid = localStorage.getItem('sub')
 const Navbar = () => {
-
-
   const [img, setImg] = useState<string>('')
   const fetchAcademicsByUserId = async () => {
     try {
       const response = await axios.get(
-        `https://amsbackend-ghub.onrender.com/users/${localid}/profile`
+        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
       )
       const userData = response.data
-      setImg(userData.avatar);
+      setImg(`https://ams-backend-gkxg.onrender.com/alumni/${userData.avatar}`)
       console.log(userData.avatar)
-
     } catch (error) {
       console.error(error) // Handle any errors that occur during the request.
     }
   }
-  const { config } = useLayout()
+  const {config} = useLayout()
 
   useEffect(() => {
     fetchAcademicsByUserId()
@@ -78,9 +74,7 @@ const Navbar = () => {
           data-kt-menu-attach='parent'
           data-kt-menu-placement='bottom-end'
         >
-          <img src={profile} alt='Metronic' />
-          {/* <img src={`https://amsbackend-ghub.onrender.com/alumni/${img}`} alt='' /> */}
-          {/* <img src={`https://amsbackend-ghub.onrender.com/alumni/${img}`}  /> */}
+          <img src={img} alt='ProfileImage' />
         </div>
         <HeaderUserMenu />
       </div>
@@ -99,4 +93,4 @@ const Navbar = () => {
   )
 }
 
-export { Navbar }
+export {Navbar}

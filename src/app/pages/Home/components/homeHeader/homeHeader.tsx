@@ -117,25 +117,24 @@ const HomeHeader: React.FC = () => {
                         role='button'
                         data-bs-toggle='dropdown'
                         aria-expanded='false'
-                        style={{color:'white'}}
+                        style={{color: 'white'}}
                       >
                         Reward & Benefits
                       </a>
                       <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
                         <li>
                           <Link className='dropdown-item' to='/dsu/reward'>
-                          Reward
+                            Reward
                           </Link>
                         </li>
                         <li>
                           <Link className='dropdown-item' to='/dsu/benefits'>
-                          Benefits
+                            Benefits
                           </Link>
                         </li>
                       </ul>
                     </li>
                   </Link>
-              
 
                   <Link to='/testimonial'>
                     <li className='nav-item'>
@@ -169,7 +168,7 @@ const HomeHeader: React.FC = () => {
                         role='button'
                         data-bs-toggle='dropdown'
                         aria-expanded='false'
-                        style={{color:'white'}}
+                        style={{color: 'white'}}
                       >
                         News & Events
                       </a>

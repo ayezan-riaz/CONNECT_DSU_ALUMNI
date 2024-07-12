@@ -1,17 +1,10 @@
-import NewsPage from "./components/newsPage"
+import NewsPage from './components/newsPage'
 export function News() {
-
-
-  
-    return (
-      <>
-        <div className='container'>
-         
-          <NewsPage/>
-        </div>
-      </>
-    )
-  }
-  
-
-  
+  return (
+    <>
+      <div className='container'>
+        <NewsPage />
+      </div>
+    </>
+  )
+}

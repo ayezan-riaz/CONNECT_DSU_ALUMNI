@@ -14,8 +14,6 @@ interface TestProps {
 }
 
 function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUser}: TestProps) {
- 
-
   const [formData, setFormData] = useState(editUser)
 
   const handleChange = (
@@ -27,7 +25,6 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
       [name]: value,
     }))
   }
- 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,7 +36,7 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
         designation: formData.designation,
         company: formData.company,
         status: formData.status,
-        nature_of_job:formData.nature_of_job,
+        nature_of_job: formData.nature_of_job,
         start_year: formData.start_year,
         end_year: formData.end_year,
       }
@@ -56,7 +53,7 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
         designation: formData.designation,
         company: formData.company,
         status: formData.status || 'Temporary',
-        nature_of_job:formData.nature_of_job || 'Federal Government',
+        nature_of_job: formData.nature_of_job || 'Federal Government',
         start_year: formData.start_year,
         end_year: formData.end_year,
       }
@@ -68,7 +65,7 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
       designation: '',
       company: '',
       status: '',
-      nature_of_job:'',
+      nature_of_job: '',
       start_year: '',
       end_year: '',
     })
@@ -85,7 +82,13 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
           <Form onSubmit={handleSubmit}>
             <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
               <Form.Label>Designation</Form.Label>
-              <Form.Control required type='text' name='designation' value={formData.designation} onChange={handleChange} />
+              <Form.Control
+                required
+                type='text'
+                name='designation'
+                value={formData.designation}
+                onChange={handleChange}
+              />
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
@@ -134,8 +137,6 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
                 <Option val={'Part Time'} />
                 <Option val={'Apprentice'} />
                 <Option val={'Permanent'} />
-
-               
               </Form.Select>
             </Form.Group>
 
@@ -146,7 +147,6 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
                 value={formData.start_year}
                 name='start_year'
                 onChange={handleChange}
-             
               />
             </Form.Group>
 
@@ -157,7 +157,6 @@ function ModalWork({closeModal, addUser, editUser, setEditUser, updateExistingUs
                 value={formData.end_year}
                 name='end_year'
                 onChange={handleChange}
-                
               />
             </Form.Group>
 

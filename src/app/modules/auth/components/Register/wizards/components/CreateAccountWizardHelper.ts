@@ -1,22 +1,21 @@
 import * as Yup from 'yup'
 
 export interface ICreateAccount {
-  first_name: any;
-  middle_name: any;
-  last_name: any;
+  first_name: any
+  middle_name: any
+  last_name: any
   email: any
   phone: any
   password: any
-  reg_id: number;
+  reg_id: number
   uni_reg_id: string
   uni_email: string
   SentEmail: string
-  qulification: string;
-  area: string;
+  qulification: string
+  area: string
 }
 
 const createAccountSchemas = [
-
   // Yup.object({
   //   uni_reg_id: Yup.string().required().label('Registration Id'),
   // }),
@@ -40,7 +39,6 @@ const createAccountSchemas = [
       .label('Registration Id'),
   }),
 
-
   Yup.object({
     SentEmail: Yup.string().required().label('Sent Email'),
   }),
@@ -58,7 +56,7 @@ const inits: ICreateAccount = {
   last_name: undefined,
   uni_email: '',
   qulification: '',
-  area: ''
+  area: '',
 }
 
-export { createAccountSchemas, inits }
+export {createAccountSchemas, inits}

@@ -21,7 +21,7 @@ const wizardsBreadCrumbs: Array<PageLink> = [
 const WizardsPage = () => (
   <Routes>
     <Route element={<Outlet />}>
-      ToastContainer 
+      ToastContainer
       <Route
         path='vertical'
         element={

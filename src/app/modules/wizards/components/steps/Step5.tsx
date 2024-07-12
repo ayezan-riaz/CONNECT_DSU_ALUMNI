@@ -1,16 +1,16 @@
-import React, { FC } from 'react'
-import { KTIcon } from '../../../../../_metronic/helpers'
-import { Link } from 'react-router-dom'
-import { inits } from '../../../auth/components/Register/wizards/components/CreateAccountWizardHelper'
+import React, {FC} from 'react'
+import {KTIcon} from '../../../../../_metronic/helpers'
+import {Link} from 'react-router-dom'
+import {inits} from '../../../auth/components/Register/wizards/components/CreateAccountWizardHelper'
 const Step5: FC = () => {
   return (
-    <div className='w-100' style={{ textAlign: 'center' }}>
+    <div className='w-100' style={{textAlign: 'center'}}>
       <div
         className='text-gray-400 fw-bold fs-6 mb-0'
-        style={{ display: 'flex', justifyContent: 'flex-end' }}
+        style={{display: 'flex', justifyContent: 'flex-end'}}
       >
         Having Issues?
-        <a href='/auth/login' className='fw-bolder' style={{ color: '#80171D' }}>
+        <a href='/auth/login' className='fw-bolder' style={{color: '#80171D'}}>
           Get Help
         </a>
       </div>
@@ -24,7 +24,7 @@ const Step5: FC = () => {
           href='https://mail.dsu.edu.pk/'
           type='submit'
           className='btn btn-lg me-3'
-          style={{ backgroundColor: '#80171D', color: 'white' }}
+          style={{backgroundColor: '#80171D', color: 'white'}}
         >
           Visit Email
         </a>
@@ -33,4 +33,4 @@ const Step5: FC = () => {
   )
 }
 
-export { Step5 }
+export {Step5}

@@ -1,23 +1,14 @@
 import React from 'react'
 import logo from '../../../../assets/logo.png'
 const SurveyFilled = () => {
-
-  
   return (
     <div id='container'>
-      <div style={{ textAlign: 'center' }}>
-        <img
-          className='middle'
-          alt='DHA Suffa University'
-          src={logo}
-
-
-        />
+      <div style={{textAlign: 'center'}}>
+        <img className='middle' alt='DHA Suffa University' src={logo} />
       </div>
       <br />
       <div id='wrapper'>
         <p className='text-primary text-center fs-5'>
-
           <br />
           <br />
           Survey Filled ..!

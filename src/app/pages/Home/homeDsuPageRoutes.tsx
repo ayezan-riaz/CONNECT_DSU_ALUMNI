@@ -178,7 +178,7 @@ const DsuPage: React.FC = () => {
           path='donation'
           element={
             <>
-               <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{marginTop: '175px'}}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -214,7 +214,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-          <Route
+        <Route
           path='about'
           element={
             <>
@@ -229,7 +229,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-   <Route
+        <Route
           path='contact'
           element={
             <>
@@ -244,7 +244,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-         <Route
+        <Route
           path='reward'
           element={
             <>
@@ -259,7 +259,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-          <Route
+        <Route
           path='benefits'
           element={
             <>

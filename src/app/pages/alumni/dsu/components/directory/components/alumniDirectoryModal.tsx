@@ -1,8 +1,5 @@
-
-const alumniDirectoryModal :React.FC= () => {
-  return (
-    <div>alumniDirectoryModal</div>
-  )
+const alumniDirectoryModal: React.FC = () => {
+  return <div>alumniDirectoryModal</div>
 }
 
 export {alumniDirectoryModal}

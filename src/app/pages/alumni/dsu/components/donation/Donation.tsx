@@ -1,13 +1,9 @@
-import DonationPage from "./components/donationPage"
+import DonationPage from './components/donationPage'
 export function Donation() {
-
-
-  
   return (
     <>
       <div className='container'>
-       
-        <DonationPage/>
+        <DonationPage />
       </div>
     </>
   )
