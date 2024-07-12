@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState, useEffect } from 'react'
-import { useFormik } from 'formik'
+import {useState, useEffect} from 'react'
+import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import { Link } from 'react-router-dom'
-import { toAbsoluteUrl } from '../../../../_metronic/helpers'
-import { PasswordMeterComponent } from '../../../../_metronic/assets/ts/components'
-import { useAuth } from '../core/Auth'
-import { inits } from '../../wizards/components/CreateAccountWizardHelper'
+import {Link} from 'react-router-dom'
+import {toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {PasswordMeterComponent} from '../../../../_metronic/assets/ts/components'
+import {useAuth} from '../core/Auth'
+import {inits} from '../../wizards/components/CreateAccountWizardHelper'
 const initialValues = {
   email: '',
   phone: '',
@@ -18,7 +18,6 @@ const initialValues = {
 }
 
 const registrationSchema = Yup.object().shape({
-
   email: Yup.string()
     .email('Wrong email format')
     .min(3, 'Minimum 3 symbols')
@@ -34,7 +33,6 @@ const registrationSchema = Yup.object().shape({
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
 
-
   // changepassword: Yup.string()
   //   .min(3, 'Minimum 3 symbols')
   //   .max(50, 'Maximum 50 symbols')
@@ -45,21 +43,21 @@ const registrationSchema = Yup.object().shape({
 
 export function Registration() {
   const [loading, setLoading] = useState(false)
-  const { saveAuth, setCurrentUser } = useAuth()
+  const {saveAuth, setCurrentUser} = useAuth()
   const formik = useFormik({
     initialValues,
     validationSchema: registrationSchema,
-    onSubmit: async (values, { setStatus, setSubmitting }) => {
+    onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        const { data: auth } = await registeruser(
+        const {data: auth} = await registeruser(
           values.email,
           values.phone,
           values.password,
-          values.reg_id,
+          values.reg_id
 
           //values.last_name
-        );
+        )
 
         saveAuth(auth)
         // const { data: user } = await getUserByToken(auth.api_token)
@@ -112,7 +110,7 @@ export function Registration() {
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control bg-transparent',
-            { 'is-invalid': formik.touched.email && formik.errors.email },
+            {'is-invalid': formik.touched.email && formik.errors.email},
             {
               'is-valid': formik.touched.email && !formik.errors.email,
             }
@@ -127,8 +125,6 @@ export function Registration() {
         )}
       </div>
       {/* end::Form group */}
-
-
 
       {/* begin::Form group first_name */}
       <div className='fv-row mb-8'>
@@ -157,8 +153,6 @@ export function Registration() {
         )}
       </div>
       {/* end::Form group */}
-
-
 
       {/* begin::Form group Password */}
       <div className='fv-row mb-8' data-kt-password-meter='true'>
@@ -247,7 +241,7 @@ export function Registration() {
         >
           {!loading && <span className='indicator-label'>Submit</span>}
           {loading && (
-            <span className='indicator-progress' style={{ display: 'block' }}>
+            <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...{' '}
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
@@ -258,7 +252,11 @@ export function Registration() {
     </form>
   )
 }
-function registeruser(email: string, phone: string, password: string, reg_id: string): { data: any } | PromiseLike<{ data: any }> {
+function registeruser(
+  email: string,
+  phone: string,
+  password: string,
+  reg_id: string
+): {data: any} | PromiseLike<{data: any}> {
   throw new Error('Function not implemented.')
 }
-

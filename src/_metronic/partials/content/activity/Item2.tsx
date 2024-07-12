@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import { KTIcon, toAbsoluteUrl } from '../../../helpers'
+import {FC} from 'react'
+import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import ayezan from '../../../../app/pages/alumni/assets/ayezan.jpg'
 const Item2: FC = () => {
   return (
@@ -37,4 +37,4 @@ const Item2: FC = () => {
   )
 }
 
-export { Item2 }
+export {Item2}

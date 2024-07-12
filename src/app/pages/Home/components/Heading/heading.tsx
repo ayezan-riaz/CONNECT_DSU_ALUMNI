@@ -1,9 +1,7 @@
 import React from 'react'
 
 const heading = () => {
-  return (
-    <div>heading</div>
-  )
+  return <div>heading</div>
 }
 
 export default heading

@@ -27,9 +27,9 @@
 
 //     <>
 //        <Outlet />
-    
+
 //     </>
-    
+
 //     // <div
 //     //   className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed'
 //     //   style={{
@@ -50,7 +50,7 @@
 //     //     {/* end::Wrapper */}
 //     //   </div>
 //     //   {/* begin::Footer */}
-   
+
 //     //   {/* end::Footer */}
 //     // </div>
 //   )
@@ -71,16 +71,16 @@
 
 // export { AuthPage }
 
-import { useEffect } from 'react'
-import { Outlet, Route, Routes } from 'react-router-dom'
-import { Login } from './components/Login'
-import { Vertical } from './components/Register/wizards/components/Vertical'
+import {useEffect} from 'react'
+import {Outlet, Route, Routes} from 'react-router-dom'
+import {Login} from './components/Login'
+import {Vertical} from './components/Register/wizards/components/Vertical'
 import Home from '../../pages/Home/home'
-import { toAbsoluteUrl } from '../../../_metronic/helpers'
+import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import logo from '../../pages/alumni/assets/logo.png'
 import home from '../../pages/alumni/assets/home.png'
-import { ForgotPassword } from './components/ForgotPassword'
-import { UpdatePassword } from './components/UpdatePassword'
+import {ForgotPassword} from './components/ForgotPassword'
+import {UpdatePassword} from './components/UpdatePassword'
 
 const AuthLayout = () => {
   useEffect(() => {
@@ -143,7 +143,7 @@ const AuthLayout = () => {
   //         {/* end::Wrapper */}
   //       </div>
   //       {/* begin::Footer */}
-     
+
   //       {/* end::Footer */}
   //     </div>
   //   );
@@ -156,8 +156,8 @@ const AuthLayout = () => {
   // return (
   //   <>
   //     {authContent}
- 
-    // </>
+
+  // </>
   // );
 }
 
@@ -174,4 +174,4 @@ const AuthPage = () => (
   </Routes>
 )
 
-export { AuthPage }
+export {AuthPage}

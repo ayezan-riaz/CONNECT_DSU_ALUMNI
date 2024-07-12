@@ -1,12 +1,12 @@
-import { lazy, FC, Suspense } from 'react'
-import { Route, Routes, Navigate } from 'react-router-dom'
-import { MasterLayout } from '../../_metronic/layout/MasterLayout'
+import {lazy, FC, Suspense} from 'react'
+import {Route, Routes, Navigate} from 'react-router-dom'
+import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
-import { MenuTestPage } from '../pages/MenuTestPage'
+import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
+import {MenuTestPage} from '../pages/MenuTestPage'
 
-import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
-import { WithChildren } from '../../_metronic/helpers'
+import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
+import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 // My Route Components
 import TestPage from '../pages/alumni/examplePage/TestPage'
@@ -28,7 +28,7 @@ const PrivateRoutes = () => {
 
   // Alumni Routes
   const AlumniAccountPage = lazy(() => import('../pages/alumni/account/AccountPage'))
-const DsuPage =lazy(()=>import('../pages/alumni/dsu/DsuPage'))
+  const DsuPage = lazy(() => import('../pages/alumni/dsu/DsuPage'))
   const JobPosting = lazy(() => import('../pages/alumni/jobPost/JobPosting'))
   const ViewAllJobs = lazy(() => import('../pages/alumni/viewJobs/viewAllJobs'))
 
@@ -56,9 +56,9 @@ const DsuPage =lazy(()=>import('../pages/alumni/dsu/DsuPage'))
         <Route path='user-managemnet' element={<Usertable />} />
         <Route path='user-managemnet-list' element={<UserManagementList />} />
         {/* <Route path='viewUser' element={<ShowUser user={undefined} />} /> */}
-        <Route path="viewUser" element={<ShowUser />} />
+        <Route path='viewUser' element={<ShowUser />} />
         {/* <Route exact path='/viewuser/:userId' component={ViewUser} />
- */}
+         */}
         {/* Lazy Modules */}
 
         <Route
@@ -88,7 +88,7 @@ const DsuPage =lazy(()=>import('../pages/alumni/dsu/DsuPage'))
           }
         />
 
-           <Route
+        <Route
           path='/alumni/dsu/*'
           element={
             <SuspensedView>
@@ -159,7 +159,7 @@ const DsuPage =lazy(()=>import('../pages/alumni/dsu/DsuPage'))
   )
 }
 
-const SuspensedView: FC<WithChildren> = ({ children }) => {
+const SuspensedView: FC<WithChildren> = ({children}) => {
   const baseColor = getCSSVariableValue('--bs-primary')
   TopBarProgress.config({
     barColors: {
@@ -171,4 +171,4 @@ const SuspensedView: FC<WithChildren> = ({ children }) => {
   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
 }
 
-export { PrivateRoutes }
+export {PrivateRoutes}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import {useState, useEffect} from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
@@ -12,7 +12,7 @@ interface TestProps {
   updateExistingUser: (user: any) => void
 }
 
-function UserModal({ closeModal, addUser, editUser, setEditUser, updateExistingUser }: TestProps) {
+function UserModal({closeModal, addUser, editUser, setEditUser, updateExistingUser}: TestProps) {
   // const [show, setShow] = useState(false);
 
   // const handleClose = () => setShow(false);
@@ -23,7 +23,7 @@ function UserModal({ closeModal, addUser, editUser, setEditUser, updateExistingU
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target
+    const {name, value} = e.target
     setFormData((prevFormData: any) => ({
       ...prevFormData,
       [name]: value,
@@ -83,7 +83,7 @@ function UserModal({ closeModal, addUser, editUser, setEditUser, updateExistingU
       LastLogin: '',
       twoStep: '',
       joinedDate: '',
-      online: ''
+      online: '',
     })
     closeModal()
   }
@@ -92,7 +92,7 @@ function UserModal({ closeModal, addUser, editUser, setEditUser, updateExistingU
     <>
       <Modal show={true} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title >Add User</Modal.Title>
+          <Modal.Title>Add User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
@@ -133,8 +133,6 @@ function UserModal({ closeModal, addUser, editUser, setEditUser, updateExistingU
               </Form.Select>
             </Form.Group>
 
-
-
             <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
               <Form.Label>Joined Date</Form.Label>
               <Form.Control
@@ -144,8 +142,6 @@ function UserModal({ closeModal, addUser, editUser, setEditUser, updateExistingU
                 onChange={handleChange}
               />
             </Form.Group>
-
-
 
             <div className=' text-center'>
               <Button type='submit' className='btn btn-primary me-2 mt-2'>

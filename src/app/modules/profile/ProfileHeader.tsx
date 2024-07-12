@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { KTIcon, toAbsoluteUrl } from '../../../_metronic/helpers'
-import { Link, useLocation } from 'react-router-dom'
-import { Dropdown1 } from '../../../_metronic/partials'
+import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
+import {Link, useLocation} from 'react-router-dom'
+import {Dropdown1} from '../../../_metronic/partials'
 import ayezan from '../../../../src/app/pages/alumni/assets/ayezan.jpg'
 
 const ProfileHeader: React.FC = () => {
@@ -201,4 +201,4 @@ const ProfileHeader: React.FC = () => {
   )
 }
 
-export { ProfileHeader }
+export {ProfileHeader}

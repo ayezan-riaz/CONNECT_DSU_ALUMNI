@@ -1,8 +1,5 @@
+const CorporateModal: React.FC = () => {
+  return <div>CorporateModal</div>
+}
 
-const CorporateModal:React.FC = () => {
-    return (
-      <div>CorporateModal</div>
-    )
-  }
-  
-  export {CorporateModal}
+export {CorporateModal}

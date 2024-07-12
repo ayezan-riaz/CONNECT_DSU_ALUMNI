@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Metronic React Demo 1" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"
+    />
+    <title>DHA Suffa | Alumni Portal</title>
+    <link rel="shortcut icon" href="%PUBLIC_URL%/media/logos/logo1.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" id="layout-styles-anchor" href="%PUBLIC_URL%/splash-screen.css" />
+  </head>
 
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Metronic React Demo 1" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-  <title>DHA Suffa | Alumni Portal </title>
-  <link rel="shortcut icon" href="%PUBLIC_URL%/media/logos/logo1.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" id="layout-styles-anchor" href="%PUBLIC_URL%/splash-screen.css" />
-</head>
+  <body id="kt_body" class="page-loading">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!--begin::Theme mode setup on page load-->
+    <script>
+      let themeMode = 'system'
 
-<body id="kt_body" class="page-loading">
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <!--begin::Theme mode setup on page load-->
-  <script>
-    let themeMode = 'system'
+      if (localStorage.getItem('kt_theme_mode_value')) {
+        themeMode = localStorage.getItem('kt_theme_mode_value')
+      }
 
-    if (localStorage.getItem('kt_theme_mode_value')) {
-      themeMode = localStorage.getItem('kt_theme_mode_value')
-    }
+      if (themeMode === 'system') {
+        themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      }
 
-    if (themeMode === 'system') {
-      themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    }
+      document.documentElement.setAttribute('data-bs-theme', themeMode)
+    </script>
+    <!--end::Theme mode setup on page load-->
 
-    document.documentElement.setAttribute('data-bs-theme', themeMode)
-  </script>
-  <!--end::Theme mode setup on page load-->
+    <div id="root"></div>
 
-  <div id="root"></div>
+    <!--begin::Loading markup-->
+    <div id="splash-screen" class="splash-screen">
+      <img src="%PUBLIC_URL%/media/logos/logo.png" class="dark-logo" alt="Metronic dark logo" />
+      <img src="%PUBLIC_URL%/media/logos/logo.png" class="light-logo" alt="Metronic light logo" />
+      <span>Loading ...</span>
+    </div>
+    <!--end::Loading markup-->
 
-  <!--begin::Loading markup-->
-  <div id="splash-screen" class="splash-screen">
-    <img src="%PUBLIC_URL%/media/logos/logo.png" class="dark-logo" alt="Metronic dark logo" />
-    <img src="%PUBLIC_URL%/media/logos/logo.png" class="light-logo" alt="Metronic light logo" />
-    <span>Loading ...</span>
-  </div>
-  <!--end::Loading markup-->
-
-  <div id="root-modals"></div>
-</body>
-
+    <div id="root-modals"></div>
+  </body>
 </html>

@@ -1,11 +1,9 @@
-
-
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react'
-import { useIntl } from 'react-intl'
-import { KTIcon } from '../../../../helpers'
-import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub'
-import { SidebarMenuItem } from './SidebarMenuItem'
+import {useIntl} from 'react-intl'
+import {KTIcon} from '../../../../helpers'
+import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
+import {SidebarMenuItem} from './SidebarMenuItem'
 
 const SidebarMenuMain = () => {
   const intl = useIntl()
@@ -15,7 +13,7 @@ const SidebarMenuMain = () => {
       <SidebarMenuItem
         to='/dashboard'
         icon='element-11'
-        title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
+        title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
       {/* <SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />
@@ -61,7 +59,7 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='View Jobs' to='/alumni/viewJobs/viewAllJobs' icon='archive' />
       </SidebarMenuItemWithSub>
        */}
-       <SidebarMenuItem
+      <SidebarMenuItem
         to='/alumni/dsu/jobs'
         icon='element-11'
         title='Jobs'
@@ -83,14 +81,14 @@ const SidebarMenuMain = () => {
         title='Association'
         fontIcon='bi-app-indicator'
       />
-         <SidebarMenuItem
+      <SidebarMenuItem
         to='/alumni/dsu/card'
         icon='element-11'
         title='Alumni Card'
         fontIcon='bi-app-indicator'
       />
 
-<SidebarMenuItem
+      <SidebarMenuItem
         to='/alumni/dsu/corporate'
         icon='element-11'
         title='Corporate Partner'
@@ -217,4 +215,4 @@ const SidebarMenuMain = () => {
   )
 }
 
-export { SidebarMenuMain }
+export {SidebarMenuMain}

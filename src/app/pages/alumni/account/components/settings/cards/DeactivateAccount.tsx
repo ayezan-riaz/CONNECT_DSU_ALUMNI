@@ -93,7 +93,6 @@ const DeactivateAccount: React.FC = () => {
               )}
             </button>
           </div>
-
         </form>
       </div>
     </div>

@@ -15,36 +15,31 @@ const GET_USERS_URL = `${API_URL}/users/query`
 //   //   })
 // }
 
-
 const getUsers = (query: string): any => {
   return [
-
     {
-id:5,
-  name: "aezan",
-  avatar: "gfdsfds",
-  email: "go@ojkfs"
-  // position?: string
-  // role?: string
-  // last_login?: string
-  // two_steps?: boolean
-  // joined_day?: string
-  // online?: boolean
-  // initials?: {
-  //   label: string
-  //   state: string
+      id: 5,
+      name: 'aezan',
+      avatar: 'gfdsfds',
+      email: 'go@ojkfs',
+      // position?: string
+      // role?: string
+      // last_login?: string
+      // two_steps?: boolean
+      // joined_day?: string
+      // online?: boolean
+      // initials?: {
+      //   label: string
+      //   state: string
     },
     {
-      id:5,
-  name: "aezannbn",
-  avatar: "gfdsfds",
-  email: "go@ojkfs"
-
-    }
-
+      id: 5,
+      name: 'aezannbn',
+      avatar: 'gfdsfds',
+      email: 'go@ojkfs',
+    },
   ]
 }
-  
 
 const getUserById = (id: ID): Promise<User | undefined> => {
   return axios

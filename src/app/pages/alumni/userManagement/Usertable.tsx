@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import UserModal from './UserModal'
 //import ayezan from '../../alumni/assets/ayezan.png'
 import aye from '../assets/aye.jpg'
@@ -8,7 +7,6 @@ const Usertable = () => {
   const [editUser, setEditUser] = useState<any>({})
   const [users, setUsers] = useState([
     {
-
       id: 1,
       name: 'Ayezan',
       email: 'ayezanriaz8@gmail.com',
@@ -18,10 +16,9 @@ const Usertable = () => {
       twoStep: 'Enabled',
       joinedDate: '10 Nov 2022',
       online: 'Enabled',
-      image: aye
+      image: aye,
     },
     {
-
       id: 2,
       name: 'Abdullha',
       email: 'abdullha@gmail.com',
@@ -31,10 +28,9 @@ const Usertable = () => {
       twoStep: 'Enabled',
       joinedDate: '10 Nov 2022',
       online: 'Enabled',
-      image: aye
+      image: aye,
     },
     {
-
       id: 3,
       name: 'nabeel',
       email: 'nabeel@gmail.com',
@@ -44,10 +40,9 @@ const Usertable = () => {
       twoStep: 'Enabled',
       joinedDate: '10 Nov 2022',
       online: 'Enabled',
-      image: aye
+      image: aye,
     },
     {
-
       id: 4,
       name: 'Ahad',
       email: 'ahad@gmail.com',
@@ -57,9 +52,8 @@ const Usertable = () => {
       twoStep: 'Enabled',
       joinedDate: '10 Nov 2022',
       online: 'Enabled',
-      image: aye
+      image: aye,
     },
-
   ])
 
   // const [searchText, setSearchText] = useState('');
@@ -72,29 +66,27 @@ const Usertable = () => {
   //   user.name.toLowerCase().includes(searchText)
   // );
 
-  const [searchText, setSearchText] = useState('');
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [searchText, setSearchText] = useState('')
+  const [suggestions, setSuggestions] = useState<string[]>([])
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.toLowerCase();
-    setSearchText(value);
+    const value = event.target.value.toLowerCase()
+    setSearchText(value)
 
     // Filter the users based on the search text
     const filteredSuggestions = users
-      .filter(user => user.name.toLowerCase().startsWith(value))
-      .map(user => user.name);
-    setSuggestions(filteredSuggestions);
-  };
+      .filter((user) => user.name.toLowerCase().startsWith(value))
+      .map((user) => user.name)
+    setSuggestions(filteredSuggestions)
+  }
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchText)
-  );
+  const filteredUsers = users.filter((user) => user.name.toLowerCase().includes(searchText))
 
   const updateExistingUser = (updatedUser: any) => {
     setUsers((prevUsers) => {
       return prevUsers.map((user) => {
         if (user.id === updatedUser.id) {
-          return { ...user, ...updatedUser }
+          return {...user, ...updatedUser}
         }
         return user
       })
@@ -174,7 +166,6 @@ const Usertable = () => {
 
       {/*end::Search*/}
 
-
       <div className='card-header border-0 pt-6'>
         {/*begin::Card title*/}
         <div className='card-title'>
@@ -252,7 +243,7 @@ const Usertable = () => {
                     className='select2 select2-container select2-container--bootstrap5'
                     dir='ltr'
                     data-select2-id='select2-data-11-1ipj'
-                    style={{ width: '100%' }}
+                    style={{width: '100%'}}
                   >
                     <span className='selection'>
                       <span
@@ -305,7 +296,7 @@ const Usertable = () => {
                     className='select2 select2-container select2-container--bootstrap5'
                     dir='ltr'
                     data-select2-id='select2-data-14-vo84'
-                    style={{ width: '100%' }}
+                    style={{width: '100%'}}
                   >
                     <span className='selection'>
                       <span
@@ -471,7 +462,7 @@ const Usertable = () => {
                         className='select2 select2-container select2-container--bootstrap5'
                         dir='ltr'
                         data-select2-id='select2-data-17-np7v'
-                        style={{ width: '100%' }}
+                        style={{width: '100%'}}
                       >
                         <span className='selection'>
                           <span
@@ -532,7 +523,7 @@ const Usertable = () => {
                         className='select2 select2-container select2-container--bootstrap5'
                         dir='ltr'
                         data-select2-id='select2-data-20-95g7'
-                        style={{ width: '100%' }}
+                        style={{width: '100%'}}
                       >
                         <span className='selection'>
                           <span
@@ -977,7 +968,7 @@ const Usertable = () => {
                   colSpan={1}
                   role='columnheader'
                   className='min-w-100px'
-                  style={{ cursor: 'pointer' }}
+                  style={{cursor: 'pointer'}}
                 >
                   USER
                 </th>
@@ -985,7 +976,7 @@ const Usertable = () => {
                   colSpan={1}
                   role='columnheader'
                   className='min-w-125px'
-                  style={{ cursor: 'pointer' }}
+                  style={{cursor: 'pointer'}}
                 >
                   ROLE
                 </th>
@@ -993,7 +984,7 @@ const Usertable = () => {
                   colSpan={1}
                   role='columnheader'
                   className='min-w-125px'
-                  style={{ cursor: 'pointer' }}
+                  style={{cursor: 'pointer'}}
                 >
                   LAST LOGIN
                 </th>
@@ -1001,7 +992,7 @@ const Usertable = () => {
                   colSpan={1}
                   role='columnheader'
                   className='min-w-125px'
-                  style={{ cursor: 'pointer' }}
+                  style={{cursor: 'pointer'}}
                 >
                   TWO STEPS
                 </th>
@@ -1009,7 +1000,7 @@ const Usertable = () => {
                   colSpan={1}
                   role='columnheader'
                   className='min-w-125px'
-                  style={{ cursor: 'pointer' }}
+                  style={{cursor: 'pointer'}}
                 >
                   JOINED DATE
                 </th>
@@ -1018,7 +1009,7 @@ const Usertable = () => {
                   colSpan={1}
                   role='columnheader'
                   className='text-end min-w-100px'
-                  style={{ cursor: 'pointer' }}
+                  style={{cursor: 'pointer'}}
                 >
                   Actions
                 </th>
@@ -1042,11 +1033,7 @@ const Usertable = () => {
                     <div className='symbol symbol-circle symbol-50px overflow-hidden me-3'>
                       <a href='../../demo1/dist/apps/user-management/users/view.html'>
                         <div className='symbol-label'>
-                          <img
-                            src={user.image}
-                            alt='Ayezan'
-                            className='w-100'
-                          />
+                          <img src={user.image} alt='Ayezan' className='w-100' />
                         </div>
                       </a>
                     </div>
@@ -1076,7 +1063,6 @@ const Usertable = () => {
                   <td role='cell' className=''>
                     {user.joinedDate}
                   </td>
-
 
                   <td role='cell' className='text-end min-w-100px'>
                     <a
