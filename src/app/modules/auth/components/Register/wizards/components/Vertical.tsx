@@ -1,36 +1,36 @@
-import { useEffect, useRef, useState } from 'react'
-import { KTIcon } from '../../../../../../../_metronic/helpers'
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {useEffect, useRef, useState} from 'react'
+import {KTIcon} from '../../../../../../../_metronic/helpers'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 //import { KTIcon } from '../../../../../../../_metronic/helpers'
-import { Step1 } from './steps/Step1'
-import { Step2 } from './steps/Step2'
-import { Step3 } from './steps/Step3'
-import { Step4 } from './steps/Step4'
-import { Step5 } from './steps/Step5'
-import { StepperComponent } from '../../../../../../../_metronic/assets/ts/components'
-import { Form, Formik, FormikValues, useFormikContext } from 'formik'
-import { createAccountSchemas, inits } from './CreateAccountWizardHelper'
-import { ICreateAccount } from './CreateAccountWizardHelper';
-import { useFormik } from 'formik'; // Corrected import statement
-import React, { createContext } from "react";
+import {Step1} from './steps/Step1'
+import {Step2} from './steps/Step2'
+import {Step3} from './steps/Step3'
+import {Step4} from './steps/Step4'
+import {Step5} from './steps/Step5'
+import {StepperComponent} from '../../../../../../../_metronic/assets/ts/components'
+import {Form, Formik, FormikValues, useFormikContext} from 'formik'
+import {createAccountSchemas, inits} from './CreateAccountWizardHelper'
+import {ICreateAccount} from './CreateAccountWizardHelper'
+import {useFormik} from 'formik' // Corrected import statement
+import React, {createContext} from 'react'
 import axios from 'axios'
 // Assuming dotenv is configured to load environment variables
 // const API = process.env.API_PATH;
 
-const API = "https://ams-backend-gkxg.onrender.com";
+const API = 'https://ams-backend-gkxg.onrender.com'
 
 // Load environment variables
 // require('dotenv').config();
 // const CGPAContext = createContext<number | null>(null);
 interface CGPAContextData {
-  step2Cgpa: number | null;
-  step2First_name: string | null;
-  step2Middle_name: string | null;
-  step2Last_name: string | null;
-  step2Uni_email: string | null;
-  step2Qulification: string | null;
-  step2Area: string | null;
+  step2Cgpa: number | null
+  step2First_name: string | null
+  step2Middle_name: string | null
+  step2Last_name: string | null
+  step2Uni_email: string | null
+  step2Qulification: string | null
+  step2Area: string | null
 }
 
 const CGPAContext = createContext<CGPAContextData>({
@@ -41,29 +41,28 @@ const CGPAContext = createContext<CGPAContextData>({
   step2Uni_email: null,
   step2Qulification: null,
   step2Area: null,
-});
+})
 
 const Vertical = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues] = useState<ICreateAccount>(inits)
-  const [step2Data, setStep2Data] = useState<any>(null);
-  const [step2Token, setStep2Token] = useState<string>('');
-  const [Id, setId] = useState<number | undefined>(undefined); // State to store the token from Step 2 API response
-  const [userData, setUserData] = useState<any>({}); // State to store the user data from Step 2 API response
-  const [step2Id, setStep2Id] = useState<number | undefined>(undefined);
+  const [step2Data, setStep2Data] = useState<any>(null)
+  const [step2Token, setStep2Token] = useState<string>('')
+  const [Id, setId] = useState<number | undefined>(undefined) // State to store the token from Step 2 API response
+  const [userData, setUserData] = useState<any>({}) // State to store the user data from Step 2 API response
+  const [step2Id, setStep2Id] = useState<number | undefined>(undefined)
   // const [step2Cgpa, setStep2Cgpa] = useState<number | undefined>(undefined); // State to store the token from Step 2 API response
-  const [step2Cgpa, setStep2Cgpa] = useState<number | null>(null);
-  const [step2First_name, setstep2First_name] = useState<string | null>(null);
-  const [step2Middle_name, setstep2Middle_name] = useState<string | null>(null);
-  const [step2Last_name, setstep2Last_name] = useState<string | null>(null);
-  const [step2Uni_email, setstep2Uni_email] = useState<string | null>(null);
-  const [step2Qulification, setstep2Qualification] = useState<string | null>(null);
-  const [step2Area, setstep2Area] = useState<string | null>(null);
+  const [step2Cgpa, setStep2Cgpa] = useState<number | null>(null)
+  const [step2First_name, setstep2First_name] = useState<string | null>(null)
+  const [step2Middle_name, setstep2Middle_name] = useState<string | null>(null)
+  const [step2Last_name, setstep2Last_name] = useState<string | null>(null)
+  const [step2Uni_email, setstep2Uni_email] = useState<string | null>(null)
+  const [step2Qulification, setstep2Qualification] = useState<string | null>(null)
+  const [step2Area, setstep2Area] = useState<string | null>(null)
 
-
-  const MyContext = createContext(1);
+  const MyContext = createContext(1)
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
     if (!stepper.current) {
@@ -84,50 +83,51 @@ const Vertical = () => {
 
   const submitStep = async (values: ICreateAccount, actions: FormikValues) => {
     if (!stepper.current) {
-      return;
+      return
     }
 
     try {
       if (stepper.current.currentStepIndex !== stepper.current.totalStepsNumber) {
         // Go to the next step
-        stepper.current.goNext();
+        stepper.current.goNext()
 
         // Call the corresponding API based on the current step index
         switch (stepper.current.currentStepIndex) {
-
           case 2:
             try {
-              const responseStep1 = await axios.post(
-                `${API}registrations/verifyUniversityEmail`,
-                { uni_reg_id: values.uni_reg_id }
-              );
+              const responseStep1 = await axios.post(`${API}registrations/verifyUniversityEmail`, {
+                uni_reg_id: values.uni_reg_id,
+              })
 
-              if (!responseStep1 || (responseStep1.status !== 200 && responseStep1.status !== 201)) {
-                throw new Error(responseStep1?.data?.message?.[0] || 'Unexpected error occurred');
+              if (
+                !responseStep1 ||
+                (responseStep1.status !== 200 && responseStep1.status !== 201)
+              ) {
+                throw new Error(responseStep1?.data?.message?.[0] || 'Unexpected error occurred')
               }
 
-              const { token } = responseStep1.data;
-              setStep2Token(token);
+              const {token} = responseStep1.data
+              setStep2Token(token)
             } catch (err: any) {
-              const errorMessage = err.response?.data?.message?.[0] || 'An error occurred while fetching data';
-              toast.error(errorMessage);
-              stepper.current.goPrev();
+              const errorMessage =
+                err.response?.data?.message?.[0] || 'An error occurred while fetching data'
+              toast.error(errorMessage)
+              stepper.current.goPrev()
             }
-            break;
+            break
 
           case 3:
             try {
               if (!step2Token) {
                 // If 'step2Token' is not available, show an error toast
-                toast.error('Clicked Visit Email & Verified Your Email');
+                toast.error('Clicked Visit Email & Verified Your Email')
                 stepper.current.goPrev()
               } else {
-
                 const responseStep2 = await axios.post(
                   `${API}registrations/getUniversityEmailTokenData`,
-                  // 'https://amsbackend-ghub.onrender.com/registrations/getUniversityEmailTokenData',
-                  { token: step2Token } // Pass the token as part of the request body
-                );
+                  // 'https://ams-backend-gkxg.onrender.com/api/registrations/getUniversityEmailTokenData',
+                  {token: step2Token} // Pass the token as part of the request body
+                )
 
                 // Assuming the responseStep2.data is an object containing the required data
                 const {
@@ -139,97 +139,94 @@ const Vertical = () => {
                   uni_email,
                   qualification,
                   area,
-                } = responseStep2.data;
+                } = responseStep2.data
 
                 // Set the state with the response data
-                setStep2Id(id);
-                setStep2Cgpa(cgpa);
-                setstep2First_name(first_name);
-                setstep2Middle_name(middle_name);
-                setstep2Last_name(last_name);
-                setstep2Uni_email(uni_email);
-                setstep2Qualification(qualification);
-                setstep2Area(area);
+                setStep2Id(id)
+                setStep2Cgpa(cgpa)
+                setstep2First_name(first_name)
+                setstep2Middle_name(middle_name)
+                setstep2Last_name(last_name)
+                setstep2Uni_email(uni_email)
+                setstep2Qualification(qualification)
+                setstep2Area(area)
 
                 // Proceed to the next step or do any further processing
                 // ...
-
               }
             } catch (err: any) {
-              const errorMessage = err.response?.data?.message?.[0] || 'An error occurred while fetching data';
-              toast.error(errorMessage);
-              stepper.current.goPrev();
+              const errorMessage =
+                err.response?.data?.message?.[0] || 'An error occurred while fetching data'
+              toast.error(errorMessage)
+              stepper.current.goPrev()
             }
-            break;
+            break
 
           case 4:
             // Step 3 API Call
             try {
-              const responseStep4 = await axios.post(
-                `${API}registrations/registerAccount`,
-                {
-                  email: values.email,
-                  phone: values.phone,
-                  password: values.password,
-                  reg_id: step2Id, // Use the 'id' from Step 2 API response here
-                }
-              );
+              const responseStep4 = await axios.post(`${API}registrations/registerAccount`, {
+                email: values.email,
+                phone: values.phone,
+                password: values.password,
+                reg_id: step2Id, // Use the 'id' from Step 2 API response here
+              })
 
               if (responseStep4.status !== 200 && responseStep4.status !== 201) {
-                throw new Error(responseStep4.data.message || 'Unexpected error occurred');
+                throw new Error(responseStep4.data.message || 'Unexpected error occurred')
               }
 
               // Proceed to the next step if the response is successful
               // stepper.current.goNext(); // Uncomment this line if you want to proceed to the next step on success
             } catch (err: any) {
-              const errorMessage = err.response?.data?.message || 'An error occurred while fetching data';
+              const errorMessage =
+                err.response?.data?.message || 'An error occurred while fetching data'
               if (Array.isArray(errorMessage)) {
-                errorMessage.forEach((msg) => toast.error(msg));
+                errorMessage.forEach((msg) => toast.error(msg))
               } else {
-                toast.error(errorMessage);
+                toast.error(errorMessage)
               }
-              stepper.current.goPrev();
+              stepper.current.goPrev()
             }
-            break;
-
+            break
 
           case 5:
             // Step 4 API Call (same as Step 2)
             if (!step2Token) {
               // If 'step2Token' is not available, show an error toast
-              toast.error('Clicked Visit Email & Verified Your Email');
+              toast.error('Clicked Visit Email & Verified Your Email')
               stepper.current.goPrev()
             } else {
               try {
                 const responseStep5 = await axios.post(
                   `${API}registrations/getUniversityEmailTokenData`,
-                  // 'https://amsbackend-ghub.onrender.com/registrations/getUniversityEmailTokenData',
-                  { token: step2Token } // Pass the token as part of the request body
-                );
+                  // 'https://ams-backend-gkxg.onrender.com/api/registrations/getUniversityEmailTokenData',
+                  {token: step2Token} // Pass the token as part of the request body
+                )
               } catch (error) {
                 // Handle any errors that might occur during the API call
-                console.error('Error occurred:', error);
+                console.error('Error occurred:', error)
                 // Optionally, show an error toast to the user
-                toast.error('An error occurred while fetching data');
+                toast.error('An error occurred while fetching data')
               }
             }
-            break;
+            break
           // Add more cases for additional steps if needed
           default:
-            break;
+            break
         }
       } else {
         // If the last step is reached, reset the form and go to the first step
-        stepper.current.goto(1);
-        actions.resetForm();
+        stepper.current.goto(1)
+        actions.resetForm()
       }
     } catch (error) {
       // Handle error
     }
 
     // Update the current schema after the API call
-    setCurrentSchema(createAccountSchemas[stepper.current?.currentStepIndex - 1]);
-  };
+    setCurrentSchema(createAccountSchemas[stepper.current?.currentStepIndex - 1])
+  }
 
   useEffect(() => {
     if (!stepper.current) {
@@ -265,12 +262,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     1
                   </span>
@@ -300,12 +297,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     2
                   </span>
@@ -334,12 +331,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     3
                   </span>
@@ -368,12 +365,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     4
                   </span>
@@ -402,12 +399,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
                   <i className='stepper-check fas fa-check'></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     5
                   </span>
@@ -440,7 +437,6 @@ const Vertical = () => {
               </div>
 
               <div data-kt-stepper-element='content'>
-
                 <Step2 />
               </div>
 
@@ -474,7 +470,7 @@ const Vertical = () => {
                     onClick={prevStep}
                     type='button'
                     className='btn btn-lg but_yellow me-3'
-                    style={{ backgroundColor: 'white', color: '#80171D' }}
+                    style={{backgroundColor: 'white', color: '#80171D'}}
                     data-kt-stepper-action='previous'
                   >
                     <KTIcon iconName='arrow-left' className='fs-4 me-1 text-white' />
@@ -483,11 +479,7 @@ const Vertical = () => {
                 </div>
 
                 <div>
-                  <button
-                    type='submit'
-                    className='btn btn-lg  me-3 but_brown'
-
-                  >
+                  <button type='submit' className='btn btn-lg  me-3 but_brown'>
                     <span className='indicator-label'>
                       {stepper.current?.currentStepIndex !==
                         stepper.current?.totalStepsNumber! - 1 && 'Next'}
@@ -495,7 +487,6 @@ const Vertical = () => {
                         stepper.current?.totalStepsNumber! - 1 && 'Next'}
 
                       <KTIcon iconName='arrow-right' className='fs-4 px-1 me-1 text-white' />
-
                     </span>
                   </button>
                 </div>
@@ -508,4 +499,4 @@ const Vertical = () => {
   )
 }
 
-export { Vertical, CGPAContext }
+export {Vertical, CGPAContext}

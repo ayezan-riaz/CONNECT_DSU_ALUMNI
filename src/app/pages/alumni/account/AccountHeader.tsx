@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react'
-import { KTIcon, toAbsoluteUrl } from '../../../../_metronic/helpers'
-import { Link } from 'react-router-dom'
-import { Dropdown1 } from '../../../../_metronic/partials'
-import { useLocation } from 'react-router'
+import React, {useEffect, useState} from 'react'
+import {KTIcon, toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {Link} from 'react-router-dom'
+import {Dropdown1} from '../../../../_metronic/partials'
+import {useLocation} from 'react-router'
 import axios from 'axios'
 import DefaultImage from '../assets/ayezan.jpg'
 
-const localid = localStorage.getItem('sub');
+const localid = localStorage.getItem('sub')
 
 const AccountHeader: React.FC = () => {
   const location = useLocation()
@@ -17,10 +17,10 @@ const AccountHeader: React.FC = () => {
   const fetchAcademicsByUserId = async () => {
     try {
       const response = await axios.get(
-        `https://amsbackend-ghub.onrender.com/users/${localid}/profile`
+        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
       )
       const userData = response.data
-      setImg(userData.avatar);
+      setImg(`https://ams-backend-gkxg.onrender.com/alumni/${userData.avatar}`)
       console.log(userData.avatar)
       setUsers(userData)
     } catch (error) {
@@ -38,8 +38,7 @@ const AccountHeader: React.FC = () => {
         <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
           <div className='me-7 mb-4'>
             <div className='symbol symbol-100px symbol-lg-160px symbol-fixed position-relative'>
-              {/* <img src={`https://amsbackend-ghub.onrender.com/alumni/${img}`} alt='Metronic' /> */}
-              <img src={DefaultImage} alt='Metronic' />
+              <img src={img} alt='ProfileImage' />
               <div className='position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px'></div>
             </div>
           </div>
@@ -49,10 +48,9 @@ const AccountHeader: React.FC = () => {
               <div className='d-flex flex-column'>
                 <div className='d-flex align-items-center mb-2'>
                   <a href='#' className='text-gray-800 text-hover-primary fs-2 fw-bolder me-1'>
-                    {user &&
-                      <span>  {user.first_name + " " + user.middle_name + "" + user.last_name}</span>
-                    }
-
+                    {user && (
+                      <span> {user.first_name + ' ' + user.middle_name + '' + user.last_name}</span>
+                    )}
                   </a>
                   {/* <a href='#'>
                     <KTIcon iconName='verify' className='fs-1 text-primary' />
@@ -73,9 +71,7 @@ const AccountHeader: React.FC = () => {
                     className='d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2'
                   >
                     <KTIcon iconName='geolocation' className='fs-4 me-1' />
-                    {user.profile &&
-                      <span>  {user.profile.country}</span>
-                    }
+                    {user.profile && <span> {user.profile.country}</span>}
                   </a>
                   <a
                     href='#'
@@ -167,7 +163,7 @@ const AccountHeader: React.FC = () => {
                   <div
                     className='bg-success rounded h-5px'
                     role='progressbar'
-                    style={{ width: '50%' }}
+                    style={{width: '50%'}}
                   ></div>
                 </div>
               </div>
@@ -199,7 +195,6 @@ const AccountHeader: React.FC = () => {
                 Settings
               </Link>
             </li>
-
 
             <li className='nav-item'>
               <Link
@@ -248,8 +243,6 @@ const AccountHeader: React.FC = () => {
                 Survey
               </Link>
             </li>
-
-
           </ul>
         </div>
       </div>
@@ -257,4 +250,4 @@ const AccountHeader: React.FC = () => {
   )
 }
 
-export { AccountHeader }
+export {AccountHeader}

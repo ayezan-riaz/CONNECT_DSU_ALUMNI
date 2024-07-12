@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import RangeSlider from './RangeSlider'
 import CreatableSelect from 'react-select/creatable'
-import { number } from 'yup'
+import {number} from 'yup'
 import axios from 'axios'
 
 interface Option {
@@ -9,7 +9,7 @@ interface Option {
   text: string
 }
 
-const localid=localStorage.getItem('sub');
+const localid = localStorage.getItem('sub')
 
 interface Question {
   id: number | string
@@ -26,23 +26,24 @@ interface SurveyFormProps {
   setFormFilled: (filled: boolean) => void
 }
 
-const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
-
- 
-
+const SurveyForm: React.FC<SurveyFormProps> = ({onSubmit, setFormFilled}) => {
   const postSurveyForm = async (data: any, userId: number) => {
     try {
-      const response = await axios.post(`https://amsbackend-ghub.onrender.com/survey/${localid}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.post(
+        `https://ams-backend-gkxg.onrender.com/api/survey/${localid}`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
 
-      console.log(response.data); // This will log the response data from the server.
+      console.log(response.data) // This will log the response data from the server.
     } catch (error) {
-      console.error(error); // Handle any errors that occur during the request.
+      console.error(error) // Handle any errors that occur during the request.
     }
-  };
+  }
 
   const [questions, setQuestions] = useState<Question[]>([
     {
@@ -157,20 +158,20 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
       id: 18,
       text: 'Did the curriculum at DSU teach you the skills most relevant to your field of specialization in the job market?',
       options: [
-        { id: 1, text: 'Yes' },
-        { id: 2, text: 'No' },
+        {id: 1, text: 'Yes'},
+        {id: 2, text: 'No'},
       ],
     },
     {
       id: 19,
       text: 'Which of the following activities appeal to you as a n oppurtunity to stay connected to DSU',
       options: [
-        { id: 1, text: 'Program/Major Reunions' },
-        { id: 2, text: 'Annual Campus Events/Festivals' },
-        { id: 3, text: 'E-Newsletter' },
-        { id: 4, text: 'Regional Activites' },
-        { id: 5, text: 'Class Reunions' },
-        { id: 6, text: 'Other' },
+        {id: 1, text: 'Program/Major Reunions'},
+        {id: 2, text: 'Annual Campus Events/Festivals'},
+        {id: 3, text: 'E-Newsletter'},
+        {id: 4, text: 'Regional Activites'},
+        {id: 5, text: 'Class Reunions'},
+        {id: 6, text: 'Other'},
       ],
       isSelectableTrue: true,
     },
@@ -178,12 +179,12 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
       id: 20,
       text: 'Are You Employed in the field of your DSU degree?If not why(Choose 1 response)',
       options: [
-        { id: 1, text: 'Yes, I am employed in my major field' },
-        { id: 2, text: 'No, I developed new Career interests' },
-        { id: 3, text: 'No, I could not find a job in my major' },
-        { id: 4, text: 'No, I am not presently employed out of choice' },
-        { id: 5, text: 'No, I am not presently employed due to unavailability of suitable job' },
-        { id: 6, text: 'No, The jobs in my field did not pay me well' },
+        {id: 1, text: 'Yes, I am employed in my major field'},
+        {id: 2, text: 'No, I developed new Career interests'},
+        {id: 3, text: 'No, I could not find a job in my major'},
+        {id: 4, text: 'No, I am not presently employed out of choice'},
+        {id: 5, text: 'No, I am not presently employed due to unavailability of suitable job'},
+        {id: 6, text: 'No, The jobs in my field did not pay me well'},
       ],
       isSelectableTrue: true,
     },
@@ -191,10 +192,10 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
       id: 21,
       text: 'Your overall experience with this university',
       options: [
-        { id: 1, text: 'Poor' },
-        { id: 2, text: 'Fair' },
-        { id: 3, text: 'Good' },
-        { id: 4, text: 'Excellent' },
+        {id: 1, text: 'Poor'},
+        {id: 2, text: 'Fair'},
+        {id: 3, text: 'Good'},
+        {id: 4, text: 'Excellent'},
       ],
     },
     {
@@ -313,7 +314,7 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
       Object.keys(answers).length === questions.length
     ) {
       onSubmit(answers)
-    
+
       postSurveyForm(answers, 4)
       setTimeout(() => setFormFilled(true), 3000)
     } else {
@@ -345,7 +346,7 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
             ) : question.isGradeTrue ? (
               <>
                 <div className='container mt-4 mb-4'>
-                  <div className='progress' style={{ height: '40px' }}>
+                  <div className='progress' style={{height: '40px'}}>
                     <div
                       className='progress-bar bg-danger'
                       style={{
@@ -371,7 +372,7 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
 
                     <div
                       className='progress-bar bg-secondary'
-                      style={{ width: '20%', fontWeight: 'bold', color: '#fff' }}
+                      style={{width: '20%', fontWeight: 'bold', color: '#fff'}}
                     >
                       Average
                     </div>
@@ -402,7 +403,7 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
 
                     <div
                       className='progress-bar bg-success'
-                      style={{ width: '20%', fontWeight: 'bold', color: '#fff' }}
+                      style={{width: '20%', fontWeight: 'bold', color: '#fff'}}
                     >
                       Excellent
                     </div>
@@ -420,7 +421,7 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
                   <input
                     className='form-control form-control-flush'
                     type='number'
-                    style={{ width: '300px' }}
+                    style={{width: '300px'}}
                     value={inp}
                     placeholder='Enter figure here'
                     required
@@ -458,9 +459,10 @@ const SurveyForm: React.FC<SurveyFormProps> = ({ onSubmit, setFormFilled }) => {
                   {question.options.map((option) => (
                     <button
                       type='button'
-                      className={`btn btn-light-primary mb-2 ${answers['q' + question.id] === option.text ? 'active' : ''
-                        }`}
-                      style={{ flex: `0 0 ${100 / question.options.length}%` }}
+                      className={`btn btn-light-primary mb-2 ${
+                        answers['q' + question.id] === option.text ? 'active' : ''
+                      }`}
+                      style={{flex: `0 0 ${100 / question.options.length}%`}}
                       data-kt-modal-bidding='option'
                       onClick={() => handleOptionChange(question.id, option.text)}
                     >

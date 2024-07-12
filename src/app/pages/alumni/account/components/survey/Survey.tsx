@@ -22,7 +22,7 @@ function Survey() {
   const getSurveyForm = async (userId: number) => {
     try {
       const response = await axios.get(
-        `https://amsbackend-ghub.onrender.com/users/${localid}/survey`,
+        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/survey`,
         {
           headers: {
             'Content-Type': 'application/json',

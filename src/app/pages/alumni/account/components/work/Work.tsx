@@ -12,22 +12,23 @@ interface Experience {
   end_year: string
 }
 
-const localid=localStorage.getItem('sub');
+const localid = localStorage.getItem('sub')
 
 const Work = () => {
   const [editUser, setEditUser] = useState<any>({})
   const [users, setUsers] = useState<Experience[]>([])
 
-
   const fetchExperiencesByUserId = async (userId: number) => {
     try {
-      const response = await axios.get(`https://amsbackend-ghub.onrender.com/users/${localid}/experiences`);
-      const userData = response.data;
-      console.log(userData.experiences);
-  
+      const response = await axios.get(
+        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/experiences`
+      )
+      const userData = response.data
+      console.log(userData.experiences)
+
       const newExperiences: Experience[] = userData.experiences.map((experience: any) => {
-        const { company, designation, id, nature_of_job, status, start_year, end_year } = experience;
-  
+        const {company, designation, id, nature_of_job, status, start_year, end_year} = experience
+
         // Create a new experience object
         const newExperience: Experience = {
           id,
@@ -37,70 +38,79 @@ const Work = () => {
           nature_of_job,
           start_year,
           end_year,
-        };
-  
-        return newExperience;
-      });
-  
-      console.log(newExperiences);
-      setUsers([...newExperiences]); // Assuming you have defined and set the 'setUsers' state elsewhere.
+        }
+
+        return newExperience
+      })
+
+      console.log(newExperiences)
+      setUsers([...newExperiences]) // Assuming you have defined and set the 'setUsers' state elsewhere.
     } catch (error) {
-      console.error(error); // Handle any errors that occur during the request.
+      console.error(error) // Handle any errors that occur during the request.
     }
-  };
+  }
 
   useEffect(() => {
- 
     fetchExperiencesByUserId(4)
-
   }, [])
 
   const postExperiencesByUserId = async (data: any, userId: number) => {
     try {
-      const response = await axios.post(`https://amsbackend-ghub.onrender.com/experiences/${localid}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      console.log(response.data); // This will log the response data from the server.
+      const response = await axios.post(
+        `https://ams-backend-gkxg.onrender.com/api/experiences/${localid}`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+
+      console.log(response.data) // This will log the response data from the server.
     } catch (error) {
-      console.error(error); // Handle any errors that occur during the request.
+      console.error(error) // Handle any errors that occur during the request.
     }
-  };
+  }
 
   const editExperienceByUserId = async (data: Experience, Id: number | undefined) => {
     try {
-      console.log(Id);
-      const response = await axios.patch(`https://amsbackend-ghub.onrender.com/experiences/${Id}`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      console.log(response.data); // This will log the response data from the server.
+      console.log(Id)
+      const response = await axios.patch(
+        `https://ams-backend-gkxg.onrender.com/api/experiences/${Id}`,
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+
+      console.log(response.data) // This will log the response data from the server.
     } catch (error) {
-      console.error(error); // Handle any errors that occur during the request.
+      console.error(error) // Handle any errors that occur during the request.
     }
-  };
+  }
 
   const deleteExperiencesByUserId = async (Id: number | undefined) => {
     try {
-      console.log(Id);
-      const response = await axios.delete(`https://amsbackend-ghub.onrender.com/experiences/${Id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      console.log(response.data); // This will log the response data from the server.
+      console.log(Id)
+      const response = await axios.delete(
+        `https://ams-backend-gkxg.onrender.com/api/experiences/${Id}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+
+      console.log(response.data) // This will log the response data from the server.
     } catch (error) {
-      console.error(error); // Handle any errors that occur during the request.
+      console.error(error) // Handle any errors that occur during the request.
     }
-  };
+  }
 
   const updateExistingUser = (updatedUser: any) => {
-    editExperienceByUserId(updatedUser,updatedUser.id)
+    editExperienceByUserId(updatedUser, updatedUser.id)
     setUsers((prevUsers) => {
       return prevUsers.map((user) => {
         if (user.id === updatedUser.id) {
@@ -125,7 +135,7 @@ const Work = () => {
       // updateExistingUser(userToUpdate);
       setEditUser(userToUpdate)
       updateExistingUser(userToUpdate)
-     
+
       setShowModal(true)
     }
   }
@@ -180,7 +190,7 @@ const Work = () => {
           >
             <thead>
               <tr className='text-start text-muted fw-bolder fs-7 text-uppercase gs-0'>
-              <th
+                <th
                   colSpan={1}
                   role='columnheader'
                   className='min-w-30px'
@@ -248,11 +258,11 @@ const Work = () => {
               </tr>
             </thead>
             <tbody className='text-gray-600 fw-bold' role='rowgroup'>
-              {users.map((user,index) => (
+              {users.map((user, index) => (
                 <tr key={user.id} role='row'>
-                 <td  role='cell' className=''>
-                  {index+1}
-                 </td>
+                  <td role='cell' className=''>
+                    {index + 1}
+                  </td>
                   <td role='cell' className=''>
                     {user.designation}
                   </td>
@@ -278,9 +288,10 @@ const Work = () => {
                       className='btn btn-light btn-active-light-primary btn-sm'
                       data-kt-menu-trigger='click'
                       data-kt-menu-placement='bottom-end'
-                      onClick={(e) =>{
+                      onClick={(e) => {
                         e.preventDefault()
-                        handleEditUser(user.id)}}
+                        handleEditUser(user.id)
+                      }}
                     >
                       Edit
                     </a>
@@ -291,7 +302,8 @@ const Work = () => {
                       data-kt-menu-placement='bottom-end'
                       onClick={(e) => {
                         e.preventDefault()
-                        handleDeleteUser(user.id)}}
+                        handleDeleteUser(user.id)
+                      }}
                     >
                       Delete
                     </a>

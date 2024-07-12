@@ -38,7 +38,7 @@
 //     onSubmit: async (values, { setStatus, setSubmitting }) => {
 //       setLoading(true);
 //       try {
-//         const response = await axios.post('https://amsbackend-ghub.onrender.com/login', {
+//         const response = await axios.post('https://ams-backend-gkxg.onrender.com/api/login', {
 //           email: values.email,
 //           password: values.password,
 //         });
@@ -48,7 +48,7 @@
 //         saveAuth(access_token); // Save access token to local storage
 
 //         // Fetch user details using the access token
-//         const userResponse = await axios.get('https://amsbackend-ghub.onrender.com/protected', {
+//         const userResponse = await axios.get('https://ams-backend-gkxg.onrender.com/api/protected', {
 //           headers: {
 //             Authorization: `Bearer ${access_token}`,
 //           },
@@ -73,8 +73,6 @@
 //       }
 //     },
 //   });
-
-
 
 //   // Rest of the component code remains the same
 //   // ...
@@ -199,14 +197,14 @@
 //     </form>
 //   )
 // }
-import { useEffect, useState } from 'react';
-import * as Yup from 'yup';
-import clsx from 'clsx';
-import { Link, useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { useAuth } from '../core/Auth';
-import React from 'react';
+import {useEffect, useState} from 'react'
+import * as Yup from 'yup'
+import clsx from 'clsx'
+import {Link, useNavigate} from 'react-router-dom'
+import {useFormik} from 'formik'
+import axios from 'axios'
+import {useAuth} from '../core/Auth'
+import React from 'react'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -218,55 +216,58 @@ const loginSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
-});
+})
 
 const initialValues = {
   email: 'admin@demo.com',
   password: 'demo',
-};
+}
 
 export function Login() {
-  const [loading, setLoading] = useState(false);
-  const { saveAuth, setCurrentUser } = useAuth();
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
+  const {saveAuth, setCurrentUser} = useAuth()
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values, { setStatus, setSubmitting }) => {
-      setLoading(true);
+    onSubmit: async (values, {setStatus, setSubmitting}) => {
+      setLoading(true)
       try {
         const response = await axios.post('https://ams-backend-gkxg.onrender.com/api/login', {
           email: values.email,
           password: values.password,
-        });
+        })
 
-        const { access_token } = response.data;
-        localStorage.setItem('token', access_token); // Save access token to local storage
-        saveAuth(access_token); // Save token using context
+        const {access_token} = response.data
+        localStorage.setItem('token', access_token) // Save access token to local storage
+        saveAuth(access_token) // Save token using context
 
         // Fetch user details using the access token
-        const userResponse = await axios.get('https://ams-backend-gkxg.onrender.com/api/protected', {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        });
-        const { sub } = userResponse.data;
-        console.log("Sub", sub);
-        localStorage.setItem('sub', sub);
-        setCurrentUser(userResponse.data); // Set current user in context
-        setLoading(false);
+        const userResponse = await axios.get(
+          'https://ams-backend-gkxg.onrender.com/api/protected',
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        )
+        const {sub} = userResponse.data
+        console.log('Sub', sub)
+        localStorage.setItem('sub', sub)
+        setCurrentUser(userResponse.data) // Set current user in context
+        setLoading(false)
 
         // Redirect to the dashboard on successful login
-        navigate('/dashboard');
+        navigate('/dashboard')
       } catch (error) {
-        console.error(error);
-        setStatus('The login details are incorrect');
-        setSubmitting(false);
-        setLoading(false);
+        console.error(error)
+        setStatus('The login details are incorrect')
+        setSubmitting(false)
+        setLoading(false)
       }
     },
-  });
+  })
 
   return (
     <form
@@ -278,12 +279,15 @@ export function Login() {
       {/* begin::Heading */}
       <div className='text-center mb-11'>
         <h1 className=' fw-bolder mb-3 text-dark'>
-          <Link to="dsu/home">
+          <Link to='dsu/home'>
             <span>
-              <i className='fas fa-arrow-circle-left' style={{ color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer' }}></i>
+              <i
+                className='fas fa-arrow-circle-left'
+                style={{color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer'}}
+              ></i>
             </span>
           </Link>
-          Ayeza    Welcome To The Alumni Portal
+          Ayeza Welcome To The Alumni Portal
         </h1>
       </div>
 
@@ -301,7 +305,7 @@ export function Login() {
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control bg-transparent',
-            { 'is-invalid': formik.touched.email && formik.errors.email },
+            {'is-invalid': formik.touched.email && formik.errors.email},
             {
               'is-valid': formik.touched.email && !formik.errors.email,
             }
@@ -350,7 +354,7 @@ export function Login() {
         <div />
 
         {/* begin::Link */}
-        <Link to='/auth/forgot-password' style={{ color: '#80171D' }}>
+        <Link to='/auth/forgot-password' style={{color: '#80171D'}}>
           Forgot Password ?
         </Link>
         {/* end::Link */}
@@ -369,12 +373,12 @@ export function Login() {
           disabled={formik.isSubmitting || !formik.isValid}
         >
           {!loading && (
-            <span className='indicator-label' style={{ color: 'white' }}>
+            <span className='indicator-label' style={{color: 'white'}}>
               Sign In
             </span>
           )}
           {loading && (
-            <span className='indicator-progress' style={{ display: 'block' }}>
+            <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
@@ -385,10 +389,10 @@ export function Login() {
 
       <div className='text-gray-500 text-center fw-semibold fs-6'>
         Not a Member yet?{' '}
-        <Link to='/auth/registration' style={{ color: '#80171D' }}>
+        <Link to='/auth/registration' style={{color: '#80171D'}}>
           Create an Account
         </Link>
       </div>
     </form>
-  );
+  )
 }

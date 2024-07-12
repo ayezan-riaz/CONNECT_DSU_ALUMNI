@@ -1,18 +1,16 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { toAbsoluteUrl } from '../../../../../../../_metronic/helpers'
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react'
+import {toAbsoluteUrl} from '../../../../../../../_metronic/helpers'
 import {
   IProfileDetails,
   IProfileDetails2,
   profileDetailsInitValues2 as initialValues,
 } from '../SettingsModel'
 import * as Yup from 'yup'
-import { useFormik } from 'formik'
+import {useFormik} from 'formik'
 import axios from 'axios'
 import moment from 'moment'
 
-
-
-const localid=localStorage.getItem('sub');
+const localid = localStorage.getItem('sub')
 
 const profileDetailsSchema = Yup.object().shape({
   fisrt_name: Yup.string().required('First name is required'),
@@ -41,12 +39,12 @@ const ProfileDetails: React.FC = () => {
   const fetchRecordByUserId = async (userId: number) => {
     try {
       const response = await axios.get(
-        `https://amsbackend-ghub.onrender.com/users/${localid}/profile`
+        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
       )
       const userData = response.data
       updateData(userData)
 
-      setData(userData);
+      setData(userData)
       console.log(userData, data)
       // setUsers(userData)
     } catch (error) {
@@ -54,15 +52,14 @@ const ProfileDetails: React.FC = () => {
     }
   }
 
-
   const editRecordByUserId = async () => {
     try {
       console.log(data.profile?.id)
       const response = await axios.patch(
-        `https://amsbackend-ghub.onrender.com/users/${data.profile?.id}/profile`
+        `https://ams-backend-gkxg.onrender.com/api/users/${data.profile?.id}/profile`
       )
       const userData = response.data
-       updateData(userData)
+      updateData(userData)
 
       // setData(userData);
       console.log(userData, data)
@@ -73,8 +70,7 @@ const ProfileDetails: React.FC = () => {
   }
 
   useEffect(() => {
-   
-    if(data){
+    if (data) {
       fetchRecordByUserId(93)
     }
   }, [])
@@ -267,8 +263,6 @@ const ProfileDetails: React.FC = () => {
                 <select
                   className='form-select form-select-solid form-select-lg fw-bold'
                   {...formik.getFieldProps('country')}
-                 
-                
                 >
                   <option value={data.profile?.country}>{data.profile?.country}</option>
                   <option value='AF'>Afghanistan</option>
@@ -717,7 +711,7 @@ const ProfileDetails: React.FC = () => {
                   className='form-select form-select-solid form-select-lg'
                   {...formik.getFieldProps('timezone')}
                 >
-                   <option value={data.profile?.timezone}>{data.profile?.timezone}</option>
+                  <option value={data.profile?.timezone}>{data.profile?.timezone}</option>
                   <option value='International Date Line West'>
                     (GMT-11:00) International Date Line West
                   </option>
@@ -973,7 +967,7 @@ const ProfileDetails: React.FC = () => {
             <button type='submit' className='btn btn-primary' disabled={loading}>
               {!loading && 'Save Changes'}
               {loading && (
-                <span className='indicator-progress' style={{ display: 'block' }}>
+                <span className='indicator-progress' style={{display: 'block'}}>
                   Please wait...{' '}
                   <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                 </span>
@@ -986,4 +980,4 @@ const ProfileDetails: React.FC = () => {
   )
 }
 
-export { ProfileDetails }
+export {ProfileDetails}

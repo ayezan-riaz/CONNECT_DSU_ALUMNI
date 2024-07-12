@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import eventBackground from '../../../../pages/alumni/assets/eventBackground.jpg';
 import { Event } from '../../../../pages/alumni/dsu/components/event/components/eventTypes'; // Import the common Event type
-import './homeEvents.css';
+import './HomeEvents.css';
 import { Link } from 'react-router-dom';
 
 const HomeEvents: React.FC = () => {

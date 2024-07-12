@@ -1,26 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC } from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../../../app/modules/auth'
-import { Languages } from './Languages'
-import { toAbsoluteUrl } from '../../../helpers'
-import { useEffect, useState } from 'react'
+import {FC} from 'react'
+import {Link} from 'react-router-dom'
+import {useAuth} from '../../../../app/modules/auth'
+import {Languages} from './Languages'
+import {toAbsoluteUrl} from '../../../helpers'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
 import DefaultImage from '../../../../app/pages/alumni/assets/ayezan.jpg'
-const localid = localStorage.getItem('sub');
+const localid = localStorage.getItem('sub')
 
 const HeaderUserMenu: FC = () => {
-
   const [img, setImg] = useState<string>('')
   const fetchAcademicsByUserId = async () => {
     try {
       const response = await axios.get(
-        `https://amsbackend-ghub.onrender.com/users/${localid}/profile`
+        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
       )
       const userData = response.data
-      setImg(userData.avatar);
+      setImg(userData.avatar)
       console.log(userData.avatar)
-
     } catch (error) {
       console.error(error) // Handle any errors that occur during the request.
     }
@@ -30,10 +28,7 @@ const HeaderUserMenu: FC = () => {
     fetchAcademicsByUserId()
   }, [])
 
-
-
-
-  const { currentUser, logout } = useAuth()
+  const {currentUser, logout} = useAuth()
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -42,7 +37,7 @@ const HeaderUserMenu: FC = () => {
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
           <div className='symbol symbol-50px me-5'>
-            {/* <img src={`https://amsbackend-ghub.onrender.com/alumni/${img}`} alt='logo' /> */}
+            {/* <img src={`https://ams-backend-gkxg.onrender.com/api/alumni/${img}`} alt='logo' /> */}
             <img src={img || DefaultImage} alt='Metronic' />
           </div>
 
@@ -66,12 +61,6 @@ const HeaderUserMenu: FC = () => {
         </Link>
       </div>
 
-
-
-
-
-
-
       <div className='separator my-2'></div>
 
       {/* <Languages /> */}
@@ -91,4 +80,4 @@ const HeaderUserMenu: FC = () => {
   )
 }
 
-export { HeaderUserMenu }
+export {HeaderUserMenu}
