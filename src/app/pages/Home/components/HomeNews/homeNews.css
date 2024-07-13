@@ -1,18 +1,16 @@
-.text-css{
-    color: #80171d;
-    font-weight: 800;
-    font-size: 35px;
-    margin-bottom: 5px;
-
+.text-css {
+  color: #80171d;
+  font-weight: 800;
+  font-size: 35px;
+  margin-bottom: 5px;
 }
 
 .des {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-
 a.d-block.overlay.mb-4 {
-    font-size: 17px !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
 }

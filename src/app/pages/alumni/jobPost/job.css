@@ -1,62 +1,62 @@
 .container {
-    margin-bottom: 5%;
+  margin-bottom: 5%;
 }
 
 #form-header {
-    margin-top: 5%;
-    text-align: center;
+  margin-top: 5%;
+  text-align: center;
 }
 
 #form-tagline {
-    background: #ff6d00;
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-    color: #ffffff;
-    margin-top: 5%;
-    padding: 4%;
-    text-align: left;
+  background: #ff6d00;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  color: #ffffff;
+  margin-top: 5%;
+  padding: 4%;
+  text-align: left;
 }
 
 #form-tagline .fa {
-    margin-bottom: 15%;
+  margin-bottom: 15%;
 }
 
 #form-tagline h2 {
-    margin-bottom: 15%;
+  margin-bottom: 15%;
 }
 
 #form-content {
-    background: #f4f4f4;
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    margin-top: 5%;
-    padding: 3%;
+  background: #f4f4f4;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  margin-top: 5%;
+  padding: 3%;
 }
 
 .form-group {
-    margin-top: 5%;
+  margin-top: 5%;
 }
 
 .contact {
-    padding: 4%;
-    height: 400px;
+  padding: 4%;
+  height: 400px;
 }
 
 .control-label {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 div .submit-button {
-    margin-top: 3%;
-    text-align: right;
+  margin-top: 3%;
+  text-align: right;
 }
 
 button#submit {
-    white-space: normal;
-    width: auto;
-    background: #ff6d00;
-    color: #ffffff;
-    font-weight: 600;
-    width: 25%;
+  white-space: normal;
+  width: auto;
+  background: #ff6d00;
+  color: #ffffff;
+  font-weight: 600;
+  width: 25%;
 }

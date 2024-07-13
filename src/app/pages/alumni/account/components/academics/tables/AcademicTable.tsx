@@ -5,10 +5,7 @@ import axios from 'axios'
 import LoadingScreen from '../../LoadingScreen/LoadingScreen'
 import moment from 'moment'
 
-
-
-const localid=localStorage.getItem('sub');
-
+const localid = localStorage.getItem('sub')
 
 const AcademicTable = () => {
   const [showModal, setShowModal] = useState(false)
@@ -18,29 +15,25 @@ const AcademicTable = () => {
   const [editUser, setEditUser] = useState<any>({})
   const [isLoading, setIsLoading] = useState(true)
 
-
-
   const fetchAcademicsByUserId = async (userId: number) => {
     try {
       const response = await axios.get(
-        `https://amsbackend-ghub.onrender.com/academics/user/${localid}`
+        `https://ams-backend-gkxg.onrender.com/api/academics/user/${localid}`
       )
-      const userData = response.data     
-      console.log(userData,localid)
-      const filteredUsers: any[] = [];
-      userData.forEach((user:any) => {
+      const userData = response.data
+      console.log(userData, localid)
+      const filteredUsers: any[] = []
+      userData.forEach((user: any) => {
         console.log(user)
         if (user.qualification_type === 'Degree') {
           filteredUsers.push(user)
         }
       })
-      setUsers([...filteredUsers]);
+      setUsers([...filteredUsers])
     } catch (error) {
       console.error(error) // Handle any errors that occur during the request.
     }
   }
-
- 
 
   const uploadFile = async (userId: number, crt: {certificate: File}): Promise<any> => {
     try {
@@ -50,7 +43,7 @@ const AcademicTable = () => {
       formData.append('file', crt.certificate)
 
       const response = await axios.post(
-        `https://amsbackend-ghub.onrender.com/academics/${userId}/uploadCertificate`,
+        `https://ams-backend-gkxg.onrender.com/api/academics/${userId}/uploadCertificate`,
         formData
       )
 
@@ -67,7 +60,7 @@ const AcademicTable = () => {
   const addAcademic = async (academicData: any) => {
     try {
       const response = await axios.post(
-        `https://amsbackend-ghub.onrender.com/academics/${localid}`,
+        `https://ams-backend-gkxg.onrender.com/api/academics/${localid}`,
         academicData,
         {
           headers: {
@@ -85,7 +78,9 @@ const AcademicTable = () => {
 
   const deleteAcademic = async (userId: number) => {
     try {
-      const response = await axios.delete(`https://amsbackend-ghub.onrender.com/academics/${userId}`)
+      const response = await axios.delete(
+        `https://ams-backend-gkxg.onrender.com/api/academics/${userId}`
+      )
       return response.data
     } catch (error) {
       console.log(error)
@@ -96,10 +91,9 @@ const AcademicTable = () => {
   const editAcademic = async (updatedUser: any) => {
     try {
       console.log(updatedUser)
-    
 
       const response = await axios.patch(
-        `https://amsbackend-ghub.onrender.com/academics/${updatedUser.id}`,
+        `https://ams-backend-gkxg.onrender.com/api/academics/${updatedUser.id}`,
         updatedUser,
         {
           headers: {
@@ -115,16 +109,6 @@ const AcademicTable = () => {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
   const updateExistingUser = async (updatedUser: any, crt: any) => {
     console.log(updatedUser)
     await editAcademic(updatedUser)
@@ -137,7 +121,7 @@ const AcademicTable = () => {
       const s = '4/academicCertificates/' + updatedUser.id + '.' + fileExtension
 
       const upUser = {...updatedUser, certificate: s}
-    
+
       setUsers((prevUsers) => {
         return prevUsers.map((user) => {
           if (user.id === updatedUser.id) {
@@ -147,25 +131,17 @@ const AcademicTable = () => {
         })
       })
       await uploadFile(updatedUser.id, crt)
-    }
-else{
-    setUsers((prevUsers) => {
-      return prevUsers.map((user) => {
-        if (user.id === updatedUser.id) {
-          return updatedUser
-        }
-        return user
+    } else {
+      setUsers((prevUsers) => {
+        return prevUsers.map((user) => {
+          if (user.id === updatedUser.id) {
+            return updatedUser
+          }
+          return user
+        })
       })
-    })
+    }
   }
-
-
-  }
-
- 
-
-
-  
 
   useEffect(() => {
     if (users) {
@@ -180,7 +156,7 @@ else{
     if (userToUpdate) {
       console.log(userToUpdate)
       // Perform the edit operation on the user (e.g., open a modal for editing)
-     // updateExistingUser(userToUpdate)
+      // updateExistingUser(userToUpdate)
 
       setEditUser(userToUpdate)
 
@@ -230,10 +206,10 @@ else{
     setEditUser({})
   }
 
-  if(isLoading){
-  return <LoadingScreen/>
+  if (isLoading) {
+    return <LoadingScreen />
   }
-  
+
   return (
     <>
       <div className='card-header border-0 pt-5'>
@@ -247,8 +223,6 @@ else{
             <i className='ki-duotone ki-plus fs-2' />
             Add New Academic Record
           </a>
-
-        
         </div>
       </div>
       <div className='card-body py-3'>
@@ -266,7 +240,7 @@ else{
                 <th className='min-w-130px'>Institute</th>
                 <th className='min-w-120px'>Location</th>
                 <th className='min-w-115px'>Duration</th>
-                <th className='min-w-115px'>Score</th> 
+                <th className='min-w-115px'>Score</th>
                 <th className='min-w-120px'>Status</th>
                 <th className='min-w-120px'>Reference</th>
                 <th className='min-w-115px '>Actions</th>
@@ -275,40 +249,33 @@ else{
             <tbody>
               {users.map((user) => (
                 <tr>
-                 
-                    <>
-                      <td>
-                        <div className='d-flex align-items-center'>
-                          <div
-                            className='symbol symbol-35px symbol-circle ms-3 me-2'
-                            data-bs-toggle='tooltip'
-                          >
-                            <span className='symbol-label bg-secondary text-inverse-warning fw-bold'>
-                              {user.qualification && user.qualification.charAt(0)}
-                            </span>
-                          </div>
-                          <div className='d-flex justify-content-start flex-column'>
-                            <a
-                              href='#'
-                              className='text-danger fw-bold text-hover-primary mb-1 fs-6'
-                            >
-                              {user.qualification}
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <a
-                          href='#'
-                          className='text-danger fw-bold text-hover-primary d-block mb-1 fs-6'
+                  <>
+                    <td>
+                      <div className='d-flex align-items-center'>
+                        <div
+                          className='symbol symbol-35px symbol-circle ms-3 me-2'
+                          data-bs-toggle='tooltip'
                         >
-                          {user.area}
-                        </a>
-                      </td>
-                    </>
-                
-                    
-            
+                          <span className='symbol-label bg-secondary text-inverse-warning fw-bold'>
+                            {user.qualification && user.qualification.charAt(0)}
+                          </span>
+                        </div>
+                        <div className='d-flex justify-content-start flex-column'>
+                          <a href='#' className='text-danger fw-bold text-hover-primary mb-1 fs-6'>
+                            {user.qualification}
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <a
+                        href='#'
+                        className='text-danger fw-bold text-hover-primary d-block mb-1 fs-6'
+                      >
+                        {user.area}
+                      </a>
+                    </td>
+                  </>
 
                   <td>
                     <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
@@ -320,9 +287,13 @@ else{
                       {user.institute_address}
                     </a>
                   </td>
-                  <td> {moment(user.start_year).format('YYYY-MM-DD')}--{moment(user.end_year).format('YYYY-MM-DD')}</td>
+                  <td>
+                    {' '}
+                    {moment(user.start_year).format('YYYY-MM-DD')}--
+                    {moment(user.end_year).format('YYYY-MM-DD')}
+                  </td>
 
-                 <td>{user.score}</td> 
+                  <td>{user.score}</td>
 
                   <td>
                     <span className='badge badge-success fs-7 fw-bold'>{user.status} </span>
@@ -331,7 +302,7 @@ else{
                     {user.certificate ? (
                       <>
                         <a
-                          href={`https://amsbackend-ghub.onrender.com/alumni/${user.certificate}`}
+                          href={`https://ams-backend-gkxg.onrender.com/api/alumni/${user.certificate}`}
                           target='_blank'
                         >
                           {user.certificate}
@@ -369,7 +340,7 @@ else{
           </table>
           {/* end::Table */}
         </div>
-        {showModal &&  (
+        {showModal && (
           <AcademicModal
             heading='Academic'
             closeModal={closeModal}
@@ -378,10 +349,7 @@ else{
             setEditUser={setEditUser}
             updateExistingUser={updateExistingUser}
           />
-      
-        )
-       
-    }
+        )}
       </div>
     </>
   )

@@ -208,10 +208,9 @@ const SkillsModal: React.FC<TargetModalProps> = ({
     if (editUser.id) {
       console.log(selectedFile, formData.certificate)
       let certificateObj = {
-        certificate: selectedFile ,
+        certificate: selectedFile,
       }
 
-    
       const updatedUser = {
         ...editUser,
         category: Category,
@@ -224,9 +223,9 @@ const SkillsModal: React.FC<TargetModalProps> = ({
       }
       if (selectedFile == formData.certificate) {
         console.log('kjajs')
-        certificateObj.certificate = null;
-        updatedUser.certificate=selectedFile
-        
+        certificateObj.certificate = null
+        updatedUser.certificate = selectedFile
+
         console.log(certificateObj.certificate)
       }
 
@@ -433,13 +432,17 @@ const SkillsModal: React.FC<TargetModalProps> = ({
                         }}
                       />
                     </Form.Group>
-                    <button  className='btn btn-primary btn-sm me-2' onClick={()=>{setSelectedFile(null)
-                    formik.values.has_certificate=false
-                    formData.has_certificate=false
-                  }}>
-                    Clear File
-                  </button>
-   
+                    <button
+                      className='btn btn-primary btn-sm me-2'
+                      onClick={() => {
+                        setSelectedFile(null)
+                        formik.values.has_certificate = false
+                        formData.has_certificate = false
+                      }}
+                    >
+                      Clear File
+                    </button>
+
                     <Form.Group className='mb-3'>
                       <Form.Label>Certification Link</Form.Label>
                       <Form.Control

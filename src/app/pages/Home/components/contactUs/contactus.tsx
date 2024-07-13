@@ -1,9 +1,5 @@
-
-
 const contactus = () => {
-  return (
-    <div>contactus</div>
-  )
+  return <div>contactus</div>
 }
 
 export default contactus

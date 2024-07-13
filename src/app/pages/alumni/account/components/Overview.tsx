@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { KTIcon } from '../../../../../_metronic/helpers'
+import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
+import {KTIcon} from '../../../../../_metronic/helpers'
 import moment from 'moment'
 import {
   ChartsWidget1,
@@ -9,22 +9,21 @@ import {
   TablesWidget1,
   TablesWidget5,
 } from '../../../../../_metronic/partials/widgets'
-import { IProfileDetails } from './settings/SettingsModel'
-import { profileDetailsInitValues } from './settings/SettingsModel'
+import {IProfileDetails} from './settings/SettingsModel'
+import {profileDetailsInitValues} from './settings/SettingsModel'
 import axios from 'axios'
 import LoadingScreen from './LoadingScreen/LoadingScreen'
 
-const localid=localStorage.getItem('sub');
-
+const localid = localStorage.getItem('sub')
 
 export function Overview() {
   const [user, setUsers] = useState<any>({})
   const [isLoading, setIsLoading] = useState(true)
-  const[sub,setSub]=useState<any>('');
+  const [sub, setSub] = useState<any>('')
   const fetchAcademicsByUserId = async (userId: number) => {
     try {
       const response = await axios.get(
-        `https://amsbackend-ghub.onrender.com/users/${localid}/profile`
+        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
       )
       const userData = response.data
       setUsers(userData)
@@ -35,20 +34,16 @@ export function Overview() {
   }
 
   useEffect(() => {
-   
     if (user) {
-    
       fetchAcademicsByUserId(93)
       setIsLoading(false)
     }
   }, [])
   // const user = profileDetailsInitValues
 
-
-
   return (
     <>
-      {(!isLoading && user) ? (
+      {!isLoading && user ? (
         <>
           <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
             <div className='card-header cursor-pointer'>
@@ -60,8 +55,6 @@ export function Overview() {
                 Edit Profile
               </Link>
             </div>
-
-           
 
             <div className='card-body p-9'>
               <div className='row mb-7'>
@@ -162,8 +155,9 @@ export function Overview() {
 
                 <div className='col-lg-8 fv-row'>
                   {user.profile && (
-
-                    <span className='fw-bold fs-6'>{moment(user.profile.date_of_birth).format('YYYY-MM-DD')}</span>
+                    <span className='fw-bold fs-6'>
+                      {moment(user.profile.date_of_birth).format('YYYY-MM-DD')}
+                    </span>
                   )}
                 </div>
               </div>
@@ -175,21 +169,18 @@ export function Overview() {
               <span className='fw-bold fs-6'>{user.profile[0].resume}</span>
             </div> */}
 
-
-                    {user.profile ? (
-                      <>
-                        <a
-                          href={`https://amsbackend-ghub.onrender.com/alumni/${user.profile.resume}`}
-                          target='_blank'
-                        >
-                          {user.profile.resume}
-                        </a>
-                    
-                      </>
-                    ) : (
-                      <span className='text-center'>No File</span>
-                    )}
-                 
+                {user.profile ? (
+                  <>
+                    <a
+                      href={`https://ams-backend-gkxg.onrender.com/api/alumni/${user.profile.resume}`}
+                      target='_blank'
+                    >
+                      {user.profile.resume}
+                    </a>
+                  </>
+                ) : (
+                  <span className='text-center'>No File</span>
+                )}
               </div>
 
               <div className='row mb-7'>

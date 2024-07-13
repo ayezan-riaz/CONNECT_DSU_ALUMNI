@@ -23,9 +23,6 @@ export interface IProfileDetails {
   allowMarketing: boolean
 }
 
-
-
-
 export interface IProfileDetails2 {
   avatar?: string
   first_name: string
@@ -34,7 +31,7 @@ export interface IProfileDetails2 {
   // ffName:string
   // flName:string
   // gender:string
-  profile:{
+  profile: {
     id: any
     country: string
     timezone: string
@@ -53,12 +50,6 @@ export interface IProfileDetails2 {
   // }
   // allowMarketing: boolean
 }
-
-
-
-
-
-
 
 export interface IUpdateEmail {
   newEmail: string
@@ -123,11 +114,11 @@ export const profileDetailsInitValues: IProfileDetails = {
   flName: 'M',
   gender: 'Male',
   country: 'Pakistan',
-  email: "saad@gmail.com",
+  email: 'saad@gmail.com',
   company: 'DHA Suffa University',
-  CNIC: "42102-098582-6",
+  CNIC: '42102-098582-6',
   contactPhone: '044 3276 454 935',
-  DOB: "1-2-1989",
+  DOB: '1-2-1989',
   Blood: 'B+',
   language: '',
   timeZone: '',
@@ -139,20 +130,18 @@ export const profileDetailsInitValues: IProfileDetails = {
   allowMarketing: false,
 }
 
-
 export const profileDetailsInitValues2: IProfileDetails2 = {
   avatar: '',
   first_name: '',
   middle_name: '',
   last_name: '',
-  profile:{
-    id:'',
+  profile: {
+    id: '',
     country: '',
-    date_of_birth: "",
+    date_of_birth: '',
     timezone: '',
-
   },
-  email: "",
+  email: '',
   phone: '',
   // currency: '',
   // communications: {

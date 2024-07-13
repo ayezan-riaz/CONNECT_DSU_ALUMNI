@@ -63,7 +63,7 @@
   background: #fff;
   padding-bottom: 15px;
   border-radius: 8px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   transition: transform 0.2s;
 }
 
@@ -87,7 +87,8 @@
   border: 4px solid #fff;
 }
 
-.carousel .card h2, .carousel .card span {
+.carousel .card h2,
+.carousel .card span {
   text-align: center;
   margin: 8px;
 }

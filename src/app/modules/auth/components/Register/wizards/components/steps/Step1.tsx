@@ -1,35 +1,32 @@
-import React, { FC } from 'react'
-import { KTIcon } from '../../../../../../../../_metronic/helpers'
-import { ErrorMessage, Field } from 'formik'
+import React, {FC} from 'react'
+import {KTIcon} from '../../../../../../../../_metronic/helpers'
+import {ErrorMessage, Field} from 'formik'
 
 const Step1: FC = () => {
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-10'>
-
-        <div className='text-gray-400 fw-bold fs-6 ' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div
+          className='text-gray-400 fw-bold fs-6 '
+          style={{display: 'flex', justifyContent: 'flex-end'}}
+        >
           Having Issues?
-          <a href='/auth/login' className=' fw-bolder' style={{ color: '#80171D' }}>
+          <a href='/auth/login' className=' fw-bolder' style={{color: '#80171D'}}>
             {' '}
-            Get Help  </a>
-
+            Get Help{' '}
+          </a>
         </div>
 
-
-        <h2 className='fw-bolder d-flex align-items-center text-dark'>
-          Create Alumni Account
-
-        </h2>
+        <h2 className='fw-bolder d-flex align-items-center text-dark'>Create Alumni Account</h2>
 
         <div className='text-gray-400 fw-bold fs-6'>
           Already have an Account?
-          <a href='/auth/login' className=' fw-bolder' style={{ color: '#80171D' }}>
+          <a href='/auth/login' className=' fw-bolder' style={{color: '#80171D'}}>
             {' '}
-            Sign In Running </a>
-
+            Sign In Running{' '}
+          </a>
         </div>
       </div>
-
 
       <div className='mb-10 fv-row'>
         <label className='form-label mb-3'>Registration Id</label>
@@ -43,10 +40,8 @@ const Step1: FC = () => {
           <ErrorMessage name='uni_reg_id' />
         </div>
       </div>
-
-
     </div>
   )
 }
 
-export { Step1 }
+export {Step1}

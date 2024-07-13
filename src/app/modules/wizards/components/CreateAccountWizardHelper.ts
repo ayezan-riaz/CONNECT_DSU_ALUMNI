@@ -2,11 +2,10 @@ import * as Yup from 'yup'
 
 export interface ICreateAccount {
   registrationId: string
- SentEmail: string
+  SentEmail: string
 }
 
 const createAccountSchemas = [
-
   Yup.object({
     registrationId: Yup.string().required().label('Registration Id'),
   }),
@@ -17,8 +16,8 @@ const createAccountSchemas = [
 ]
 
 const inits: ICreateAccount = {
- registrationId: '',
-  SentEmail: 'se201003@dsu.edpk'
+  registrationId: '',
+  SentEmail: 'se201003@dsu.edpk',
 }
 
 export {createAccountSchemas, inits}

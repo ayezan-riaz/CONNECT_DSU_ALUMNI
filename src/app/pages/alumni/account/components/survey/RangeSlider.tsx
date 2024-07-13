@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 interface RangeSliderProps {
   name: string
   value: string
-  onGradeChange: (grade: string) => void 
+  onGradeChange: (grade: string) => void
 
   // New prop for handling grade change
 }
@@ -23,7 +23,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({name, value, onGradeChange}) =
   const handleBlur = () => {
     const grade = getGrade()
     console.log(grade)
-     onGradeChange(grade)
+    onGradeChange(grade)
   }
 
   const getGrade = (): string => {
@@ -45,7 +45,6 @@ const RangeSlider: React.FC<RangeSliderProps> = ({name, value, onGradeChange}) =
             style={{width: '90%', height: '15px'}}
             onChange={handleChange}
             onBlur={handleBlur}
-           
           />
         </div>
       </div>
@@ -54,7 +53,9 @@ const RangeSlider: React.FC<RangeSliderProps> = ({name, value, onGradeChange}) =
           <h5 className='text text-primary'>
             {name}: {getGrade()}
           </h5>
-          {(getGrade() =='' || getGrade()==undefined)  ? <div className='text-danger mt-3 mb-3 fs-5'>Please select a value.</div> : null}
+          {getGrade() == '' || getGrade() == undefined ? (
+            <div className='text-danger mt-3 mb-3 fs-5'>Please select a value.</div>
+          ) : null}
         </div>
       </div>
     </div>

@@ -1,27 +1,27 @@
-import React, { useContext } from 'react';
-import { Field, ErrorMessage } from 'formik';
-import { useState } from 'react';
+import React, {useContext} from 'react'
+import {Field, ErrorMessage} from 'formik'
+import {useState} from 'react'
 
-import { CGPAContext } from '../Vertical';
+import {CGPAContext} from '../Vertical'
 
 export function Step3() {
+  const [showPassword, setShowPassword] = useState(false)
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const step2data = useContext(CGPAContext);
+  const step2data = useContext(CGPAContext)
 
   return (
     <div className='w-100'>
-      <div className='text-gray-400 fw-bold fs-6 mb-0' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div
+        className='text-gray-400 fw-bold fs-6 mb-0'
+        style={{display: 'flex', justifyContent: 'flex-end'}}
+      >
         Having Issues?
-        <a href='/auth/login' className='fw-bolder' style={{ color: '#80171D' }}>
+        <a href='/auth/login' className='fw-bolder' style={{color: '#80171D'}}>
           Get Help
         </a>
       </div>
-      <div className='container ' style={{ marginTop: 20 }}>
+      <div className='container ' style={{marginTop: 20}}>
         <div className='row'>
-
-
           <div className='mb-10 col-4 '>
             <label className='form-label mb-3'>First Name</label>
 
@@ -31,7 +31,6 @@ export function Step3() {
               name='first_name'
               value={step2data.step2First_name !== null ? step2data.step2First_name : ''}
               readOnly
-
             />
             <div className='text-danger mt-2'>
               <ErrorMessage name='first_name' />
@@ -46,7 +45,6 @@ export function Step3() {
               name='first_name'
               value={step2data.step2Middle_name !== null ? step2data.step2Middle_name : ''}
               readOnly
-
             />
             <div className='text-danger mt-2'>
               <ErrorMessage name='first_name' />
@@ -157,12 +155,12 @@ export function Step3() {
                 type='button'
                 onClick={() => setShowPassword(!showPassword)}
                 className='btn btn-sm btn-icon btn-active-color-primary position-absolute top-50 end-0 translate-middle-y'
-                style={{ zIndex: '99' }}
+                style={{zIndex: '99'}}
               >
                 {showPassword ? (
-                  <i className='bi bi-eye-slash' style={{ color: 'black' }}></i>
+                  <i className='bi bi-eye-slash' style={{color: 'black'}}></i>
                 ) : (
-                  <i className='bi bi-eye' style={{ color: 'black' }}></i>
+                  <i className='bi bi-eye' style={{color: 'black'}}></i>
                 )}
               </button>
             </div>

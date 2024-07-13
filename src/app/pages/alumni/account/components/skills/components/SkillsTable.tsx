@@ -7,17 +7,18 @@ import {useQuery, useMutation} from 'react-query'
 import axios from 'axios'
 import LoadingScreen from '../../LoadingScreen/LoadingScreen'
 
+const localid = localStorage.getItem('sub')
 
-const localid=localStorage.getItem('sub');
-   
 const SkillsTable = () => {
   const [users, setUsers] = useState<any[]>([])
- 
+
   const [isLoading, setIsLoading] = useState(true)
 
   const fetchSkillsByUserId = async (userId: number) => {
     try {
-      const response = await axios.get(`https://amsbackend-ghub.onrender.com/skills/user/${localid}`)
+      const response = await axios.get(
+        `https://ams-backend-gkxg.onrender.com/api/skills/user/${localid}`
+      )
       const userData = response.data
       console.log(userData)
       const modifiedUsers = userData.map((user: any) => {
@@ -32,35 +33,32 @@ const SkillsTable = () => {
     }
   }
 
- 
-
-  const uploadFile = async (userId: number, crt: { certificate: File }): Promise<any> => {
+  const uploadFile = async (userId: number, crt: {certificate: File}): Promise<any> => {
     try {
-      console.log(crt, userId);
+      console.log(crt, userId)
 
-      const formData = new FormData();
-      formData.append('file', crt.certificate);
+      const formData = new FormData()
+      formData.append('file', crt.certificate)
 
       const response = await axios.post(
-        `https://amsbackend-ghub.onrender.com/skills/${userId}/uploadCertificate`,
+        `https://ams-backend-gkxg.onrender.com/api/skills/${userId}/uploadCertificate`,
         formData
+      )
 
-      );
+      const data = response.data
+      console.log(data)
 
-      const data = response.data;
-      console.log(data);
-
-      return data;
-  } catch (error) {
-    console.error(error);
-    // Rethrow the error to be handled by the caller.
+      return data
+    } catch (error) {
+      console.error(error)
+      // Rethrow the error to be handled by the caller.
+    }
   }
-  };
 
   const addSkill = async (skillData: any) => {
     try {
       const response = await axios.post(
-        `https://amsbackend-ghub.onrender.com/skills/${localid}`,
+        `https://ams-backend-gkxg.onrender.com/api/skills/${localid}`,
         skillData,
         {
           headers: {
@@ -78,7 +76,9 @@ const SkillsTable = () => {
 
   const deleteSkill = async (userId: number) => {
     try {
-      const response = await axios.delete(`https://amsbackend-ghub.onrender.com/skills/${userId}`)
+      const response = await axios.delete(
+        `https://ams-backend-gkxg.onrender.com/api/skills/${userId}`
+      )
       return response.data
     } catch (error) {
       console.log(error)
@@ -93,7 +93,7 @@ const SkillsTable = () => {
       const upUser = {...updatedUser, tags: extractedTags}
 
       const response = await axios.patch(
-        `https://amsbackend-ghub.onrender.com/skills/${updatedUser.id}`,
+        `https://ams-backend-gkxg.onrender.com/api/skills/${updatedUser.id}`,
         upUser,
         {
           headers: {
@@ -124,7 +124,6 @@ const SkillsTable = () => {
   }
   useEffect(() => {
     if (users) {
-      
       fetchSkillsByUserId(4)
       setIsLoading(false)
     }
@@ -152,19 +151,16 @@ const SkillsTable = () => {
         })
       })
       await uploadFile(updatedUser.id, crt)
-    }
-else{
-    setUsers((prevUsers) => {
-      return prevUsers.map((user) => {
-        if (user.id === updatedUser.id) {
-          return updatedUser
-        }
-        return user
+    } else {
+      setUsers((prevUsers) => {
+        return prevUsers.map((user) => {
+          if (user.id === updatedUser.id) {
+            return updatedUser
+          }
+          return user
+        })
       })
-    })
-  }
-
-
+    }
   }
 
   useEffect(() => {
@@ -347,16 +343,12 @@ else{
 
                   <td className='text-center'>
                     {user.has_certificate ? <span>Yes</span> : <span>No</span>}
-
-        
                   </td>
-
-                
 
                   {user.certificate ? (
                     <>
                       <a
-                        href={`https://amsbackend-ghub.onrender.com/alumni/${user.certificate}`}
+                        href={`https://ams-backend-gkxg.onrender.com/api/alumni/${user.certificate}`}
                         target='_blank'
                       >
                         {user.certificate}
@@ -419,4 +411,3 @@ else{
 }
 
 export default SkillsTable
-

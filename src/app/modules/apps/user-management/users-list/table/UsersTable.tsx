@@ -47,7 +47,6 @@ const UsersTable = () => {
                     No matching records found
                   </div>
                 </td>
-          
               </tr>
             )}
           </tbody>

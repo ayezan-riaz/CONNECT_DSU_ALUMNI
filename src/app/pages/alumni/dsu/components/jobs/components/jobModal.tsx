@@ -117,18 +117,18 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
               placeholder="Enter title"
             />
           </Form.Group>
-          <Form.Group className="mb-3">
+          <Form.Group className='mb-3'>
             <Form.Label>Description</Form.Label>
             <Form.Control
-              as="textarea"
+              as='textarea'
               rows={3}
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Enter description"
+              placeholder='Enter description'
             />
           </Form.Group>
-          <Form.Group className="mb-3">
+          <Form.Group className='mb-3'>
             <Form.Label>End Date</Form.Label>
             <Form.Control
               type="date"
@@ -256,7 +256,7 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
         </Form>
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
 export default JobModal;

@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { KTIcon, toAbsoluteUrl } from '../../../_metronic/helpers'
-import { Link } from 'react-router-dom'
-import { Dropdown1 } from '../../../_metronic/partials'
-import { useLocation } from 'react-router'
+import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
+import {Link} from 'react-router-dom'
+import {Dropdown1} from '../../../_metronic/partials'
+import {useLocation} from 'react-router'
 
 const AccountHeader: React.FC = () => {
   const location = useLocation()
@@ -176,4 +176,4 @@ const AccountHeader: React.FC = () => {
   )
 }
 
-export { AccountHeader }
+export {AccountHeader}

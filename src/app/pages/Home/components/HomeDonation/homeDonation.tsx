@@ -1,8 +1,5 @@
-
 const homeDonation = () => {
-  return (
-    <div>homeDonation</div>
-  )
+  return <div>homeDonation</div>
 }
 
 export default homeDonation

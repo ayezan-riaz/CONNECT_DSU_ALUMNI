@@ -6,30 +6,27 @@ const Step1: FC = () => {
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-10'>
-
-      <div className='text-gray-400 fw-bold fs-6 ' style={{ display: 'flex', justifyContent: 'flex-end'}}>
-        Having Issues?  
-          <a href='/auth/login' className=' fw-bolder' style={{ color: '#80171D' }}>
+        <div
+          className='text-gray-400 fw-bold fs-6 '
+          style={{display: 'flex', justifyContent: 'flex-end'}}
+        >
+          Having Issues?
+          <a href='/auth/login' className=' fw-bolder' style={{color: '#80171D'}}>
             {' '}
-              Get Help  </a>
-          
+            Get Help{' '}
+          </a>
         </div>
 
-
-        <h2 className='fw-bolder d-flex align-items-center text-dark'>
-        Create Alumni Account
-          
-        </h2>
+        <h2 className='fw-bolder d-flex align-items-center text-dark'>Create Alumni Account</h2>
 
         <div className='text-gray-400 fw-bold fs-6'>
-        Already have an Account?  
-          <a href='/auth/login' className=' fw-bolder' style={{ color: '#80171D' }}>
+          Already have an Account?
+          <a href='/auth/login' className=' fw-bolder' style={{color: '#80171D'}}>
             {' '}
-             Sign In  </a>
-          
+            Sign In{' '}
+          </a>
         </div>
       </div>
-
 
       <div className='mb-10 fv-row'>
         <label className='form-label mb-3'>Registration Id</label>
@@ -43,8 +40,6 @@ const Step1: FC = () => {
           <ErrorMessage name='registrationId' />
         </div>
       </div>
-
-
     </div>
   )
 }

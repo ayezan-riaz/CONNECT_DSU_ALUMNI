@@ -1,8 +1,5 @@
-
-const alumniDirectory :React.FC= () => {
-  return (
-    <div>alumniDirectory</div>
-  )
+const alumniDirectory: React.FC = () => {
+  return <div>alumniDirectory</div>
 }
 
 export default alumniDirectory

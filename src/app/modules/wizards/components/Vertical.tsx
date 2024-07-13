@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
-import { KTIcon } from '../../../../_metronic/helpers'
-import { Step1 } from './steps/Step1'
-import { Step2 } from './steps/Step2'
-import { Step3 } from './steps/Step3'
-import { Step4 } from './steps/Step4'
-import { Step5 } from './steps/Step5'
-import { StepperComponent } from '../../../../_metronic/assets/ts/components'
-import { Form, Formik, FormikValues } from 'formik'
-import { createAccountSchemas, ICreateAccount, inits } from './CreateAccountWizardHelper'
+import {useEffect, useRef, useState} from 'react'
+import {KTIcon} from '../../../../_metronic/helpers'
+import {Step1} from './steps/Step1'
+import {Step2} from './steps/Step2'
+import {Step3} from './steps/Step3'
+import {Step4} from './steps/Step4'
+import {Step5} from './steps/Step5'
+import {StepperComponent} from '../../../../_metronic/assets/ts/components'
+import {Form, Formik, FormikValues} from 'formik'
+import {createAccountSchemas, ICreateAccount, inits} from './CreateAccountWizardHelper'
 
 const Vertical = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
@@ -82,12 +82,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     1
                   </span>
@@ -117,12 +117,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     2
                   </span>
@@ -151,12 +151,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     3
                   </span>
@@ -185,12 +185,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
-                  <i className='stepper-check fas fa-check' style={{ color: 'white' }}></i>
+                  <i className='stepper-check fas fa-check' style={{color: 'white'}}></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     4
                   </span>
@@ -219,12 +219,12 @@ const Vertical = () => {
                 {/* begin::Icon*/}
                 <div
                   className='stepper-icon w-40px h-40px'
-                  style={{ backgroundColor: '#80171D', color: 'white' }}
+                  style={{backgroundColor: '#80171D', color: 'white'}}
                 >
                   <i className='stepper-check fas fa-check'></i>
                   <span
                     className='stepper-number'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     5
                   </span>
@@ -278,7 +278,7 @@ const Vertical = () => {
                     onClick={prevStep}
                     type='button'
                     className='btn btn-lg btn-light-primary me-3'
-                    style={{ backgroundColor: 'white', color: '#80171D' }}
+                    style={{backgroundColor: 'white', color: '#80171D'}}
                     data-kt-stepper-action='previous'
                   >
                     <KTIcon iconName='arrow-left' className='fs-4 me-1 text-black' />
@@ -290,7 +290,7 @@ const Vertical = () => {
                   <button
                     type='submit'
                     className='btn btn-lg  me-3'
-                    style={{ backgroundColor: '#80171D', color: 'white' }}
+                    style={{backgroundColor: '#80171D', color: 'white'}}
                   >
                     <span className='indicator-label'>
                       {stepper.current?.currentStepIndex !==
@@ -310,4 +310,4 @@ const Vertical = () => {
   )
 }
 
-export { Vertical }
+export {Vertical}

@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-target-blank */
-import { useEffect } from 'react'
-import { ILayout, useLayout } from '../../core'
+import {useEffect} from 'react'
+import {ILayout, useLayout} from '../../core'
 
 const Footer = () => {
-  const { config } = useLayout()
+  const {config} = useLayout()
   useEffect(() => {
     updateDOM(config)
   }, [config])
@@ -13,11 +13,7 @@ const Footer = () => {
         <span className='text-muted fw-semibold me-1'>
           {new Date().getFullYear().toString()}&copy;
         </span>
-        <a
-          href='#'
-          target='_blank'
-          className='text-gray-800 text-hover-primary'
-        >
+        <a href='#' target='_blank' className='text-gray-800 text-hover-primary'>
           Suffa Soft
         </a>
       </div>
@@ -34,8 +30,6 @@ const Footer = () => {
             Support
           </a>
         </li>
-
-
       </ul>
     </>
   )
@@ -51,4 +45,4 @@ const updateDOM = (config: ILayout) => {
   }
 }
 
-export { Footer }
+export {Footer}

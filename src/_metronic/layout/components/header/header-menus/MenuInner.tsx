@@ -1,7 +1,7 @@
-import { useIntl } from 'react-intl'
-import { MenuItem } from './MenuItem'
-import { MenuInnerWithSub } from './MenuInnerWithSub'
-import { MegaMenu } from './MegaMenu'
+import {useIntl} from 'react-intl'
+import {MenuItem} from './MenuItem'
+import {MenuInnerWithSub} from './MenuInnerWithSub'
+import {MegaMenu} from './MegaMenu'
 
 export function MenuInner() {
   const intl = useIntl()
@@ -38,46 +38,15 @@ export function MenuInner() {
       >
         <MenuItem title='Event' to='/alumni/dsu/event' icon='archive' />
         <MenuItem title='News' to='/alumni/dsu/news' icon='setting-2' />
-        
       </MenuInnerWithSub>
 
-      <MenuItem
-        to='/alumni/dsu/association'
-      
-        title='Association'
-        
-      />
-         <MenuItem
-        to='/alumni/dsu/card'
-      
-        title='Alumni Card'
-        
-      />
+      <MenuItem to='/alumni/dsu/association' title='Association' />
+      <MenuItem to='/alumni/dsu/card' title='Alumni Card' />
 
-<MenuItem
-        to='/alumni/dsu/corporate'
-      
-        title='Corporate Partner'
-        
-      />
-      <MenuItem
-        to='/alumni/dsu/directory'
-      
-        title='Alumni Directory'
-        
-      />
-      <MenuItem
-        to='/alumni/dsu/donation'
-      
-        title='Donations'
-        
-      />
-      <MenuItem
-        to='/alumni/dsu/testimonial'
-      
-        title='Testimonial'
-        
-      />
+      <MenuItem to='/alumni/dsu/corporate' title='Corporate Partner' />
+      <MenuItem to='/alumni/dsu/directory' title='Alumni Directory' />
+      <MenuItem to='/alumni/dsu/donation' title='Donations' />
+      <MenuItem to='/alumni/dsu/testimonial' title='Testimonial' />
 
       {/* <MenuInnerWithSub
         title='Account'

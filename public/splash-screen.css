@@ -60,35 +60,32 @@ html[data-bs-theme='dark'] .splash-screen .dark-logo {
 
 .but_brown {
   color: white !important;
-  background-color: #80171D !important;
+  background-color: #80171d !important;
 }
 
 .but_brown:hover {
   color: white !important;
-  background-color: #80171D !important;
+  background-color: #80171d !important;
 }
 
 .but_yellow {
   color: white !important;
-  background-color: #FAB714 !important;
+  background-color: #fab714 !important;
 }
 
 .but_yellow:hover {
   color: white !important;
-  background-color: #FAB714 !important;
+  background-color: #fab714 !important;
 }
 
 .ki-plus {
   color: white !important;
-
 }
 
 .ki-exit-up {
   color: white !important;
-
 }
 
 .ki-filter {
   color: white !important;
-
 }
