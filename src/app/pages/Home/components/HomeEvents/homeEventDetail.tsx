@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useParams} from 'react-router-dom'
 import {Event} from '../../../../pages/alumni/dsu/components/event/components/eventTypes'
-const Imageurl = 'https://ams-backend-gkxg.onrender.com/event/'
+const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
 
 const HomeEventDetail: React.FC = () => {
   const {id} = useParams<{id: string}>()

@@ -12,7 +12,7 @@ const NewsPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedNews, setSelectedNews] = useState<News | null>(null) // Track the selected event
   const [deleteConfirmation, setDeleteConfirmation] = useState(false) // Track delete confirmation
-  const Imageurl = 'https://ams-backend-gkxg.onrender.com/news/'
+  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/news/'
   const fetchNews = () => {
     axios
       .get<News[]>('https://ams-backend-gkxg.onrender.com/api/news')

@@ -9,6 +9,7 @@ import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import axios from 'axios'
 import moment from 'moment'
+import {profile} from 'console'
 
 const localid = localStorage.getItem('sub')
 
@@ -31,70 +32,96 @@ const profileDetailsSchema = Yup.object().shape({
 const ProfileDetails: React.FC = () => {
   const [data, setData] = useState<IProfileDetails2>(initialValues)
 
-  const updateData = (fieldsToUpdate: Partial<IProfileDetails2>): void => {
-    const updatedData = Object.assign(data, fieldsToUpdate)
-    setData(updatedData)
-  }
-
-  const fetchRecordByUserId = async (userId: number) => {
+  const fetchRecordByUserId = async () => {
     try {
       const response = await axios.get(
         `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
       )
-      const userData = response.data
-      updateData(userData)
-
-      setData(userData)
-      console.log(userData, data)
-      // setUsers(userData)
+      setData(response?.data)
     } catch (error) {
-      console.error(error) // Handle any errors that occur during the request.
-    }
-  }
-
-  const editRecordByUserId = async () => {
-    try {
-      console.log(data.profile?.id)
-      const response = await axios.patch(
-        `https://ams-backend-gkxg.onrender.com/api/users/${data.profile?.id}/profile`
-      )
-      const userData = response.data
-      updateData(userData)
-
-      // setData(userData);
-      console.log(userData, data)
-      // setUsers(userData)
-    } catch (error) {
-      console.error(error) // Handle any errors that occur during the request.
+      console.error(error)
     }
   }
 
   useEffect(() => {
     if (data) {
-      fetchRecordByUserId(93)
+      fetchRecordByUserId()
     }
   }, [])
 
   const [loading, setLoading] = useState(false)
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const iref = useRef<HTMLInputElement>(null)
+
   const formik = useFormik<IProfileDetails2>({
     initialValues: data,
-    validationSchema: profileDetailsSchema,
-    onSubmit: (values) => {
-      // setLoading(true)
-      setTimeout(() => {
-        // values.communications.email = data.communications.email
-        // values.communications.phone = data.communications.phone
-        // values.allowMarketing = data.allowMarketing
-        console.log(data)
-        const updatedData = Object.assign(data, values)
-        setData(updatedData)
-        setLoading(false)
-        editRecordByUserId()
-      }, 1000)
+    // validationSchema: profileDetailsSchema,
+    onSubmit: async (values) => {
+      console.log(values)
     },
   })
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'date_of_birth') {
+      setData((prevValues) => {
+        const profile = prevValues?.profile
+        return {
+          ...prevValues,
+          profile: {
+            ...profile,
+            date_of_birth: event.target.value,
+          },
+        }
+      })
+    } else {
+      setData((prevValues) => ({
+        ...prevValues,
+        [event.target.name]: event.target.value,
+      }))
+    }
+  }
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setData((prevValues) => {
+      const profile = prevValues?.profile
+      if (event.target.name === 'country') {
+        return {
+          ...prevValues,
+          profile: {
+            ...profile,
+            country: event.target.value,
+          },
+        }
+      }
+
+      return {
+        ...prevValues,
+        profile: {
+          ...profile,
+          timezone: event.target.value,
+        },
+      }
+    })
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setLoading(false)
+
+    await axios.patch(
+      `https://ams-backend-gkxg.onrender.com/api/profiles/${data?.profile?.id}`,
+      {
+        country: data?.profile?.country,
+        date_of_birth: data?.profile?.date_of_birth,
+        timezone: data?.profile?.timezone,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+  }
 
   return (
     <div className='card mb-5 mb-xl-10'>
@@ -112,45 +139,8 @@ const ProfileDetails: React.FC = () => {
       </div>
 
       <div id='kt_account_profile_details' className='collapse show'>
-        <form onSubmit={formik.handleSubmit} noValidate className='form'>
+        <form onSubmit={handleSubmit} noValidate className='form'>
           <div className='card-body border-top p-9'>
-            {/* <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>Avatar</label>
-              <div className='col-lg-8'>
-                <div
-                  className='image-input image-input-outline'
-                  data-kt-image-input='true'
-                  style={{backgroundImage: `url(${toAbsoluteUrl('/media/avatars/blank.png')})`}}
-                >
-                  <div
-                    className='image-input-wrapper w-125px h-125px'
-                    style={{
-                      backgroundImage: `url(${
-                        !selectedImage
-                          ? toAbsoluteUrl(data.avatar)
-                          : URL.createObjectURL(selectedImage)
-                      })`,
-                    }}
-                    onClick={() => {
-                      iref.current?.click()
-                    }}
-                  ></div>
-                </div>
-              </div>
-              <input
-                type='file'
-                name='myImage'
-                ref={iref}
-                onChange={(event) => {
-                  if (event.target.files) {
-                    console.log(event.target.files[0])
-                    setSelectedImage(event.target.files[0])
-                  }
-                }}
-                hidden={true}
-              />
-            </div> */}
-
             <div className='row mb-6'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>Full Name</label>
 
@@ -159,9 +149,13 @@ const ProfileDetails: React.FC = () => {
                   <div className='col-lg-4 fv-row'>
                     <input
                       type='text'
+                      id='first_name'
+                      name='first_name'
+                      value={data.first_name}
                       className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
                       placeholder='First name'
-                      {...formik.getFieldProps('first_name')}
+                      disabled
+                      onChange={handleChange}
                     />
                     {formik.touched.first_name && formik.errors.first_name && (
                       <div className='fv-plugins-message-container'>
@@ -174,7 +168,11 @@ const ProfileDetails: React.FC = () => {
                       type='text'
                       className='form-control form-control-lg form-control-solid'
                       placeholder='Middle name'
-                      {...formik.getFieldProps('middle_name')}
+                      id='middle_name'
+                      name='middle_name'
+                      disabled
+                      onChange={handleChange}
+                      value={data.middle_name}
                     />
                     {formik.touched.middle_name && formik.errors.middle_name && (
                       <div className='fv-plugins-message-container'>
@@ -188,7 +186,11 @@ const ProfileDetails: React.FC = () => {
                       type='text'
                       className='form-control form-control-lg form-control-solid'
                       placeholder='Last name'
-                      {...formik.getFieldProps('last_name')}
+                      id='last_name'
+                      name='last_name'
+                      disabled
+                      value={data.last_name}
+                      onChange={handleChange}
                     />
                     {formik.touched.last_name && formik.errors.last_name && (
                       <div className='fv-plugins-message-container'>
@@ -200,60 +202,6 @@ const ProfileDetails: React.FC = () => {
               </div>
             </div>
 
-            {/* <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Father Name</label>
-
-              <div className='col-lg-8'>
-                <div className='row'>
-                  <div className='col-lg-6 fv-row'>
-                    <input
-                      type='text'
-                      className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
-                      placeholder='First name'
-                      {...formik.getFieldProps('ffName')}
-                    />
-                    {formik.touched.fName && formik.errors.fName && (
-                      <div className='fv-plugins-message-container'>
-                        <div className='fv-help-block'>{formik.errors.ffName}</div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className='col-lg-6 fv-row'>
-                    <input
-                      type='text'
-                      className='form-control form-control-lg form-control-solid'
-                      placeholder='Last name'
-                      {...formik.getFieldProps('flName')}
-                    />
-                    {formik.touched.flName && formik.errors.flName && (
-                      <div className='fv-plugins-message-container'>
-                        <div className='fv-help-block'>{formik.errors.flName}</div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
-            {/* <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Gender</label>
-
-              <div className='col-lg-8 fv-row'>
-                <input
-                  type='text'
-                  className='form-control form-control-lg form-control-solid'
-                  placeholder='Gender'
-                  {...formik.getFieldProps('gender')}
-                />
-                {formik.touched.gender && formik.errors.gender && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.gender}</div>
-                  </div>
-                )}
-              </div>
-            </div> */}
-
             <div className='row mb-6'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>Country</span>
@@ -261,257 +209,290 @@ const ProfileDetails: React.FC = () => {
 
               <div className='col-lg-8 fv-row'>
                 <select
+                  id='country'
+                  name='country'
+                  value={data?.profile?.country}
+                  onChange={handleSelectChange}
                   className='form-select form-select-solid form-select-lg fw-bold'
-                  {...formik.getFieldProps('country')}
                 >
                   <option value={data.profile?.country}>{data.profile?.country}</option>
-                  <option value='AF'>Afghanistan</option>
-                  <option value='AX'>Aland Islands</option>
-                  <option value='AL'>Albania</option>
-                  <option value='DZ'>Algeria</option>
-                  <option value='AS'>American Samoa</option>
-                  <option value='AD'>Andorra</option>
-                  <option value='AO'>Angola</option>
-                  <option value='AI'>Anguilla</option>
-                  <option value='AQ'>Antarctica</option>
-                  <option value='AG'>Antigua and Barbuda</option>
-                  <option value='AR'>Argentina</option>
-                  <option value='AM'>Armenia</option>
-                  <option value='AW'>Aruba</option>
-                  <option value='AU'>Australia</option>
-                  <option value='AT'>Austria</option>
-                  <option value='AZ'>Azerbaijan</option>
-                  <option value='BS'>Bahamas</option>
-                  <option value='BH'>Bahrain</option>
-                  <option value='BD'>Bangladesh</option>
-                  <option value='BB'>Barbados</option>
-                  <option value='BY'>Belarus</option>
-                  <option value='BE'>Belgium</option>
-                  <option value='BZ'>Belize</option>
-                  <option value='BJ'>Benin</option>
-                  <option value='BM'>Bermuda</option>
-                  <option value='BT'>Bhutan</option>
-                  <option value='BO'>Bolivia, Plurinational State of</option>
-                  <option value='BQ'>Bonaire, Sint Eustatius and Saba</option>
-                  <option value='BA'>Bosnia and Herzegovina</option>
-                  <option value='BW'>Botswana</option>
-                  <option value='BV'>Bouvet Island</option>
-                  <option value='BR'>Brazil</option>
-                  <option value='IO'>British Indian Ocean Territory</option>
-                  <option value='BN'>Brunei Darussalam</option>
-                  <option value='BG'>Bulgaria</option>
-                  <option value='BF'>Burkina Faso</option>
-                  <option value='BI'>Burundi</option>
-                  <option value='KH'>Cambodia</option>
-                  <option value='CM'>Cameroon</option>
-                  <option value='CA'>Canada</option>
-                  <option value='CV'>Cape Verde</option>
-                  <option value='KY'>Cayman Islands</option>
-                  <option value='CF'>Central African Republic</option>
-                  <option value='TD'>Chad</option>
-                  <option value='CL'>Chile</option>
-                  <option value='CN'>China</option>
-                  <option value='CX'>Christmas Island</option>
-                  <option value='CC'>Cocos (Keeling) Islands</option>
-                  <option value='CO'>Colombia</option>
-                  <option value='KM'>Comoros</option>
-                  <option value='CG'>Congo</option>
-                  <option value='CD'>Congo, the Democratic Republic of the</option>
-                  <option value='CK'>Cook Islands</option>
-                  <option value='CR'>Costa Rica</option>
-                  <option value='CI'>Côte d'Ivoire</option>
-                  <option value='HR'>Croatia</option>
-                  <option value='CU'>Cuba</option>
-                  <option value='CW'>Curaçao</option>
-                  <option value='CY'>Cyprus</option>
-                  <option value='CZ'>Czech Republic</option>
-                  <option value='DK'>Denmark</option>
-                  <option value='DJ'>Djibouti</option>
-                  <option value='DM'>Dominica</option>
-                  <option value='DO'>Dominican Republic</option>
-                  <option value='EC'>Ecuador</option>
-                  <option value='EG'>Egypt</option>
-                  <option value='SV'>El Salvador</option>
-                  <option value='GQ'>Equatorial Guinea</option>
-                  <option value='ER'>Eritrea</option>
-                  <option value='EE'>Estonia</option>
-                  <option value='ET'>Ethiopia</option>
-                  <option value='FK'>Falkland Islands (Malvinas)</option>
-                  <option value='FO'>Faroe Islands</option>
-                  <option value='FJ'>Fiji</option>
-                  <option value='FI'>Finland</option>
-                  <option value='FR'>France</option>
-                  <option value='GF'>French Guiana</option>
-                  <option value='PF'>French Polynesia</option>
-                  <option value='TF'>French Southern Territories</option>
-                  <option value='GA'>Gabon</option>
-                  <option value='GM'>Gambia</option>
-                  <option value='GE'>Georgia</option>
-                  <option value='DE'>Germany</option>
-                  <option value='GH'>Ghana</option>
-                  <option value='GI'>Gibraltar</option>
-                  <option value='GR'>Greece</option>
-                  <option value='GL'>Greenland</option>
-                  <option value='GD'>Grenada</option>
-                  <option value='GP'>Guadeloupe</option>
-                  <option value='GU'>Guam</option>
-                  <option value='GT'>Guatemala</option>
-                  <option value='GG'>Guernsey</option>
-                  <option value='GN'>Guinea</option>
-                  <option value='GW'>Guinea-Bissau</option>
-                  <option value='GY'>Guyana</option>
-                  <option value='HT'>Haiti</option>
-                  <option value='HM'>Heard Island and McDonald Islands</option>
-                  <option value='VA'>Holy See (Vatican City State)</option>
-                  <option value='HN'>Honduras</option>
-                  <option value='HK'>Hong Kong</option>
-                  <option value='HU'>Hungary</option>
-                  <option value='IS'>Iceland</option>
-                  <option value='IN'>India</option>
-                  <option value='ID'>Indonesia</option>
-                  <option value='IR'>Iran, Islamic Republic of</option>
-                  <option value='IQ'>Iraq</option>
-                  <option value='IE'>Ireland</option>
-                  <option value='IM'>Isle of Man</option>
-                  <option value='IL'>Israel</option>
-                  <option value='IT'>Italy</option>
-                  <option value='JM'>Jamaica</option>
-                  <option value='JP'>Japan</option>
-                  <option value='JE'>Jersey</option>
-                  <option value='JO'>Jordan</option>
-                  <option value='KZ'>Kazakhstan</option>
-                  <option value='KE'>Kenya</option>
-                  <option value='KI'>Kiribati</option>
-                  <option value='KP'>Korea, Democratic People's Republic of</option>
-                  <option value='KW'>Kuwait</option>
-                  <option value='KG'>Kyrgyzstan</option>
-                  <option value='LA'>Lao People's Democratic Republic</option>
-                  <option value='LV'>Latvia</option>
-                  <option value='LB'>Lebanon</option>
-                  <option value='LS'>Lesotho</option>
-                  <option value='LR'>Liberia</option>
-                  <option value='LY'>Libya</option>
-                  <option value='LI'>Liechtenstein</option>
-                  <option value='LT'>Lithuania</option>
-                  <option value='LU'>Luxembourg</option>
-                  <option value='MO'>Macao</option>
-                  <option value='MK'>Macedonia, the former Yugoslav Republic of</option>
-                  <option value='MG'>Madagascar</option>
-                  <option value='MW'>Malawi</option>
-                  <option value='MY'>Malaysia</option>
-                  <option value='MV'>Maldives</option>
-                  <option value='ML'>Mali</option>
-                  <option value='MT'>Malta</option>
-                  <option value='MH'>Marshall Islands</option>
-                  <option value='MQ'>Martinique</option>
-                  <option value='MR'>Mauritania</option>
-                  <option value='MU'>Mauritius</option>
-                  <option value='YT'>Mayotte</option>
-                  <option value='MX'>Mexico</option>
-                  <option value='FM'>Micronesia, Federated States of</option>
-                  <option value='MD'>Moldova, Republic of</option>
-                  <option value='MC'>Monaco</option>
-                  <option value='MN'>Mongolia</option>
-                  <option value='ME'>Montenegro</option>
-                  <option value='MS'>Montserrat</option>
-                  <option value='MA'>Morocco</option>
-                  <option value='MZ'>Mozambique</option>
-                  <option value='MM'>Myanmar</option>
-                  <option value='NA'>Namibia</option>
-                  <option value='NR'>Nauru</option>
-                  <option value='NP'>Nepal</option>
-                  <option value='NL'>Netherlands</option>
-                  <option value='NC'>New Caledonia</option>
-                  <option value='NZ'>New Zealand</option>
-                  <option value='NI'>Nicaragua</option>
-                  <option value='NE'>Niger</option>
-                  <option value='NG'>Nigeria</option>
-                  <option value='NU'>Niue</option>
-                  <option value='NF'>Norfolk Island</option>
-                  <option value='MP'>Northern Mariana Islands</option>
-                  <option value='NO'>Norway</option>
-                  <option value='OM'>Oman</option>
-                  <option value='PK'>Pakistan</option>
-                  <option value='PW'>Palau</option>
-                  <option value='PS'>Palestinian Territory, Occupied</option>
-                  <option value='PA'>Panama</option>
-                  <option value='PG'>Papua New Guinea</option>
-                  <option value='PY'>Paraguay</option>
-                  <option value='PE'>Peru</option>
-                  <option value='PH'>Philippines</option>
-                  <option value='PN'>Pitcairn</option>
-                  <option value='PL'>Poland</option>
-                  <option value='PT'>Portugal</option>
-                  <option value='PR'>Puerto Rico</option>
-                  <option value='QA'>Qatar</option>
-                  <option value='RE'>Réunion</option>
-                  <option value='RO'>Romania</option>
-                  <option value='RU'>Russian Federation</option>
-                  <option value='RW'>Rwanda</option>
-                  <option value='BL'>Saint Barthélemy</option>
-                  <option value='SH'>Saint Helena, Ascension and Tristan da Cunha</option>
-                  <option value='KN'>Saint Kitts and Nevis</option>
-                  <option value='LC'>Saint Lucia</option>
-                  <option value='MF'>Saint Martin (French part)</option>
-                  <option value='PM'>Saint Pierre and Miquelon</option>
-                  <option value='VC'>Saint Vincent and the Grenadines</option>
-                  <option value='WS'>Samoa</option>
-                  <option value='SM'>San Marino</option>
-                  <option value='ST'>Sao Tome and Principe</option>
-                  <option value='SA'>Saudi Arabia</option>
-                  <option value='SN'>Senegal</option>
-                  <option value='RS'>Serbia</option>
-                  <option value='SC'>Seychelles</option>
-                  <option value='SL'>Sierra Leone</option>
-                  <option value='SG'>Singapore</option>
-                  <option value='SX'>Sint Maarten (Dutch part)</option>
-                  <option value='SK'>Slovakia</option>
-                  <option value='SI'>Slovenia</option>
-                  <option value='SB'>Solomon Islands</option>
-                  <option value='SO'>Somalia</option>
-                  <option value='ZA'>South Africa</option>
-                  <option value='GS'>South Georgia and the South Sandwich Islands</option>
-                  <option value='KR'>South Korea</option>
-                  <option value='SS'>South Sudan</option>
-                  <option value='ES'>Spain</option>
-                  <option value='LK'>Sri Lanka</option>
-                  <option value='SD'>Sudan</option>
-                  <option value='SR'>Suriname</option>
-                  <option value='SJ'>Svalbard and Jan Mayen</option>
-                  <option value='SZ'>Swaziland</option>
-                  <option value='SE'>Sweden</option>
-                  <option value='CH'>Switzerland</option>
-                  <option value='SY'>Syrian Arab Republic</option>
-                  <option value='TW'>Taiwan, Province of China</option>
-                  <option value='TJ'>Tajikistan</option>
-                  <option value='TZ'>Tanzania, United Republic of</option>
-                  <option value='TH'>Thailand</option>
-                  <option value='TL'>Timor-Leste</option>
-                  <option value='TG'>Togo</option>
-                  <option value='TK'>Tokelau</option>
-                  <option value='TO'>Tonga</option>
-                  <option value='TT'>Trinidad and Tobago</option>
-                  <option value='TN'>Tunisia</option>
-                  <option value='TR'>Turkey</option>
-                  <option value='TM'>Turkmenistan</option>
-                  <option value='TC'>Turks and Caicos Islands</option>
-                  <option value='TV'>Tuvalu</option>
-                  <option value='UG'>Uganda</option>
-                  <option value='UA'>Ukraine</option>
-                  <option value='AE'>United Arab Emirates</option>
-                  <option value='GB'>United Kingdom</option>
-                  <option value='US'>United States</option>
-                  <option value='UY'>Uruguay</option>
-                  <option value='UZ'>Uzbekistan</option>
-                  <option value='VU'>Vanuatu</option>
-                  <option value='VE'>Venezuela, Bolivarian Republic of</option>
-                  <option value='VN'>Vietnam</option>
-                  <option value='VI'>Virgin Islands</option>
-                  <option value='WF'>Wallis and Futuna</option>
-                  <option value='EH'>Western Sahara</option>
-                  <option value='YE'>Yemen</option>
-                  <option value='ZM'>Zambia</option>
-                  <option value='ZW'>Zimbabwe</option>
+                  <option value='Afghanistan'>Afghanistan</option>
+                  <option value='Aland Islands'>Aland Islands</option>
+                  <option value='Albania'>Albania</option>
+                  <option value='Algeria'>Algeria</option>
+                  <option value='American Samoa'>American Samoa</option>
+                  <option value='Andorra'>Andorra</option>
+                  <option value='Angola'>Angola</option>
+                  <option value='Anguilla'>Anguilla</option>
+                  <option value='Antarctica'>Antarctica</option>
+                  <option value='Antigua and Barbuda'>Antigua and Barbuda</option>
+                  <option value='Argentina'>Argentina</option>
+                  <option value='Armenia'>Armenia</option>
+                  <option value='Aruba'>Aruba</option>
+                  <option value='Australia'>Australia</option>
+                  <option value='Austria'>Austria</option>
+                  <option value='Azerbaijan'>Azerbaijan</option>
+                  <option value='Bahamas'>Bahamas</option>
+                  <option value='Bahrain'>Bahrain</option>
+                  <option value='Bangladesh'>Bangladesh</option>
+                  <option value='Barbados'>Barbados</option>
+                  <option value='Belarus'>Belarus</option>
+                  <option value='Belgium'>Belgium</option>
+                  <option value='Belize'>Belize</option>
+                  <option value='Benin'>Benin</option>
+                  <option value='Bermuda'>Bermuda</option>
+                  <option value='Bhutan'>Bhutan</option>
+                  <option value='Bolivia, Plurinational State of'>
+                    Bolivia, Plurinational State of
+                  </option>
+                  <option value='Bonaire, Sint Eustatius and Saba'>
+                    Bonaire, Sint Eustatius and Saba
+                  </option>
+                  <option value='Bosnia and Herzegovina'>Bosnia and Herzegovina</option>
+                  <option value='Botswana'>Botswana</option>
+                  <option value='Bouvet Island'>Bouvet Island</option>
+                  <option value='Brazil'>Brazil</option>
+                  <option value='British Indian Ocean Territory'>
+                    British Indian Ocean Territory
+                  </option>
+                  <option value='Brunei Darussalam'>Brunei Darussalam</option>
+                  <option value='Bulgaria'>Bulgaria</option>
+                  <option value='Burkina Faso'>Burkina Faso</option>
+                  <option value='Burundi'>Burundi</option>
+                  <option value='Cambodia'>Cambodia</option>
+                  <option value='Cameroon'>Cameroon</option>
+                  <option value='Canada'>Canada</option>
+                  <option value='Cape Verde'>Cape Verde</option>
+                  <option value='Cayman Islands'>Cayman Islands</option>
+                  <option value='Central African Republic'>Central African Republic</option>
+                  <option value='Chad'>Chad</option>
+                  <option value='Chile'>Chile</option>
+                  <option value='China'>China</option>
+                  <option value='Christmas Island'>Christmas Island</option>
+                  <option value='Cocos (Keeling) Islands'>Cocos (Keeling) Islands</option>
+                  <option value='Colombia'>Colombia</option>
+                  <option value='Comoros'>Comoros</option>
+                  <option value='Congo'>Congo</option>
+                  <option value='Congo, the Democratic Republic of the'>
+                    Congo, the Democratic Republic of the
+                  </option>
+                  <option value='Cook Islands'>Cook Islands</option>
+                  <option value='Costa Rica'>Costa Rica</option>
+                  <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                  <option value='Croatia'>Croatia</option>
+                  <option value='Cuba'>Cuba</option>
+                  <option value='Curaçao'>Curaçao</option>
+                  <option value='Cyprus'>Cyprus</option>
+                  <option value='Czech Republic'>Czech Republic</option>
+                  <option value='Denmark'>Denmark</option>
+                  <option value='Djibouti'>Djibouti</option>
+                  <option value='Dominica'>Dominica</option>
+                  <option value='Dominican Republic'>Dominican Republic</option>
+                  <option value='Ecuador'>Ecuador</option>
+                  <option value='Egypt'>Egypt</option>
+                  <option value='El Salvador'>El Salvador</option>
+                  <option value='Equatorial Guinea'>Equatorial Guinea</option>
+                  <option value='Eritrea'>Eritrea</option>
+                  <option value='Estonia'>Estonia</option>
+                  <option value='Ethiopia'>Ethiopia</option>
+                  <option value='Falkland Islands (Malvinas)'>Falkland Islands (Malvinas)</option>
+                  <option value='Faroe Islands'>Faroe Islands</option>
+                  <option value='Fiji'>Fiji</option>
+                  <option value='Finland'>Finland</option>
+                  <option value='France'>France</option>
+                  <option value='French Guiana'>French Guiana</option>
+                  <option value='French Polynesia'>French Polynesia</option>
+                  <option value='French Southern Territories'>French Southern Territories</option>
+                  <option value='Gabon'>Gabon</option>
+                  <option value='Gambia'>Gambia</option>
+                  <option value='Georgia'>Georgia</option>
+                  <option value='Germany'>Germany</option>
+                  <option value='Ghana'>Ghana</option>
+                  <option value='Gibraltar'>Gibraltar</option>
+                  <option value='Greece'>Greece</option>
+                  <option value='Greenland'>Greenland</option>
+                  <option value='Grenada'>Grenada</option>
+                  <option value='Guadeloupe'>Guadeloupe</option>
+                  <option value='Guam'>Guam</option>
+                  <option value='Guatemala'>Guatemala</option>
+                  <option value='Guernsey'>Guernsey</option>
+                  <option value='Guinea'>Guinea</option>
+                  <option value='Guinea-Bissau'>Guinea-Bissau</option>
+                  <option value='Guyana'>Guyana</option>
+                  <option value='Haiti'>Haiti</option>
+                  <option value='Heard Island and McDonald Islands'>
+                    Heard Island and McDonald Islands
+                  </option>
+                  <option value='Holy See (Vatican City State)'>
+                    Holy See (Vatican City State)
+                  </option>
+                  <option value='Honduras'>Honduras</option>
+                  <option value='Hong Kong'>Hong Kong</option>
+                  <option value='Hungary'>Hungary</option>
+                  <option value='Iceland'>Iceland</option>
+                  <option value='India'>India</option>
+                  <option value='Indonesia'>Indonesia</option>
+                  <option value='Iran, Islamic Republic of'>Iran, Islamic Republic of</option>
+                  <option value='Iraq'>Iraq</option>
+                  <option value='Ireland'>Ireland</option>
+                  <option value='Isle of Man'>Isle of Man</option>
+                  <option value='Israel'>Israel</option>
+                  <option value='Italy'>Italy</option>
+                  <option value='Jamaica'>Jamaica</option>
+                  <option value='Japan'>Japan</option>
+                  <option value='Jersey'>Jersey</option>
+                  <option value='Jordan'>Jordan</option>
+                  <option value='Kazakhstan'>Kazakhstan</option>
+                  <option value='Kenya'>Kenya</option>
+                  <option value='Kiribati'>Kiribati</option>
+                  <option value="Korea, Democratic People's Republic of">
+                    Korea, Democratic People's Republic of
+                  </option>
+                  <option value='Kuwait'>Kuwait</option>
+                  <option value='Kyrgyzstan'>Kyrgyzstan</option>
+                  <option value="Lao People's Democratic Republic">
+                    Lao People's Democratic Republic
+                  </option>
+                  <option value='Latvia'>Latvia</option>
+                  <option value='Lebanon'>Lebanon</option>
+                  <option value='Lesotho'>Lesotho</option>
+                  <option value='Liberia'>Liberia</option>
+                  <option value='Libya'>Libya</option>
+                  <option value='Liechtenstein'>Liechtenstein</option>
+                  <option value='Lithuania'>Lithuania</option>
+                  <option value='Luxembourg'>Luxembourg</option>
+                  <option value='Macao'>Macao</option>
+                  <option value='Macedonia, the former Yugoslav Republic of'>
+                    Macedonia, the former Yugoslav Republic of
+                  </option>
+                  <option value='Madagascar'>Madagascar</option>
+                  <option value='Malawi'>Malawi</option>
+                  <option value='Malaysia'>Malaysia</option>
+                  <option value='Maldives'>Maldives</option>
+                  <option value='Mali'>Mali</option>
+                  <option value='Malta'>Malta</option>
+                  <option value='Marshall Islands'>Marshall Islands</option>
+                  <option value='Martinique'>Martinique</option>
+                  <option value='Mauritania'>Mauritania</option>
+                  <option value='Mauritius'>Mauritius</option>
+                  <option value='Mayotte'>Mayotte</option>
+                  <option value='Mexico'>Mexico</option>
+                  <option value='Micronesia, Federated States of'>
+                    Micronesia, Federated States of
+                  </option>
+                  <option value='Moldova, Republic of'>Moldova, Republic of</option>
+                  <option value='Monaco'>Monaco</option>
+                  <option value='Mongolia'>Mongolia</option>
+                  <option value='Montenegro'>Montenegro</option>
+                  <option value='Montserrat'>Montserrat</option>
+                  <option value='Morocco'>Morocco</option>
+                  <option value='Mozambique'>Mozambique</option>
+                  <option value='Myanmar'>Myanmar</option>
+                  <option value='Namibia'>Namibia</option>
+                  <option value='Nauru'>Nauru</option>
+                  <option value='Nepal'>Nepal</option>
+                  <option value='Netherlands'>Netherlands</option>
+                  <option value='New Caledonia'>New Caledonia</option>
+                  <option value='New Zealand'>New Zealand</option>
+                  <option value='Nicaragua'>Nicaragua</option>
+                  <option value='Niger'>Niger</option>
+                  <option value='Nigeria'>Nigeria</option>
+                  <option value='Niue'>Niue</option>
+                  <option value='Norfolk Island'>Norfolk Island</option>
+                  <option value='Northern Mariana Islands'>Northern Mariana Islands</option>
+                  <option value='Norway'>Norway</option>
+                  <option value='Oman'>Oman</option>
+                  <option value='Pakistan'>Pakistan</option>
+                  <option value='Palau'>Palau</option>
+                  <option value='Palestinian Territory, Occupied'>
+                    Palestinian Territory, Occupied
+                  </option>
+                  <option value='Panama'>Panama</option>
+                  <option value='Papua New Guinea'>Papua New Guinea</option>
+                  <option value='Paraguay'>Paraguay</option>
+                  <option value='Peru'>Peru</option>
+                  <option value='Philippines'>Philippines</option>
+                  <option value='Pitcairn'>Pitcairn</option>
+                  <option value='Poland'>Poland</option>
+                  <option value='Portugal'>Portugal</option>
+                  <option value='Puerto Rico'>Puerto Rico</option>
+                  <option value='Qatar'>Qatar</option>
+                  <option value='Réunion'>Réunion</option>
+                  <option value='Romania'>Romania</option>
+                  <option value='Russian Federation'>Russian Federation</option>
+                  <option value='Rwanda'>Rwanda</option>
+                  <option value='Saint Barthélemy'>Saint Barthélemy</option>
+                  <option value='Saint Helena, Ascension and Tristan da Cunha'>
+                    Saint Helena, Ascension and Tristan da Cunha
+                  </option>
+                  <option value='Saint Kitts and Nevis'>Saint Kitts and Nevis</option>
+                  <option value='Saint Lucia'>Saint Lucia</option>
+                  <option value='Saint Martin (French part)'>Saint Martin (French part)</option>
+                  <option value='Saint Pierre and Miquelon'>Saint Pierre and Miquelon</option>
+                  <option value='Saint Vincent and the Grenadines'>
+                    Saint Vincent and the Grenadines
+                  </option>
+                  <option value='Samoa'>Samoa</option>
+                  <option value='San Marino'>San Marino</option>
+                  <option value='Sao Tome and Principe'>Sao Tome and Principe</option>
+                  <option value='Saudi Arabia'>Saudi Arabia</option>
+                  <option value='Senegal'>Senegal</option>
+                  <option value='Serbia'>Serbia</option>
+                  <option value='Seychelles'>Seychelles</option>
+                  <option value='Sierra Leone'>Sierra Leone</option>
+                  <option value='Singapore'>Singapore</option>
+                  <option value='Sint Maarten (Dutch part)'>Sint Maarten (Dutch part)</option>
+                  <option value='Slovakia'>Slovakia</option>
+                  <option value='Slovenia'>Slovenia</option>
+                  <option value='Solomon Islands'>Solomon Islands</option>
+                  <option value='Somalia'>Somalia</option>
+                  <option value='South Africa'>South Africa</option>
+                  <option value='South Georgia and the South Sandwich Islands'>
+                    South Georgia and the South Sandwich Islands
+                  </option>
+                  <option value='South Korea'>South Korea</option>
+                  <option value='South Sudan'>South Sudan</option>
+                  <option value='Spain'>Spain</option>
+                  <option value='Sri Lanka'>Sri Lanka</option>
+                  <option value='Sudan'>Sudan</option>
+                  <option value='Suriname'>Suriname</option>
+                  <option value='Svalbard and Jan Mayen'>Svalbard and Jan Mayen</option>
+                  <option value='Swaziland'>Swaziland</option>
+                  <option value='Sweden'>Sweden</option>
+                  <option value='Switzerland'>Switzerland</option>
+                  <option value='Syrian Arab Republic'>Syrian Arab Republic</option>
+                  <option value='Taiwan, Province of China'>Taiwan, Province of China</option>
+                  <option value='Tajikistan'>Tajikistan</option>
+                  <option value='Tanzania, United Republic of'>Tanzania, United Republic of</option>
+                  <option value='Thailand'>Thailand</option>
+                  <option value='Timor-Leste'>Timor-Leste</option>
+                  <option value='Togo'>Togo</option>
+                  <option value='Tokelau'>Tokelau</option>
+                  <option value='Tonga'>Tonga</option>
+                  <option value='Trinidad and Tobago'>Trinidad and Tobago</option>
+                  <option value='Tunisia'>Tunisia</option>
+                  <option value='Turkey'>Turkey</option>
+                  <option value='Turkmenistan'>Turkmenistan</option>
+                  <option value='Turks and Caicos Islands'>Turks and Caicos Islands</option>
+                  <option value='Tuvalu'>Tuvalu</option>
+                  <option value='Uganda'>Uganda</option>
+                  <option value='Ukraine'>Ukraine</option>
+                  <option value='United Arab Emirates'>United Arab Emirates</option>
+                  <option value='United Kingdom'>United Kingdom</option>
+                  <option value='United States'>United States</option>
+                  <option value='Uruguay'>Uruguay</option>
+                  <option value='Uzbekistan'>Uzbekistan</option>
+                  <option value='VanuatuU'>Vanuatu</option>
+                  <option value='Venezuela, Bolivarian Republic of'>
+                    Venezuela, Bolivarian Republic of
+                  </option>
+                  <option value='Vietnam'>Vietnam</option>
+                  <option value='Virgin Islands'>Virgin Islands</option>
+                  <option value='Wallis and Futuna'>Wallis and Futuna</option>
+                  <option value='Western Sahara'>Western Sahara</option>
+                  <option value='Yemen'>Yemen</option>
+                  <option value='Zambia'>Zambia</option>
+                  <option value='Zimbabwe'>Zimbabwe</option>
                 </select>
                 {formik.touched.profile?.country && formik.errors.profile?.country && (
                   <div className='fv-plugins-message-container'>
@@ -529,7 +510,11 @@ const ProfileDetails: React.FC = () => {
                   type='text'
                   className='form-control form-control-lg form-control-solid'
                   placeholder='Email'
-                  {...formik.getFieldProps('email')}
+                  id='email'
+                  name='email'
+                  disabled
+                  value={data.email}
+                  onChange={handleChange}
                 />
                 {formik.touched.email && formik.errors.email && (
                   <div className='fv-plugins-message-container'>
@@ -585,7 +570,11 @@ const ProfileDetails: React.FC = () => {
                   type='tel'
                   className='form-control form-control-lg form-control-solid'
                   placeholder='Phone number'
-                  {...formik.getFieldProps('phone')}
+                  id='phone'
+                  name='phone'
+                  disabled
+                  value={data.phone}
+                  onChange={handleChange}
                 />
                 {formik.touched.phone && formik.errors.phone && (
                   <div className='fv-plugins-message-container'>
@@ -622,10 +611,12 @@ const ProfileDetails: React.FC = () => {
 
               <div className='col-lg-8 fv-row'>
                 <input
-                  type='tel'
+                  type='date'
                   className='form-control form-control-lg form-control-solid'
                   placeholder='Date of Birth'
-                  {...formik.getFieldProps('date_of_birth')}
+                  id='date_of_birth'
+                  name='date_of_birth'
+                  onChange={handleChange}
                   value={moment(data.profile?.date_of_birth).format('YYYY-MM-DD')}
                 />
                 {formik.touched.profile?.date_of_birth && formik.errors.profile?.date_of_birth && (
@@ -636,80 +627,16 @@ const ProfileDetails: React.FC = () => {
               </div>
             </div>
 
-            {/* <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Language</label>
-              <div className='col-lg-8 fv-row'>
-                <select
-                  className='form-select form-select-solid form-select-lg'
-                  {...formik.getFieldProps('language')}
-                >
-                  <option value=''>Select a Language...</option>
-                  <option value='id'>Bahasa Indonesia - Indonesian</option>
-                  <option value='msa'>Bahasa Melayu - Malay</option>
-                  <option value='ca'>Català - Catalan</option>
-                  <option value='cs'>Čeština - Czech</option>
-                  <option value='da'>Dansk - Danish</option>
-                  <option value='de'>Deutsch - German</option>
-                  <option value='en'>English</option>
-                  <option value='en-gb'>English UK - British English</option>
-                  <option value='es'>Español - Spanish</option>
-                  <option value='fil'>Filipino</option>
-                  <option value='fr'>Français - French</option>
-                  <option value='ga'>Gaeilge - Irish (beta)</option>
-                  <option value='gl'>Galego - Galician (beta)</option>
-                  <option value='hr'>Hrvatski - Croatian</option>
-                  <option value='it'>Italiano - Italian</option>
-                  <option value='hu'>Magyar - Hungarian</option>
-                  <option value='nl'>Nederlands - Dutch</option>
-                  <option value='no'>Norsk - Norwegian</option>
-                  <option value='pl'>Polski - Polish</option>
-                  <option value='pt'>Português - Portuguese</option>
-                  <option value='ro'>Română - Romanian</option>
-                  <option value='sk'>Slovenčina - Slovak</option>
-                  <option value='fi'>Suomi - Finnish</option>
-                  <option value='sv'>Svenska - Swedish</option>
-                  <option value='vi'>Tiếng Việt - Vietnamese</option>
-                  <option value='tr'>Türkçe - Turkish</option>
-                  <option value='el'>Ελληνικά - Greek</option>
-                  <option value='bg'>Български език - Bulgarian</option>
-                  <option value='ru'>Русский - Russian</option>
-                  <option value='sr'>Српски - Serbian</option>
-                  <option value='uk'>Українська мова - Ukrainian</option>
-                  <option value='he'>עִבְרִית - Hebrew</option>
-                  <option value='ur'>اردو - Urdu (beta)</option>
-                  <option value='ar'>العربية - Arabic</option>
-                  <option value='fa'>فارسی - Persian</option>
-                  <option value='mr'>मराठी - Marathi</option>
-                  <option value='hi'>हिन्दी - Hindi</option>
-                  <option value='bn'>বাংলা - Bangla</option>
-                  <option value='gu'>ગુજરાતી - Gujarati</option>
-                  <option value='ta'>தமிழ் - Tamil</option>
-                  <option value='kn'>ಕನ್ನಡ - Kannada</option>
-                  <option value='th'>ภาษาไทย - Thai</option>
-                  <option value='ko'>한국어 - Korean</option>
-                  <option value='ja'>日本語 - Japanese</option>
-                  <option value='zh-cn'>简体中文 - Simplified Chinese</option>
-                  <option value='zh-tw'>繁體中文 - Traditional Chinese</option>
-                </select>
-                {formik.touched.language && formik.errors.language && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.language}</div>
-                  </div>
-                )}
-
-                <div className='form-text'>
-                  Please select a preferred language, including date, time, and number formatting.
-                </div>
-              </div>
-            </div> */}
-
             <div className='row mb-6'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>Time Zone</label>
 
               <div className='col-lg-8 fv-row'>
                 <select
                   className='form-select form-select-solid form-select-lg'
-                  {...formik.getFieldProps('timezone')}
+                  id='timezone'
+                  name='timezone'
+                  value={data?.profile?.timezone}
+                  onChange={handleSelectChange}
                 >
                   <option value={data.profile?.timezone}>{data.profile?.timezone}</option>
                   <option value='International Date Line West'>
