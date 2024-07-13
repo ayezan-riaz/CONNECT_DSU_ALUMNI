@@ -12,6 +12,7 @@ import {Donation} from './components/donation/Donation'
 import {Job} from './components/jobs/Job'
 import {EventDetails} from './components/event/EventDetails'
 import {NewsDetails} from './components/news/NewsDetail'
+import ApprovedJobs from './components/jobs/components/approvedJobs'
 const accountBreadCrumbs: Array<PageLink> = [
   {
     title: 'Dsu',
@@ -133,7 +134,15 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-
+     <Route
+          path='approvejobs'
+          element={
+            <>
+              {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Work</PageTitle> */}
+              <ApprovedJobs />
+            </>
+          }
+        />
         <Route
           path='testimonial'
           element={

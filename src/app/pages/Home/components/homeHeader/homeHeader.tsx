@@ -92,14 +92,17 @@ const HomeHeader: React.FC = () => {
                       </a>
                     </li>
                   </Link>
-                  <Link to='/about'>
-                    <li className='nav-item'>
-                      <a className='nav-link' href='#'>
-                        {' '}
-                        <span className='bg'>About Us</span>
-                      </a>
-                    </li>
-                  </Link>
+                  <li className='nav-item'>
+                    <a
+                      className='nav-link'
+                      href='https://www.dsu.edu.pk/about-us/'
+                    
+                      rel='noopener noreferrer'
+                    >
+                      <span className='bg'>About Us</span>
+                    </a>
+                  </li>
+
                   <Link to='/mydsu'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>
@@ -200,14 +203,17 @@ const HomeHeader: React.FC = () => {
                       </a>
                     </li>
                   </Link>
-                  <Link to='/contact'>
-                    <li className='nav-item'>
-                      <a className='nav-link' href='#'>
-                        {' '}
-                        <span className='bg'>Contact Us </span>
-                      </a>
-                    </li>
-                  </Link>
+                  <li className='nav-item'>
+                    <a
+                      className='nav-link'
+                      href='https://www.dsu.edu.pk/contact-us/'
+                    
+                      rel='noopener noreferrer'
+                    >
+                   <span className='bg'>Contact Us </span>
+                    </a>
+                  </li>
+            
                   <Link to='/auth'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>

@@ -59,12 +59,22 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='View Jobs' to='/alumni/viewJobs/viewAllJobs' icon='archive' />
       </SidebarMenuItemWithSub>
        */}
-      <SidebarMenuItem
+      {/* <SidebarMenuItem
         to='/alumni/dsu/jobs'
         icon='element-11'
         title='Jobs'
         fontIcon='bi-app-indicator'
-      />
+      /> */}
+      <SidebarMenuItemWithSub
+        to='/alumni/dsu'
+        icon='element-11'
+        title='Jobs'
+        fontIcon='bi-app-indicator'
+      >
+        <SidebarMenuItem title='Jobs' to='/alumni/dsu/jobs' icon='archive' />
+        <SidebarMenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />
+      </SidebarMenuItemWithSub>
+
       <SidebarMenuItemWithSub
         title='Events'
         to='/alumni/dsu'
