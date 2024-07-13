@@ -65,7 +65,11 @@ const DsuPage =lazy(()=>import('../pages/alumni/dsu/DsuPage'))
           path='/alumni/jobPost/*'
           element={
             <SuspensedView>
-              <JobPosting />
+              <JobPosting isOpen={false} onClose={function (): void {
+                throw new Error('Function not implemented.')
+              } } selectedJob={null} fetchJobs={function (): void {
+                throw new Error('Function not implemented.')
+              } } />
             </SuspensedView>
           }
         />

@@ -23,12 +23,11 @@ export function MenuInner() {
       </MenuInnerWithSub>
       <MenuInnerWithSub
         title='Job'
-        to='/alumni/jobPost'
+        to='/alumni/jobs'
         menuPlacement='bottom-start'
         menuTrigger='click'
       >
-        <MenuItem title='JobPost' to='/alumni/jobPost/jobPosting' icon='archive' />
-        <MenuItem title='View Jobs' to='/alumni/viewJobs/viewAllJobs' icon='setting-2' />
+        <MenuItem title='Jobs' to='/alumni/dsu/jobs' icon='archive' />
         
       </MenuInnerWithSub>
       <MenuInnerWithSub

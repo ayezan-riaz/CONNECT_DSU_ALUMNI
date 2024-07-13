@@ -51,7 +51,7 @@ const ProfileDetails: React.FC = () => {
         aria-controls='kt_account_profile_details'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>Profile Details</h3>
+          <h3 className='fw-bolder m-0'>Profile Details King</h3>
         </div>
       </div>
 
@@ -85,6 +85,7 @@ const ProfileDetails: React.FC = () => {
                       className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
                       placeholder='First name'
                       {...formik.getFieldProps('fName')}
+                    
                     />
                     {formik.touched.fName && formik.errors.fName && (
                       <div className='fv-plugins-message-container'>
@@ -130,7 +131,8 @@ const ProfileDetails: React.FC = () => {
 
             <div className='row mb-6'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>Contact Phone</span>
+                <span className='required'>Contact Phone </span>
+                <span className='required'>Contact Phone Ayezan</span>
               </label>
 
               <div className='col-lg-8 fv-row'>

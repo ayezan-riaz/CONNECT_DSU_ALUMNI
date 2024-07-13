@@ -111,7 +111,7 @@ const ProfileDetails: React.FC = () => {
         aria-controls='kt_account_profile_details'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>Profile Details</h3>
+          <h3 className='fw-bolder m-0'>Profile Details </h3>
         </div>
       </div>
 

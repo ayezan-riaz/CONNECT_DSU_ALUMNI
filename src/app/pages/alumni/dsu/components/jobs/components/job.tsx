@@ -1,173 +1,117 @@
-import React, { useState } from 'react';
-import './job.css'
-import {JobModal} from './jobModal'; // Import the EventModal component
-interface JobData {
-    Id: number,
-    JobTitle: string;
-    organizationName: string;
-    location: string;
-    organizationEmail: string;
-    jobType: string;
-    JobTime: string;
-    postDate: string;
-    salary: string;
-    SalaryType: string,
-    scheduleMetrics: string,
-    experienceLevel: string;
-    jobDescription: string;
-    
-}
-
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './job.css';
+import JobModal from './jobModal'; // Import the JobModal component
+import { Jobs } from './jobTypes';
 
 const Job: React.FC = () => {
-    const [showModal, setShowModal] = useState(false);
+  const [jobs, setJobs] = useState<Jobs[]>([]);
+  const [selectedJob, setSelectedJob] = useState<Jobs | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
-    // Function to open the modal
-    const openModal = () => {
-      setShowModal(true);
-    };
-  
-    // Function to close the modal
-    const closeModal = () => {
-      setShowModal(false);
-    };
-    
-    const jobData: JobData[] = [
-        {
-            Id: 1,
-            JobTitle: 'D365 Software Developer',
-            organizationName: 'PEAK Technical Staffing USA',
-            location: 'Frisco, TX',
-            organizationEmail: 'ayezanriaz8@gmail.com',
-            jobType: 'Remote',
-            JobTime: 'Full Time',
-            postDate: '2 days ago',
-            salary: '50',
-            SalaryType: '$',
-            scheduleMetrics: 'per month',
-            experienceLevel: 'Fresh',
-            jobDescription:
-                'IT Applications Developers III will lead the design, implementation, and support of the internal application. They are also responsible for maintaining the application as well as verifying the accuracy...',
-        },
-        {
-            Id: 2,
-            JobTitle: 'Full Stack Developer',
-            organizationName: 'Syscrowd',
-            location: 'Karachi,Malir ',
-            organizationEmail: 'aiman8@gmail.com',
-            jobType: 'Remote',
-            JobTime: 'Full Time',
-            postDate: '1 days ago',
-            salary: '50000',
-            SalaryType: '$',
-            scheduleMetrics: 'per month',
-            experienceLevel: 'Intermediate',
-            jobDescription:
-                'IT Applications Developers III will lead the design, implementation, and support of the internal application. They are also responsible for maintaining the application as well as verifying the accuracy...',
-        },
-        {
-            Id: 3,
-            JobTitle: 'Front End Developer',
-            organizationName: '10Pearls',
-            location: 'Karachi, defence',
-            organizationEmail: 'ahmed8@gmail.com',
-            jobType: 'Onsite',
-            JobTime: 'Full Time',
-            postDate: '2 days ago',
-            salary: '700',
-            SalaryType: '$',
-            scheduleMetrics: 'per month',
-            experienceLevel: 'Intern',
-            jobDescription:
-                'IT Applications Developers III will lead the design, implementation, and support of the internal application. They are also responsible for maintaining the application as well as verifying the accuracy...',
-        },
-        // Add more objects for additional cards
-        // ...
-    ];
+  const fetchJobs = () => {
+    axios.get('https://ams-backend-gkxg.onrender.com/api/jobs')
+      .then(response => {
+        setJobs(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching jobs:', error);
+      });
+  };
 
-    return (
-        <div>
-     <div className="row mb-5">
-  <div className="col-2 offset-10">
-    
-   <button className="btn btn-primary des" onClick={openModal} 
-> Add new Job</button>
-  </div>
-</div>
-            <div className="row">
-                {/* Map over the jobData array to generate cards dynamically */}
-                {jobData.map((job, index) => (
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
-                    <div key={index} className="col-lg-4 col-md-4 col-sm-12">
-                        <div className="card card-custom card-stretch-50 shadow mb-5">
-                            <div className="card-header">
-                                <h3 className="card-title">
-                                    <h5 className="card-title job-title">{job.JobTitle}</h5>
-                                </h3>
-                            </div>
-                            <div className="card-body">
-                                {/* Display job data dynamically */}
-                                <div className="row">
-                                    <div className="col-12">
-                                        <p>{job.organizationName}</p>
-                                    </div>
-                                    <div className="col-12">
-                                        <p>
-                                            <i style={{ marginRight: '5px' }} className="fas fa-map-marker-alt" />
-                                            {job.location}
-                                        </p>
-                                    </div>
-                                    <div className="col-12">
-                                        <p className="">
-                                            <i style={{ marginRight: "5px" }} className="fas fa-email" />
-                                            {job.organizationEmail}</p>
-                                    </div>
-                                    <div className="col-12">
-                                        <p className="">
-                                            <i style={{ marginRight: "5px" }} className="fas fa-clock" />
-                                            {job.JobTime}</p>
-                                    </div>
-                                    <div className="col-12">
-                                        <p className="">
-                                            <i style={{ marginRight: "5px" }} className="fas fa-clock" />
-                                            {job.postDate}</p>
-                                    </div>
-                                    <div className="col-12">
-                                        <p className="">
-                                            <i style={{ marginRight: "5px" }} className="fas fa-wallet" />
-                                            {job.SalaryType} {job.salary} {job.scheduleMetrics}</p>
-                                    </div>
-                                    <div className="col-12">
-                                        <p className="">
-                                            <i style={{ marginRight: "5px" }} className="fas fa-briefcase" />
-                                            {job.experienceLevel}</p>
-                                    </div>
-                                    {/* <div className="col-12">
-          <p className="card-text">
-          {job.JobTime}
-              </p>
-          </div> */}
-                                    {/* Add more JSX elements for other job details */}
-                                </div>
-                                <div className="col-12">
-                                    <p className="card-text">{job.jobDescription}</p>
-                                </div>
-                            </div>
-                            <div className="card-footer">
-                                <a href="https://jobs.github.com/positions/e9e632a7-c756-40c9-b1ca-c3eb5c7f9ce3" target="_blank" className="btn btn-primary">
-                                    Apply Now
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+  const openModal = (job?: Jobs) => {
+    if (job) {
+      setSelectedJob(job);
+    } else {
+      setSelectedJob(null);
+    }
+    setShowModal(true);
+  };
 
-                ))}
-            </div>
-            <JobModal isOpen={showModal} onClose={closeModal} />
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  return (
+    <div>
+      <div className="row mb-5">
+        <div className="col-2 offset-10">
+          <button className="btn btn-primary des" style={{ background: "rgb(255, 255, 255)" }} onClick={() => openModal()}>
+            Add new Job
+          </button>
         </div>
-    );
+      </div>
+      <div className="row">
+        {jobs.map((job) => (
+          <div key={job.id} className="col-lg-4 col-md-4 col-sm-12">
+            <div className="card card-custom card-stretch-50 shadow mb-5">
+              <div className="card-header">
+                <h3 className="card-title">
+                  <h5 className="card-title job-title">{job.title}</h5>
+                </h3>
+              </div>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-12">
+                    <p>{job.organization_name}</p>
+                  </div>
+                  <div className="col-12">
+                    <p>
+                      <i style={{ marginRight: '5px' }} className="fas fa-map-marker-alt" />
+                      {job.location}
+                    </p>
+                  </div>
+                  <div className="col-12">
+                    <p className="">
+                      <i style={{ marginRight: "5px" }} className="fas fa-email" />
+                      {job.organization_email}
+                    </p>
+                  </div>
+                  <div className="col-12">
+                    <p className="">
+                      <i style={{ marginRight: "5px" }} className="fas fa-clock" />
+                      {job.job_time}
+                    </p>
+                  </div>
+                  <div className="col-12">
+                    <p className="">
+                      <i style={{ marginRight: "5px" }} className="fas fa-clock" />
+                      {new Date(job.end_date).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="col-12">
+                    <p className="">
+                      <i style={{ marginRight: "5px" }} className="fas fa-wallet" />
+                      {job.salary_type} {job.salary} {job.schedule_metrics}
+                    </p>
+                  </div>
+                  <div className="col-12">
+                    <p className="">
+                      <i style={{ marginRight: "5px" }} className="fas fa-briefcase" />
+                      {job.experience}
+                    </p>
+                  </div>
+                  <div className="col-12">
+                    <p className="card-text">{job.description}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="card-footer">
+                <button className="btn btn-primary" onClick={() => openModal(job)}>
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <JobModal isOpen={showModal} onClose={closeModal} selectedJob={selectedJob} fetchJobs={fetchJobs} />
+    </div>
+  );
 }
 
-export default Job
-    ;
+export default Job;
