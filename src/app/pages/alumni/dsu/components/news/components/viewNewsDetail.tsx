@@ -3,7 +3,7 @@ import axios from 'axios'
 import {useParams} from 'react-router-dom'
 import {News} from './newsTypes'
 
-const Imageurl = 'https://ams-backend-gkxg.onrender.com/news/'
+const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/news/'
 
 const ViewNewsDetail: React.FC = () => {
   const {id} = useParams<{id: string}>()

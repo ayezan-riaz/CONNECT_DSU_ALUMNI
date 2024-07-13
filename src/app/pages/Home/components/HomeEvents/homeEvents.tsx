@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 
 const HomeEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([])
-  const Imageurl = 'https://ams-backend-gkxg.onrender.com/event/'
+  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
   const fetchEvents = () => {
     axios
       .get<Event[]>('https://ams-backend-gkxg.onrender.com/api/events')

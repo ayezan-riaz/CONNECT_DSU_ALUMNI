@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 
 const HomeNews: React.FC = () => {
   const [news, setNews] = useState<News[]>([])
-  const Imageurl = 'https://ams-backend-gkxg.onrender.com/news/'
+  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/news/'
   const fetchNews = () => {
     axios
       .get<News[]>('https://ams-backend-gkxg.onrender.com/api/news')

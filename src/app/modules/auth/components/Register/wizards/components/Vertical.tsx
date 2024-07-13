@@ -18,7 +18,7 @@ import axios from 'axios'
 // Assuming dotenv is configured to load environment variables
 // const API = process.env.API_PATH;
 
-const API = 'https://ams-backend-gkxg.onrender.com'
+const API = 'https://ams-backend-gkxg.onrender.com/api/'
 
 // Load environment variables
 // require('dotenv').config();

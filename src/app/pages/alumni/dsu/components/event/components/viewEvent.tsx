@@ -12,7 +12,7 @@ const ViewEvent: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null) // Track the selected event
   const [deleteConfirmation, setDeleteConfirmation] = useState(false) // Track delete confirmation
-  const Imageurl = 'https://ams-backend-gkxg.onrender.com/event/'
+  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
   const fetchEvents = () => {
     axios
       .get<Event[]>('https://ams-backend-gkxg.onrender.com/api/events')
