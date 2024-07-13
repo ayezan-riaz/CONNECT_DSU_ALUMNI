@@ -154,7 +154,7 @@ const AccountHeader: React.FC = () => {
                 </div>
               </div>
 
-              <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
+              {/* <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
                   <span className='fw-bold fs-6 text-gray-400'>Profile Completion</span>
                   <span className='fw-bolder fs-6'>50%</span>
@@ -166,7 +166,7 @@ const AccountHeader: React.FC = () => {
                     style={{width: '50%'}}
                   ></div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

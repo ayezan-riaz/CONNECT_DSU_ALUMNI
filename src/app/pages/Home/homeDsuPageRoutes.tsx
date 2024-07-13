@@ -11,7 +11,7 @@ import HomeNewsDetail from './components/HomeNews/homeNewsDetail'
 import HomeDonation from './components/HomeDonation/homeDonation'
 import Aboutus from './components/aboutUs/aboutus'
 import Contactus from './components/contactUs/contactus'
-import TestimonialsPage from '../alumni/dsu/components/testimonials/components/testimonialsPage'
+import HomeTestimonials from './components/homeTestimonials/homeTestimonial'
 import Reward from './components/RewardsAndBenefits/Reward/reward'
 import Benefits from './components/RewardsAndBenefits/Benefits/benefits'
 
@@ -203,11 +203,11 @@ const DsuPage: React.FC = () => {
           path='testimonial'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{marginTop: '195px'}}>
                 <HomeHeader />
               </div>
               <div className='row'>
-                <TestimonialsPage />
+                <HomeTestimonials />
               </div>
               {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Work</PageTitle> */}
               {/* <Testimonials /> */}
