@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useFormik} from 'formik'
 import axios from 'axios' // Import Axios
+import {toast} from 'react-toastify'
 // Load environment variables
 // require('dotenv').config();
 const initialValues = {
@@ -21,6 +22,7 @@ const API = process.env.API_PATH
 export function ForgotPassword() {
   const [loading, setLoading] = useState(false)
   const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined)
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues,
     validationSchema: forgotPasswordSchema,
@@ -31,7 +33,6 @@ export function ForgotPassword() {
       try {
         const response = await axios.post(
           `https://ams-backend-gkxg.onrender.com/api/applyPasswordReset`,
-          // 'https://ams-backend-gkxg.onrender.com/api/applyPasswordReset',
           {email: values.email}
         )
 
@@ -43,11 +44,33 @@ export function ForgotPassword() {
         console.log('Token: => ', token)
         setHasErrors(false)
         setLoading(false)
+        toast.info('Password reset link sent, check your mail inbox', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        })
+        navigate('/auth/login')
       } catch (error) {
         setHasErrors(true)
         setLoading(false)
         setSubmitting(false)
         setStatus('The login detail is incorrect')
+        toast.error('User does not exist or something went wrong', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        })
+        navigate('/auth/login')
       }
     },
   })
@@ -60,7 +83,7 @@ export function ForgotPassword() {
     >
       <div className='text-center mb-10'>
         {/* begin::Title */}
-        <h1 className='text-dark fw-bolder mb-3'>Forgot Password ?</h1>
+        <h1 className='text-dark fw-bolder mb-3'>Forgot Password</h1>
         {/* end::Title */}
 
         {/* begin::Link */}

@@ -1,12 +1,12 @@
 import {useState} from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 import {useFormik} from 'formik'
 import axios from 'axios' // Import Axios
 import {requestPassword} from '../core/_requests'
-// Load environment variables
-// require('dotenv').config();
+import {toast} from 'react-toastify'
+
 const initialValues = {
   password: '',
 }
@@ -17,10 +17,11 @@ const forgotPasswordSchema = Yup.object().shape({
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
 })
-const API = process.env.API_PATH
+
 export function UpdatePassword() {
   const [loading, setLoading] = useState(false)
   const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues,
@@ -32,23 +33,39 @@ export function UpdatePassword() {
       try {
         // Use Axios to send the reset password request
         const token = new URLSearchParams(window.location.search).get('token')
-        console.log('Token=> ', token)
         const response = await axios.post(
-          `${API}/resetPassword?token=${token}`,
-          // `https://ams-backend-gkxg.onrender.com/api/resetPassword?token=${(token)}`,
+          `https://ams-backend-gkxg.onrender.com/api/resetPassword?token=${token}`,
           {password: values.password}
         )
-        console.log(values)
-        console.log('response', response)
-        // Password reset success
         setHasErrors(false)
         setLoading(false)
+        toast.success('Password Changed', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        })
+        navigate('/auth/login')
       } catch (error) {
-        // Password reset failed
         setHasErrors(true)
         setLoading(false)
         setSubmitting(false)
         setStatus('The login detail is incorrect')
+        toast.error('Cant change password', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        })
+        navigate('/auth/login')
       }
     },
   })
@@ -62,11 +79,11 @@ export function UpdatePassword() {
     >
       <div className='text-center mb-10'>
         {/* begin::Title */}
-        <h1 className='text-dark fw-bolder mb-3'>Update Password ?</h1>
+        <h1 className='text-dark fw-bolder mb-3'>Update Password</h1>
         {/* end::Title */}
 
         {/* begin::Link */}
-        <div className='text-gray-500 fw-semibold fs-6'>Enter your New password .</div>
+        <div className='text-gray-500 fw-semibold fs-6'>Enter your new password.</div>
         {/* end::Link */}
       </div>
 
@@ -81,14 +98,14 @@ export function UpdatePassword() {
 
       {hasErrors === false && (
         <div className='mb-10 bg-light-info p-8 rounded'>
-          <div className='text-info'>Sent Your New Password</div>
+          <div className='text-info'>Password Changed Successfully</div>
         </div>
       )}
       {/* end::Title */}
 
       {/* begin::Form group */}
       <div className='fv-row mb-8'>
-        <label className='form-label fw-bolder text-gray-900 fs-6'>password</label>
+        <label className='form-label fw-bolder text-gray-900 fs-6'>Password</label>
         <input
           type='password'
           placeholder=''
