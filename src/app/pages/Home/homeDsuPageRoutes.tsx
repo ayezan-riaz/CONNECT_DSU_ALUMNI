@@ -1,6 +1,6 @@
 import React from 'react'
-import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
-import {PageLink, PageTitle} from '../../../_metronic/layout/core'
+import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
+import { PageLink, PageTitle } from '../../../_metronic/layout/core'
 import HomeEvents from './components/HomeEvents/homeEvents'
 import Home from './home'
 import HomeHeader from './components/homeHeader/homeHeader'
@@ -14,7 +14,6 @@ import Contactus from './components/contactUs/contactus'
 import HomeTestimonials from './components/homeTestimonials/homeTestimonial'
 import Reward from './components/RewardsAndBenefits/Reward/reward'
 import Benefits from './components/RewardsAndBenefits/Benefits/benefits'
-
 // import { Events } from './components/event/Events'
 // import { Association } from './components/association/Association'
 // import { Card } from './components/card/Card'
@@ -65,7 +64,7 @@ const DsuPage: React.FC = () => {
           element={
             <>
               {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Profile</PageTitle> */}
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -79,7 +78,7 @@ const DsuPage: React.FC = () => {
           path='eventDetail/:id'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -94,7 +93,7 @@ const DsuPage: React.FC = () => {
           element={
             <>
               {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Profile</PageTitle> */}
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -107,7 +106,7 @@ const DsuPage: React.FC = () => {
           path='newsDetail/:id'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -152,7 +151,7 @@ const DsuPage: React.FC = () => {
           path='directory'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -178,7 +177,7 @@ const DsuPage: React.FC = () => {
           path='donation'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -203,7 +202,7 @@ const DsuPage: React.FC = () => {
           path='testimonial'
           element={
             <>
-              <div className='row' style={{marginTop: '195px'}}>
+              <div className='row' style={{ marginTop: '195px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -218,7 +217,7 @@ const DsuPage: React.FC = () => {
           path='about'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -233,7 +232,7 @@ const DsuPage: React.FC = () => {
           path='contact'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -248,7 +247,7 @@ const DsuPage: React.FC = () => {
           path='reward'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
@@ -263,7 +262,7 @@ const DsuPage: React.FC = () => {
           path='benefits'
           element={
             <>
-              <div className='row' style={{marginTop: '175px'}}>
+              <div className='row' style={{ marginTop: '175px' }}>
                 <HomeHeader />
               </div>
               <div className='row'>
