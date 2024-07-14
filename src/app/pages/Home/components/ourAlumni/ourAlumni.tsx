@@ -1,21 +1,12 @@
-import React, {useRef, useState, useEffect} from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import './ourAlumni.css' // Ensure your CSS styles are correctly set up for dragging and transitions
-import ayezan from '../../../alumni/assets/ayezan.jpg'
+import axios from 'axios'
+
 interface CardApp {
   imgSrc: string
   name: string
   role: string
 }
-
-const cardData: CardApp[] = [
-  {imgSrc: ayezan, name: 'Blanche Pearson', role: 'Sales Manager'},
-  {imgSrc: ayezan, name: 'Joenas Brauers', role: 'Web Developer'},
-  {imgSrc: ayezan, name: 'Lariach French', role: 'Online Teacher'},
-  {imgSrc: ayezan, name: 'James Khosravi', role: 'Freelancer'},
-  {imgSrc: ayezan, name: 'Kristina Zasiadko', role: 'Bank Manager'},
-  {imgSrc: ayezan, name: 'Donald Horton', role: 'App Designer'},
-  // Add other cards similarly
-]
 
 const Carousel: React.FC = () => {
   const carouselRef = useRef<HTMLUListElement>(null)
@@ -25,6 +16,8 @@ const Carousel: React.FC = () => {
   const [startScrollLeft, setStartScrollLeft] = useState(0)
   const [isAutoPlay, setIsAutoPlay] = useState(true)
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null)
+  const [cardData, setCardData] = useState<CardApp[]>([])
+
   useEffect(() => {
     const checkAutoPlay = () => {
       setIsAutoPlay(window.innerWidth > 800)
@@ -39,10 +32,27 @@ const Carousel: React.FC = () => {
   }, [])
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('https://ams-backend-gkxg.onrender.com/api/users')
+        const filteredUsers = response.data.filter((user: any) => user.role === 2)
+        const formattedUsers = filteredUsers.map((user: any) => ({
+          imgSrc: `https://ams-backend-gkxg.onrender.com/alumni/${user.avatar || 'default-avatar.png'}`,
+          name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
+          role: user.role === 2 ? 'User' : 'Admin' // Adjust role text as needed
+        }))
+        setCardData(formattedUsers)
+      } catch (error) {
+        console.error('Error fetching users:', error)
+      }
+    }
+
+    fetchUsers()
+  }, [])
+
+  useEffect(() => {
     const firstCardWidth = carouselRef.current?.firstElementChild?.clientWidth || 0
     const cardPerView = Math.round((carouselRef.current?.offsetWidth || 0) / firstCardWidth)
-
-    // Your duplication logic for infinite scrolling
 
     const handleResize = () => {
       // Update any responsive logic here
@@ -59,7 +69,6 @@ const Carousel: React.FC = () => {
     }
   }
 
-  // Event handlers for drag
   const dragStart = (e: React.MouseEvent) => {
     setIsDragging(true)
     setStartX(e.pageX)
@@ -75,7 +84,6 @@ const Carousel: React.FC = () => {
     setIsDragging(false)
   }
 
-  // AutoPlay and Infinite Scrolling Functions
   const autoPlay = () => {
     const firstCardWidth = carouselRef.current?.firstElementChild?.clientWidth || 0
     if (!isAutoPlay || window.innerWidth < 800) return
@@ -96,7 +104,14 @@ const Carousel: React.FC = () => {
     <div ref={wrapperRef} className='col-lg-12 col-md-12 col-sm-12 mt-15'>
       <div className='wrapper'>
         <i id='left' className='fa-solid fa-angle-left' onClick={() => handleArrowClick('left')} />
-        <ul ref={carouselRef} className='carousel'>
+        <ul
+          ref={carouselRef}
+          className='carousel'
+          onMouseDown={dragStart}
+          onMouseMove={dragging}
+          onMouseUp={dragStop}
+          onMouseLeave={dragStop}
+        >
           {cardData.map((card, index) => (
             <li className='card' key={index}>
               <div className='img'>
