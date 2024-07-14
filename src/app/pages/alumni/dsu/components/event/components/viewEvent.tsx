@@ -1,156 +1,155 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Modal, Button } from 'react-bootstrap'
-import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg'
-import EventModal from './eventModal' // Import the EventModal component
-import { Event } from './eventTypes' // Import the common Event type
-import './event.css'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Modal, Button } from 'react-bootstrap';
+import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg';
+import EventModal from './eventModal';
+import { Event } from './eventTypes';
+import './event.css';
+import { Link } from 'react-router-dom';
 
 const ViewEvent: React.FC = () => {
-  const [events, setEvents] = useState<Event[]>([])
-  const [showModal, setShowModal] = useState(false)
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null) // Track the selected event
-  const [deleteConfirmation, setDeleteConfirmation] = useState(false) // Track delete confirmation
-  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
-  const roleId = parseInt(localStorage.getItem('role') || '0', 10)
+  const [events, setEvents] = useState<Event[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/';
+  const roleId = parseInt(localStorage.getItem('role') || '0', 10);
 
   const fetchEvents = () => {
     axios
       .get<Event[]>('https://ams-backend-gkxg.onrender.com/api/events')
       .then((response) => {
-        debugger
-        setEvents(response.data)
-        console.log('Event', response.data)
-        console.log('Event', response.data[0].event_images[0])
+        setEvents(response.data);
       })
       .catch((error) => {
-        console.error('There was a problem fetching the events data:', error)
-      })
-  }
+        console.error('There was a problem fetching the events data:', error);
+      });
+  };
 
   useEffect(() => {
-    fetchEvents()
-  }, [])
+    fetchEvents();
+  }, []);
 
   const openModal = (event: Event | null) => {
-    setSelectedEvent(event)
-    setShowModal(true)
-  }
+    setSelectedEvent(event);
+    setShowModal(true);
+  };
 
   const closeModal = () => {
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
 
   const handleDeleteConfirmation = () => {
     if (selectedEvent) {
       axios
         .delete(`https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`)
         .then(() => {
-          setEvents(events.filter((e) => e.id !== selectedEvent.id))
-          setDeleteConfirmation(false)
-          setSelectedEvent(null)
+          setEvents(events.filter((e) => e.id !== selectedEvent.id));
+          setDeleteConfirmation(false);
+          setSelectedEvent(null);
         })
         .catch((error) => {
-          console.error('There was a problem deleting the event:', error)
-        })
+          console.error('There was a problem deleting the event:', error);
+        });
     }
-  }
+  };
+
   const handleDelete = (event: Event) => {
-    setSelectedEvent(event)
-    setDeleteConfirmation(true)
-  }
+    setSelectedEvent(event);
+    setDeleteConfirmation(true);
+  };
+
   const truncateDescription = (description: string, length: number) => {
     if (description.length <= length) {
-      return description
+      return description;
     }
-    return description.slice(0, length) + '...'
-  }
+    return description.slice(0, length) + '...';
+  };
 
   return (
-    <div>
+    <div className="container">
       {roleId === 1 && (
         <div className="row mb-5">
           <div className="col-2 offset-10">
-            <button className="btn btn-primary des" style={{ background: "rgb(255, 255, 255)" }} onClick={() => openModal(null)}>
+            <button
+              className="btn btn-primary des"
+              onClick={() => openModal(null)}
+            >
               Add new Event
             </button>
           </div>
         </div>
       )}
-      {
-/* 
-      <div className='row mb-5'>
-        <div className='col-lg-2 col-md-2 col-sm-6 offset-md-10 offset-lg-10 offset-sm-6'>
-          <button className='btn btn-primary des' onClick={() => openModal(null)}>
-            Add new Event
-          </button>
-        </div>
-      </div> */}
-      <div className='row'>
-        <div className='position-relative mb-17'>
-          <div className='overlay overlay-show'>
+      <div className="row mb-5">
+        <div className="col-12">
+          <div
+            className="position-relative"
+            style={{
+              backgroundImage: `url(${eventBackground})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              minHeight: '250px',
+              borderRadius: '10px',
+            }}
+          >
             <div
-              className='bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px'
-              style={{ backgroundImage: `url(${eventBackground})` }}
+              className="overlay-layer rounded bg-black"
+              style={{ opacity: '0.4', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: '10px' }}
             />
-            <div className='overlay-layer rounded bg-black' style={{ opacity: '0.4' }} />
-          </div>
-          <div className='position-absolute text-white mb-8 ms-10 bottom-0'>
-            <h3 className='text-white fs-2qx fw-bold mb-3 m'>DSU EVENTS</h3>
-            <div className='fs-5 fw-semibold'>
-              You sit down. You stare at your screen. The cursor blinks.
+            <div className="position-absolute text-white mb-8 ms-10 bottom-0">
+              <h3 className="text-white fs-2qx fw-bold mb-3">DSU EVENTS</h3>
+              <div className="fs-5 fw-semibold">
+                You sit down. You stare at your screen. The cursor blinks.
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className='row'>
+      <div className="row">
         {events.map((event) => (
-          <div key={event.id} className='col-md-4'>
-            <div className='card-xl-stretch me-md-6'>
+          <div key={event.id} className="col-md-4 mb-4">
+            <div className="card h-100 shadow-sm">
               {roleId === 1 && (
-                <span style={{ textAlign: 'right' }}>
+                <span style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
                   <i
-                    className='fa fa-times-circle'
+                    className="fa fa-times-circle"
                     style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
                     onClick={() => handleDelete(event)}
                   ></i>
-                </span>)}
-
-              <a href='#' className='d-block overlay mb-4' data-fslightbox='lightbox-hot-sales'>
+                </span>
+              )}
+              <Link to={`/alumni/dsu/eventDetail/${event.id}`} className="d-block overlay mb-4">
                 <div
-                  className='overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px'
+                  className="card-img-top"
                   style={{
-                    backgroundImage: `url(${Imageurl}${event.event_images[0]})`,
+                    height: '200px',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundImage: event.event_images.length > 0
+                      ? `url(${Imageurl}${event.event_images[0]})`
+                      : 'url(/path/to/placeholder-image.jpg)',
+                    borderTopLeftRadius: '10px',
+                    borderTopRightRadius: '10px'
                   }}
                 />
-
-                <div className='overlay-layer bg-dark card-rounded bg-opacity-25'>
-                  <i className='ki-duotone ki-eye fs-2x text-white' />
-                </div>
-                <div className='position-absolute text-white mb-8 ms-10 bottom-0'></div>
-              </a>
-
-              <div className='m-0'>
-                <Link to={`/alumni/dsu/eventDetail/${event.id}`} style={{ textDecoration: 'none' }}>
-                  <div className='fs-4 text-dark fw-bold text-hover-primary text-dark lh-base'>
-                    {event.name}
+              </Link>
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title">{event.name}</h5>
+                <p className="card-text">{truncateDescription(event.description, 100)}</p>
+                <p className="card-text"><small className="text-muted">{new Date(event.date).toDateString()}</small></p>
+                {roleId === 1 && (
+                  <div className="mt-auto">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="me-1"
+                      onClick={() => openModal(event)}
+                    >
+                      Edit
+                    </Button>
                   </div>
-                </Link>
-                {roleId === 1 && (<span
-                  style={{ marginLeft: '10px', cursor: 'pointer' }}
-                  onClick={() => openModal(event)}
-                >
-                  <i className='fa fa-pencil' style={{ fontSize: '15px', color: '#80171d' }}></i>
-                </span>
                 )}
-                <div className='fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5'>
-                  {truncateDescription(event.description, 100)} {/* Adjust the length as needed */}
-                </div>
-                <div className='fs-6 fw-bold'>
-                  <span className='text-muted'>{new Date(event.date).toDateString()}</span>
-                </div>
               </div>
             </div>
           </div>
@@ -170,16 +169,16 @@ const ViewEvent: React.FC = () => {
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this event?</Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' onClick={() => setDeleteConfirmation(false)}>
+          <Button variant="secondary" onClick={() => setDeleteConfirmation(false)}>
             No
           </Button>
-          <Button variant='primary' onClick={handleDeleteConfirmation}>
+          <Button variant="primary" onClick={handleDeleteConfirmation}>
             Yes
           </Button>
         </Modal.Footer>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ViewEvent
+export default ViewEvent;
