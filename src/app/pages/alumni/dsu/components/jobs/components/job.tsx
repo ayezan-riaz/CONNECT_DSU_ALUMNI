@@ -8,6 +8,8 @@ const Job: React.FC = () => {
   const [jobs, setJobs] = useState<Jobs[]>([]);
   const [selectedJob, setSelectedJob] = useState<Jobs | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const user_id = parseInt(localStorage.getItem('sub') || '0', 10)
+  const role_id = parseInt(localStorage.getItem('role') || '0', 10)
 
   const fetchJobs = () => {
     axios.get('https://ams-backend-gkxg.onrender.com/api/jobs')

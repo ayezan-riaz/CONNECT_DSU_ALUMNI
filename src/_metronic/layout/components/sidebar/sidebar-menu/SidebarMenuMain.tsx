@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react'
-import {useIntl} from 'react-intl'
-import {KTIcon} from '../../../../helpers'
-import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
-import {SidebarMenuItem} from './SidebarMenuItem'
+import { useIntl } from 'react-intl'
+import { KTIcon } from '../../../../helpers'
+import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub'
+import { SidebarMenuItem } from './SidebarMenuItem'
 
 const SidebarMenuMain = () => {
   const intl = useIntl()
@@ -13,7 +13,7 @@ const SidebarMenuMain = () => {
       <SidebarMenuItem
         to='/dashboard'
         icon='element-11'
-        title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
+        title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
         fontIcon='bi-app-indicator'
       />
       {/* <SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />
@@ -47,6 +47,7 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='Academics' to='/alumni/account/academics' icon='classmates' />
         <SidebarMenuItem title='Work' to='/alumni/account/work' icon='badge' />
         <SidebarMenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
+        <SidebarMenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' />
       </SidebarMenuItemWithSub>
 
       {/* <SidebarMenuItemWithSub
@@ -225,4 +226,4 @@ const SidebarMenuMain = () => {
   )
 }
 
-export {SidebarMenuMain}
+export { SidebarMenuMain }

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
-import {KTIcon} from '../../../../../_metronic/helpers'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { KTIcon } from '../../../../../_metronic/helpers'
 import moment from 'moment'
 import {
   ChartsWidget1,
@@ -9,8 +9,8 @@ import {
   TablesWidget1,
   TablesWidget5,
 } from '../../../../../_metronic/partials/widgets'
-import {IProfileDetails} from './settings/SettingsModel'
-import {profileDetailsInitValues} from './settings/SettingsModel'
+import { IProfileDetails } from './settings/SettingsModel'
+import { profileDetailsInitValues } from './settings/SettingsModel'
 import axios from 'axios'
 import LoadingScreen from './LoadingScreen/LoadingScreen'
 
@@ -35,7 +35,7 @@ export function Overview() {
 
   useEffect(() => {
     if (user) {
-      fetchAcademicsByUserId(93)
+      fetchAcademicsByUserId(user.id)
       setIsLoading(false)
     }
   }, [])

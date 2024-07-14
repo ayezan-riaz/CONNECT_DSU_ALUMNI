@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {Modal, Button} from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg'
 import EventModal from './eventModal' // Import the EventModal component
-import {Event} from './eventTypes' // Import the common Event type
+import { Event } from './eventTypes' // Import the common Event type
 import './event.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const ViewEvent: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([])
@@ -13,6 +13,8 @@ const ViewEvent: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null) // Track the selected event
   const [deleteConfirmation, setDeleteConfirmation] = useState(false) // Track delete confirmation
   const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
+  const roleId = parseInt(localStorage.getItem('role') || '0', 10)
+
   const fetchEvents = () => {
     axios
       .get<Event[]>('https://ams-backend-gkxg.onrender.com/api/events')
@@ -67,21 +69,32 @@ const ViewEvent: React.FC = () => {
 
   return (
     <div>
+      {roleId === 1 && (
+        <div className="row mb-5">
+          <div className="col-2 offset-10">
+            <button className="btn btn-primary des" style={{ background: "rgb(255, 255, 255)" }} onClick={() => openModal(null)}>
+              Add new Event
+            </button>
+          </div>
+        </div>
+      )}
+      {
+/* 
       <div className='row mb-5'>
         <div className='col-lg-2 col-md-2 col-sm-6 offset-md-10 offset-lg-10 offset-sm-6'>
           <button className='btn btn-primary des' onClick={() => openModal(null)}>
             Add new Event
           </button>
         </div>
-      </div>
+      </div> */}
       <div className='row'>
         <div className='position-relative mb-17'>
           <div className='overlay overlay-show'>
             <div
               className='bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px'
-              style={{backgroundImage: `url(${eventBackground})`}}
+              style={{ backgroundImage: `url(${eventBackground})` }}
             />
-            <div className='overlay-layer rounded bg-black' style={{opacity: '0.4'}} />
+            <div className='overlay-layer rounded bg-black' style={{ opacity: '0.4' }} />
           </div>
           <div className='position-absolute text-white mb-8 ms-10 bottom-0'>
             <h3 className='text-white fs-2qx fw-bold mb-3 m'>DSU EVENTS</h3>
@@ -96,13 +109,14 @@ const ViewEvent: React.FC = () => {
         {events.map((event) => (
           <div key={event.id} className='col-md-4'>
             <div className='card-xl-stretch me-md-6'>
-              <span style={{textAlign: 'right'}}>
-                <i
-                  className='fa fa-times-circle'
-                  style={{fontSize: '20px', color: '#80171d', cursor: 'pointer'}}
-                  onClick={() => handleDelete(event)}
-                ></i>
-              </span>
+              {roleId === 1 && (
+                <span style={{ textAlign: 'right' }}>
+                  <i
+                    className='fa fa-times-circle'
+                    style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
+                    onClick={() => handleDelete(event)}
+                  ></i>
+                </span>)}
 
               <a href='#' className='d-block overlay mb-4' data-fslightbox='lightbox-hot-sales'>
                 <div
@@ -119,17 +133,18 @@ const ViewEvent: React.FC = () => {
               </a>
 
               <div className='m-0'>
-                <Link to={`/alumni/dsu/eventDetail/${event.id}`} style={{textDecoration: 'none'}}>
+                <Link to={`/alumni/dsu/eventDetail/${event.id}`} style={{ textDecoration: 'none' }}>
                   <div className='fs-4 text-dark fw-bold text-hover-primary text-dark lh-base'>
                     {event.name}
                   </div>
                 </Link>
-                <span
-                  style={{marginLeft: '10px', cursor: 'pointer'}}
+                {roleId === 1 && (<span
+                  style={{ marginLeft: '10px', cursor: 'pointer' }}
                   onClick={() => openModal(event)}
                 >
-                  <i className='fa fa-pencil' style={{fontSize: '15px', color: '#80171d'}}></i>
+                  <i className='fa fa-pencil' style={{ fontSize: '15px', color: '#80171d' }}></i>
                 </span>
+                )}
                 <div className='fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5'>
                   {truncateDescription(event.description, 100)} {/* Adjust the length as needed */}
                 </div>

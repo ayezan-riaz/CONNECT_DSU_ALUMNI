@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {Modal, Button} from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg'
 import NewsModal from './newsModal' // Import the NewsModal component
-import {News} from './newsTypes' // Import the common News type
+import { News } from './newsTypes' // Import the common News type
 import './news.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const NewsPage: React.FC = () => {
   const [news, setNews] = useState<News[]>([])
@@ -13,6 +13,8 @@ const NewsPage: React.FC = () => {
   const [selectedNews, setSelectedNews] = useState<News | null>(null) // Track the selected event
   const [deleteConfirmation, setDeleteConfirmation] = useState(false) // Track delete confirmation
   const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/news/'
+  const roleId = parseInt(localStorage.getItem('role') || '0', 10)
+
   const fetchNews = () => {
     axios
       .get<News[]>('https://ams-backend-gkxg.onrender.com/api/news')
@@ -67,21 +69,23 @@ const NewsPage: React.FC = () => {
 
   return (
     <div>
-      <div className='row mb-5'>
-        <div className='col-lg-2 col-md-2 col-sm-6 offset-md-10 offset-lg-10 offset-sm-6'>
-          <button className='btn btn-primary des' onClick={() => openModal(null)}>
-            Add new News
-          </button>
+      {roleId === 1 && (
+        <div className='row mb-5'>
+          <div className='col-lg-2 col-md-2 col-sm-6 offset-md-10 offset-lg-10 offset-sm-6'>
+            <button className='btn btn-primary des' onClick={() => openModal(null)}>
+              Add new News
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <div className='row'>
         <div className='position-relative mb-17'>
           <div className='overlay overlay-show'>
             <div
               className='bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px'
-              style={{backgroundImage: `url(${eventBackground})`}}
+              style={{ backgroundImage: `url(${eventBackground})` }}
             />
-            <div className='overlay-layer rounded bg-black' style={{opacity: '0.4'}} />
+            <div className='overlay-layer rounded bg-black' style={{ opacity: '0.4' }} />
           </div>
           <div className='position-absolute text-white mb-8 ms-10 bottom-0'>
             <h3 className='text-white fs-2qx fw-bold mb-3 m'>DSU NEWS</h3>
@@ -96,13 +100,13 @@ const NewsPage: React.FC = () => {
         {news.map((newss) => (
           <div key={newss.id} className='col-md-4'>
             <div className='card-xl-stretch me-md-6'>
-              <span style={{textAlign: 'right'}}>
+              {roleId === 1 && (<span style={{ textAlign: 'right' }}>
                 <i
                   className='fa fa-times-circle'
-                  style={{fontSize: '20px', color: '#80171d', cursor: 'pointer'}}
+                  style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
                   onClick={() => handleDelete(newss)}
                 ></i>
-              </span>
+              </span>)}
 
               <a href='#' className='d-block overlay mb-4' data-fslightbox='lightbox-hot-sales'>
                 <div
@@ -119,17 +123,18 @@ const NewsPage: React.FC = () => {
               </a>
 
               <div className='m-0'>
-                <Link to={`/alumni/dsu/newsDetail/${newss.id}`} style={{textDecoration: 'none'}}>
+                <Link to={`/alumni/dsu/newsDetail/${newss.id}`} style={{ textDecoration: 'none' }}>
                   <div className='fs-4 text-dark fw-bold text-hover-primary text-dark lh-base'>
                     {newss.name}
                   </div>
                 </Link>
-                <span
-                  style={{marginLeft: '10px', cursor: 'pointer'}}
+                {roleId === 1 && (<span
+                  style={{ marginLeft: '10px', cursor: 'pointer' }}
                   onClick={() => openModal(newss)}
                 >
-                  <i className='fa fa-pencil' style={{fontSize: '15px', color: '#80171d'}}></i>
+                  <i className='fa fa-pencil' style={{ fontSize: '15px', color: '#80171d' }}></i>
                 </span>
+                )}
                 <div className='fw-semibold fs-5 text-gray-600 text-dark mt-3 mb-5'>
                   {truncateDescription(newss.description, 100)} {/* Adjust the length as needed */}
                 </div>

@@ -1,5 +1,5 @@
-import {MenuItem} from './MenuItem'
-import {MenuInnerWithSub} from './MenuInnerWithSub'
+import { MenuItem } from './MenuItem'
+import { MenuInnerWithSub } from './MenuInnerWithSub'
 
 export function MenuInner() {
 
@@ -18,6 +18,7 @@ export function MenuInner() {
         <MenuItem title='Academics' to='/alumni/account/academics' icon='classmates' />
         <MenuItem title='Work' to='/alumni/account/work' icon='badge' />
         <MenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
+        <MenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' />
       </MenuInnerWithSub>
       <MenuInnerWithSub
         title='Job'
@@ -27,7 +28,7 @@ export function MenuInner() {
       >
         <MenuItem title='Jobs' to='/alumni/dsu/jobs' icon='archive' />
         <MenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />
-        
+
       </MenuInnerWithSub>
       <MenuInnerWithSub
         title='Events'

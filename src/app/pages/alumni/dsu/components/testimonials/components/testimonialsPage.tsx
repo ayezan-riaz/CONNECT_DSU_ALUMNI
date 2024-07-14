@@ -1,135 +1,133 @@
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
-import {Testimonial} from './testimonialType'
-import TestimonialsModal from './testimonialsModal'
-import {Modal, Button} from 'react-bootstrap'
-import './testimonials.css'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Testimonial } from './testimonialType';
+import TestimonialsModal from './testimonialsModal';
+import { Modal, Button } from 'react-bootstrap';
+import './testimonials.css';
 
 const TestimonialsPage: React.FC = () => {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
-  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null)
-  const [showModal, setShowModal] = useState(false)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [testimonialToDelete, setTestimonialToDelete] = useState<number | null>(null)
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [testimonialToDelete, setTestimonialToDelete] = useState<number | null>(null);
+  const userId = parseInt(localStorage.getItem('sub') || '0', 10);
+  const roleId = parseInt(localStorage.getItem('role') || '0', 10);
 
   const fetchTestimonials = () => {
+    debugger
     axios
       .get('https://ams-backend-gkxg.onrender.com/api/testimonial')
       .then((response) => {
-        setTestimonials(response.data)
+        setTestimonials(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching testimonials:', error)
-      })
-  }
+        console.error('Error fetching testimonials:', error);
+      });
+  };
 
   useEffect(() => {
-    fetchTestimonials()
-  }, [])
+    fetchTestimonials();
+  }, []);
 
   const openModal = (testimonial?: Testimonial) => {
     if (testimonial) {
-      setSelectedTestimonial(testimonial)
+      setSelectedTestimonial(testimonial);
     } else {
-      setSelectedTestimonial(null)
+      setSelectedTestimonial(null);
     }
-    setShowModal(true)
-  }
+    setShowModal(true);
+  };
 
   const closeModal = () => {
-    setShowModal(false)
-  }
+    setShowModal(false);
+  };
 
   const openDeleteModal = (testimonialId: number) => {
-    setTestimonialToDelete(testimonialId)
-    setShowDeleteModal(true)
-  }
+    setTestimonialToDelete(testimonialId);
+    setShowDeleteModal(true);
+  };
 
   const closeDeleteModal = () => {
-    setShowDeleteModal(false)
-    setTestimonialToDelete(null)
-  }
+    setShowDeleteModal(false);
+    setTestimonialToDelete(null);
+  };
 
   const handleDelete = () => {
     if (testimonialToDelete !== null) {
       axios
         .delete(`https://ams-backend-gkxg.onrender.com/api/testimonial/${testimonialToDelete}`)
-        .then((response) => {
-          fetchTestimonials() // Refresh the testimonials list after deletion
-          console.log('Testimonial deleted successfully')
-          closeDeleteModal()
+        .then(() => {
+          fetchTestimonials(); // Refresh the testimonials list after deletion
+          closeDeleteModal();
         })
         .catch((error) => {
-          console.error('Error deleting testimonial:', error)
-        })
+          console.error('Error deleting testimonial:', error);
+        });
     }
-  }
+  };
+
+  // Filter testimonials based on role
+  const filteredTestimonials =
+    roleId === 1
+      ? testimonials
+      : testimonials.filter((testimonial) => testimonial.id === userId);
 
   return (
     <>
       <div className='container'>
         <div className='row mb-5'>
           <div className='col-3 offset-9'>
-            <button className='btn btn-primary des' onClick={() => openModal()}>
-              Add new Testimonial
-            </button>
+            {roleId === 1 && (
+              <button className='btn btn-primary des' onClick={() => openModal()}>
+                Add new Testimonial
+              </button>
+            )}
           </div>
         </div>
         <div className='row'>
-          {testimonials.map((testimonial) => (
+          {filteredTestimonials.map((testimonial) => (
             <div key={testimonial.id} className='col-lg-4 col-md-4 col-sm-12'>
               <div className='card card-dashed'>
-                <span style={{textAlign: 'right', paddingTop: '5px', paddingRight: '5px'}}>
-                  <i
-                    className='fa fa-times-circle'
-                    style={{fontSize: '20px', color: '#80171d', cursor: 'pointer'}}
-                    onClick={() => openDeleteModal(testimonial.id)}
-                  ></i>
+                <span style={{ textAlign: 'right', paddingTop: '5px', paddingRight: '5px' }}>
+                  {roleId === 1 && (
+                    <i
+                      className='fa fa-times-circle'
+                      style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
+                      onClick={() => openDeleteModal(testimonial.id)}
+                    ></i>
+                  )}
                 </span>
-                {/* <div className="card-header" style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <div className="symbol symbol-circle symbol-50px "  >
-                  <img 
-              
-                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`} 
-                      alt={`${testimonial.first_name} ${testimonial.last_name}`} 
+                <div
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    marginBottom: '10px',
+                  }}
+                >
+                  <div className='symbol symbol-circle symbol-50px '>
+                    <img
+                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'
+                        }`}
+                      alt={`${testimonial.first_name} ${testimonial.last_name}`}
                     />
                   </div>
-                 
-                </div> */}
+                </div>
                 <div className='card-body'>
-                  <div
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    <div className='symbol symbol-circle symbol-50px '>
-                      <img
-                        src={`https://ams-backend-gkxg.onrender.com/alumni/${
-                          testimonial.avatar || 'default-avatar.png'
-                        }`}
-                        alt={`${testimonial.first_name} ${testimonial.last_name}`}
-                      />
-                    </div>
-                  </div>
                   <div>
                     <p>{testimonial.testimony}</p>
                   </div>
                 </div>
                 <div className='card-footer'>
-                  <div style={{textAlign: 'center'}}>
+                  <div style={{ textAlign: 'center' }}>
                     <p>
                       {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
                       <span
-                        style={{marginLeft: '10px', cursor: 'pointer'}}
+                        style={{ marginLeft: '10px', cursor: 'pointer' }}
                         onClick={() => openModal(testimonial)}
                       >
-                        <i
-                          className='fa fa-pencil'
-                          style={{fontSize: '15px', color: '#80171d'}}
-                        ></i>
+                        <i className='fa fa-pencil' style={{ fontSize: '15px', color: '#80171d' }}></i>
                       </span>
                     </p>
                     <p>
@@ -164,7 +162,7 @@ const TestimonialsPage: React.FC = () => {
         </Modal.Footer>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default TestimonialsPage
+export default TestimonialsPage;

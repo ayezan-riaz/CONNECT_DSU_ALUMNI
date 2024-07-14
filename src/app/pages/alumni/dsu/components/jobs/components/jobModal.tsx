@@ -69,18 +69,39 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
       return;
     }
 
+    const accessToken = localStorage.getItem('token'); // Retrieve the access token from local storage
+
+    if (!accessToken) {
+      toast.error('Access token not found');
+      return;
+    }
+
     const { id, ...jobData } = formData; // Exclude the id when posting new job data
 
     try {
       if (selectedJob) {
-        await axios.patch(`https://ams-backend-gkxg.onrender.com/api/jobs/${selectedJob.id}`, formData, {
-          headers: { 'Content-Type': 'application/json' }
-        });
+        await axios.patch(
+          `https://ams-backend-gkxg.onrender.com/api/jobs/${selectedJob.id}`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${accessToken}`, // Include the access token in the headers
+            }
+          }
+        );
         toast.success('Job updated successfully');
       } else {
-        await axios.post('https://ams-backend-gkxg.onrender.com/api/jobs', jobData, {
-          headers: { 'Content-Type': 'application/json' }
-        });
+        await axios.post(
+          'https://ams-backend-gkxg.onrender.com/api/jobs',
+          jobData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${accessToken}`, // Include the access token in the headers
+            }
+          }
+        );
         toast.success('Job added successfully');
       }
       fetchJobs();
@@ -94,6 +115,25 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+
+    // Input validation for alphabets in name fields
+    if (name === 'title' || name === 'organization_name') {
+      const regex = /^[A-Za-z\s]*$/;
+      if (!regex.test(value)) {
+        toast.error('Only alphabets are allowed');
+        return;
+      }
+    }
+
+    // Input validation for numbers in salary field
+    if (name === 'salary') {
+      const regex = /^[0-9]*$/;
+      if (!regex.test(value)) {
+        toast.error('Only numbers are allowed');
+        return;
+      }
+    }
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -186,8 +226,11 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
               onChange={handleChange}
             >
               <option value="">Select salary type</option>
-              <option value="$">Dollar</option>
-              <option value="₹">Rupees</option>
+              <option value="$">$ Dollar</option>
+              <option value="₹">₹ Rupees</option>
+              <option value="€">€ Euro</option>
+              <option value="£">£ Pound</option>
+              <option value="¥">¥ Yen</option>
               {/* Add more salary types as needed */}
             </Form.Control>
           </Form.Group>
@@ -256,7 +299,7 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
         </Form>
       </Modal.Body>
     </Modal>
-  )
+  );
 }
 
 export default JobModal;

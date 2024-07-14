@@ -1,13 +1,13 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link, useNavigate} from 'react-router-dom'
-import {useFormik} from 'formik'
+import { Link, useNavigate } from 'react-router-dom'
+import { useFormik } from 'formik'
 import axios from 'axios' // Import Axios
-import {useAuth} from '../core/Auth'
+import { useAuth } from '../core/Auth'
 import React from 'react'
-import {Navigate} from 'react-router-dom'
-import {Console} from 'console'
+import { Navigate } from 'react-router-dom'
+import { Console } from 'console'
 // Load environment variables
 // require('dotenv').config();
 const loginSchema = Yup.object().shape({
@@ -30,13 +30,13 @@ const initialValues = {
 const API = process.env.API_PATH
 export function Login() {
   const [loading, setLoading] = useState(false)
-  const {saveAuth, setCurrentUser} = useAuth()
+  const { saveAuth, setCurrentUser } = useAuth()
   // const history = useHistory(); // React Router history object to redirect
   // const navigate = useNavigate();
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values, {setStatus, setSubmitting}) => {
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true)
       try {
         const response = await axios.post(`https://ams-backend-gkxg.onrender.com/api/login`, {
@@ -44,7 +44,7 @@ export function Login() {
           password: values.password,
         })
 
-        const {access_token} = response.data
+        const { access_token } = response.data
         // console.log('AcessToken: ', access_token)
         saveAuth(access_token) // Save access token to local storage
 
@@ -58,9 +58,11 @@ export function Login() {
             },
           }
         )
-        const {sub} = userResponse.data
+        const { sub } = userResponse.data
+        const { role } = userResponse.data
         console.log('Sub', sub)
         localStorage.setItem('sub', sub)
+        localStorage.setItem('role', role)
         // saveAuth(sub);Save Sub to local storage
         // const user = response.data;
         // setCurrentUser(user);
@@ -96,7 +98,7 @@ export function Login() {
             <span>
               <i
                 className='fas fa-arrow-circle-left'
-                style={{color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer'}}
+                style={{ color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer' }}
               ></i>
             </span>
           </Link>
@@ -120,7 +122,7 @@ export function Login() {
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control bg-transparent',
-            {'is-invalid': formik.touched.email && formik.errors.email},
+            { 'is-invalid': formik.touched.email && formik.errors.email },
             {
               'is-valid': formik.touched.email && !formik.errors.email,
             }
@@ -169,7 +171,7 @@ export function Login() {
         <div />
 
         {/* begin::Link */}
-        <Link to='/auth/forgot-password' style={{color: '#80171D'}}>
+        <Link to='/auth/forgot-password' style={{ color: '#80171D' }}>
           Forgot Password ?
         </Link>
         {/* end::Link */}
@@ -188,12 +190,12 @@ export function Login() {
           disabled={formik.isSubmitting || !formik.isValid}
         >
           {!loading && (
-            <span className='indicator-label' style={{color: 'white'}}>
+            <span className='indicator-label' style={{ color: 'white' }}>
               Sign In
             </span>
           )}
           {loading && (
-            <span className='indicator-progress' style={{display: 'block'}}>
+            <span className='indicator-progress' style={{ display: 'block' }}>
               Please wait...
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
@@ -204,7 +206,7 @@ export function Login() {
 
       <div className='text-gray-500 text-center fw-semibold fs-6'>
         Not a Member yet?{' '}
-        <Link to='/auth/registration' style={{color: '#80171D'}}>
+        <Link to='/auth/registration' style={{ color: '#80171D' }}>
           Create an Account
         </Link>
       </div>

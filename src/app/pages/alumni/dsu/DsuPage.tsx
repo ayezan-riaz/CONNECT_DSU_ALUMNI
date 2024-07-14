@@ -1,18 +1,19 @@
 import React from 'react'
-import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
-import {PageLink, PageTitle} from '../../../../_metronic/layout/core'
-import {Events} from './components/event/Events'
-import {Association} from './components/association/Association'
-import {Card} from './components/card/Card'
-import {CorportaePartner} from './components/corporatePartner/CorportaePartner'
-import {Directory} from './components/directory/Directory'
-import {News} from './components/news/News'
-import {Testimonials} from './components/testimonials/Testimonials'
-import {Donation} from './components/donation/Donation'
-import {Job} from './components/jobs/Job'
-import {EventDetails} from './components/event/EventDetails'
-import {NewsDetails} from './components/news/NewsDetail'
+import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
+import { PageLink, PageTitle } from '../../../../_metronic/layout/core'
+import { Events } from './components/event/Events'
+import { Association } from './components/association/Association'
+import { Card } from './components/card/Card'
+import { CorportaePartner } from './components/corporatePartner/CorportaePartner'
+import { Directory } from './components/directory/Directory'
+import { News } from './components/news/News'
+import { Testimonials } from './components/testimonials/Testimonials'
+import { Donation } from './components/donation/Donation'
+import { Job } from './components/jobs/Job'
+import { EventDetails } from './components/event/EventDetails'
+import { NewsDetails } from './components/news/NewsDetail'
 import ApprovedJobs from './components/jobs/components/approvedJobs'
+import { UserManagement } from './components/UserManagement/userManagement'
 const accountBreadCrumbs: Array<PageLink> = [
   {
     title: 'Dsu',
@@ -134,7 +135,7 @@ const DsuPage: React.FC = () => {
             </>
           }
         />
-     <Route
+        <Route
           path='approvejobs'
           element={
             <>
@@ -149,6 +150,16 @@ const DsuPage: React.FC = () => {
             <>
               {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Work</PageTitle> */}
               <Testimonials />
+            </>
+          }
+        />
+
+        <Route
+          path='usermanagement'
+          element={
+            <>
+              {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Work</PageTitle> */}
+              <UserManagement />
             </>
           }
         />

@@ -13,7 +13,7 @@ const CorporatePartnerPage: React.FC = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [corporateToDelete, setCorporateToDelete] = useState<CorporatePartner | null>(null);
   const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/corporate-partners/';
-
+  const roleId = parseInt(localStorage.getItem('role') || '0', 10)
   const fetchCorporates = () => {
     axios
       .get<CorporatePartner[]>('https://ams-backend-gkxg.onrender.com/api/corporate-partners')
@@ -65,13 +65,15 @@ const CorporatePartnerPage: React.FC = () => {
 
   return (
     <>
-      <div className="row mb-5">
-        <div className="col-3 offset-9">
-          <button className="btn btn-primary des" onClick={() => openModal(null)}>
-            Add new Corporate Partner
-          </button>
+      {roleId === 1 && (
+        <div className="row mb-5">
+          <div className="col-3 offset-9">
+            <button className="btn btn-primary des" onClick={() => openModal(null)}>
+              Add new Corporate Partner
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <div className="card mb-5 mb-xl-8">
         <div className="card-header border-0 pt-5">
           <h3 className="card-title align-items-start flex-column">
@@ -88,7 +90,7 @@ const CorporatePartnerPage: React.FC = () => {
                   <th className="min-w-200px">FACILITIES</th>
                   <th className="min-w-150px">Discount Offer</th>
                   <th className="min-w-150px">Valid Date</th>
-                  <th className="min-w-100px text-end">Actions</th>
+                  {roleId === 1 && (<th className="min-w-100px text-end">Actions</th>)}
                 </tr>
               </thead>
               <tbody>
@@ -115,7 +117,7 @@ const CorporatePartnerPage: React.FC = () => {
                     </td>
                     <td>{corporate.discounted_offer}</td>
                     <td>{new Date(corporate.valid_date).toDateString()}</td>
-                    <td className="text-end">
+                    {roleId === 1 && (<td className="text-end">
                       <div className="d-flex justify-content-end flex-shrink-0">
                         <Button
                           variant="primary"
@@ -133,7 +135,7 @@ const CorporatePartnerPage: React.FC = () => {
                           Delete
                         </Button>
                       </div>
-                    </td>
+                    </td>)}
                   </tr>
                 ))}
               </tbody>
