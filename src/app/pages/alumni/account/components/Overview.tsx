@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { KTIcon } from '../../../../../_metronic/helpers'
+import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
+import {KTIcon} from '../../../../../_metronic/helpers'
 import moment from 'moment'
 import {
   ChartsWidget1,
@@ -9,8 +9,8 @@ import {
   TablesWidget1,
   TablesWidget5,
 } from '../../../../../_metronic/partials/widgets'
-import { IProfileDetails } from './settings/SettingsModel'
-import { profileDetailsInitValues } from './settings/SettingsModel'
+import {IProfileDetails} from './settings/SettingsModel'
+import {profileDetailsInitValues} from './settings/SettingsModel'
 import axios from 'axios'
 import LoadingScreen from './LoadingScreen/LoadingScreen'
 
@@ -165,22 +165,22 @@ export function Overview() {
               <div className='row mb-7'>
                 <label className='col-lg-4 fw-bold text-muted'>Resume</label>
 
-                {/* <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'>{user.profile[0].resume}</span>
-            </div> */}
-
-                {user.profile ? (
-                  <>
-                    <a
-                      href={`https://ams-backend-gkxg.onrender.com/api/alumni/${user.profile.resume}`}
-                      target='_blank'
-                    >
-                      {user.profile.resume}
-                    </a>
-                  </>
-                ) : (
-                  <span className='text-center'>No File</span>
-                )}
+                <div className='col-lg-8 fv-row'>
+                  {user.profile ? (
+                    <>
+                      <a
+                        href={`https://ams-backend-gkxg.onrender.com/alumni/${user.profile.resume}`}
+                        target='_blank'
+                        className='fw-bold'
+                        rel='noreferrer'
+                      >
+                        My Resume
+                      </a>
+                    </>
+                  ) : (
+                    <span className='text-center'>No File</span>
+                  )}
+                </div>
               </div>
 
               <div className='row mb-7'>
