@@ -229,4 +229,4 @@ const ChangePassword: React.FC = () => {
   )
 }
 
-export {ChangePassword as SignInMethod}
+export {ChangePassword}
