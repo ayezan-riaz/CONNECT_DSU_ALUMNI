@@ -102,7 +102,7 @@ const User: React.FC = () => {
 
     return (
         <>
-            <div className="row mb-3">
+            <div className="row mb-3 mt-5">
                 <div className="col-md-3">
                     <Form.Control
                         type="text"
@@ -145,10 +145,9 @@ const User: React.FC = () => {
                             <thead>
                                 <tr className="fw-bold text-muted">
                                     <th className="min-w-50px">Sno</th>
-                                    <th className="min-w-150px">Name</th>
+                                    <th className="min-w-200px">Name</th>
                                     <th className="min-w-150px">Email</th>
                                     <th className="min-w-150px">University Email</th>
-                                    <th className="min-w-150px">Phone</th>
                                     <th className="min-w-150px text-end">Actions</th>
                                 </tr>
                             </thead>
@@ -174,7 +173,7 @@ const User: React.FC = () => {
                                         </td>
                                         <td>{user.email}</td>
                                         <td>{user.uni_email}</td>
-                                        <td>{user.phone}</td>
+                                  
                                         <td className="text-end">
                                             <div className="d-flex justify-content-end flex-shrink-0">
                                                 <Button
@@ -232,7 +231,6 @@ const User: React.FC = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
             {viewUser && (
                 <Modal show={viewUser !== null} onHide={closeViewUserModal}>
                     <Modal.Header closeButton>
@@ -241,12 +239,17 @@ const User: React.FC = () => {
                     <Modal.Body>
                         <div className="card">
                             <div className="card-body">
-                                <img
-                                    src={`https://ams-backend-gkxg.onrender.com/alumni/${viewUser.avatar || 'default-avatar.png'}`}
-                                    alt={`${viewUser.first_name} ${viewUser.last_name}`}
-                                    className="img-fluid mb-3"
-                                    style={{ maxHeight: '150px' }}
-                                />
+                                <div className="d-flex align-items-center mb-3">
+                                    <img
+                                        src={`https://ams-backend-gkxg.onrender.com/alumni/${viewUser.avatar || 'default-avatar.png'}`}
+                                        alt={`${viewUser.first_name} ${viewUser.last_name}`}
+                                        className="img-fluid rounded-circle"
+                                        style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                    />
+                                    <div className="ms-3">
+                          
+                                    </div>
+                                </div>
                                 <h5>{`${viewUser.first_name} ${viewUser.middle_name} ${viewUser.last_name}`}</h5>
                                 <p>Email: {viewUser.email}</p>
                                 <p>University Email: {viewUser.uni_email}</p>
@@ -262,6 +265,7 @@ const User: React.FC = () => {
                     </Modal.Footer>
                 </Modal>
             )}
+         
         </>
     );
 };

@@ -40,7 +40,7 @@ const CardPage: React.FC = () => {
   };
 
   const checkUserApprovalStatus = () => {
-    axios.get(`https://ams-backend-gkxg.onrender.com/api/alumni-card/user/${userId}`)
+    axios.get(`https://ams-backend-gkxg.onrender.com/api/alumni-card/${userId}`)
       .then(response => {
         if (response.data && response.data.isApproved) {
           setIsApproved(true);
@@ -85,7 +85,9 @@ const CardPage: React.FC = () => {
       setFilteredCards(alumniCards);
     } else {
       const filtered = alumniCards.filter(card => {
-        return card[searchField as keyof AlumniCard].toString().toLowerCase().includes(searchQuery.toLowerCase());
+        const user = card.user;
+        const searchValue = user[searchField as keyof typeof user].toString().toLowerCase();
+        return searchValue.includes(searchQuery.toLowerCase());
       });
       setFilteredCards(filtered);
     }
@@ -127,9 +129,10 @@ const CardPage: React.FC = () => {
                 value={searchField}
                 onChange={(e) => setSearchField(e.target.value)}
               >
-                <option value="name">Name</option>
-                <option value="rollNumber">Roll Number</option>
-                <option value="uniEmail">University Email</option>
+                <option value="first_name">First Name</option>
+                <option value="last_name">Last Name</option>
+                <option value="roll_no">Roll Number</option>
+                <option value="uni_email">University Email</option>
               </Form.Select>
             </div>
           </div>
@@ -161,13 +164,13 @@ const CardPage: React.FC = () => {
                           <div className="d-flex align-items-center">
                             <div className="d-flex justify-content-start flex-column">
                               <span className="text-dark fw-bold text-hover-primary fs-6">
-                                {card.name}
+                                {card.user.first_name} {card.user.last_name}
                               </span>
                             </div>
                           </div>
                         </td>
-                        <td>{card.rollNumber}</td>
-                        <td>{card.uniEmail}</td>
+                        <td>{card.user.roll_no}</td>
+                        <td>{card.user.uni_email}</td>
                         <td>{card.isApproved ? 'Approved' : 'Pending'}</td>
                         <td className="text-end">
                           <div className="d-flex justify-content-end flex-shrink-0">

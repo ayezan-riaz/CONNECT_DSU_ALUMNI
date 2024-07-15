@@ -29,6 +29,18 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, selectedUser, fe
         password_reset_token: '',
     });
 
+    const [registrationData, setRegistrationData] = useState({
+        uni_email: '',
+        first_name: '',
+        middle_name: '',
+        last_name: '',
+        qualification: '',
+        area: '',
+        registration_time: '',
+        graduation_time: '',
+        cgpa: 0,
+    });
+
     useEffect(() => {
         if (selectedUser) {
             axios
@@ -71,6 +83,17 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, selectedUser, fe
                 avatar: '',
                 password_reset_token: '',
             });
+            setRegistrationData({
+                uni_email: '',
+                first_name: '',
+                middle_name: '',
+                last_name: '',
+                qualification: '',
+                area: '',
+                registration_time: '',
+                graduation_time: '',
+                cgpa: 0,
+            });
         }
     }, [selectedUser, isOpen]);
 
@@ -110,8 +133,9 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, selectedUser, fe
             } else {
                 const endpoint = isAdmin
                     ? 'https://ams-backend-gkxg.onrender.com/api/users/admin'
-                    : 'https://ams-backend-gkxg.onrender.com/api/users';
-                await axios.post(endpoint, payload, { headers });
+                    : 'https://ams-backend-gkxg.onrender.com/api/registrations';
+                const finalPayload = isAdmin ? payload : registrationData;
+                await axios.post(endpoint, finalPayload, { headers });
                 toast.success(isAdmin ? 'Admin added successfully' : 'User added successfully');
             }
             fetchUsers();
@@ -125,10 +149,17 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, selectedUser, fe
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        if (isAdmin || selectedUser) {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        } else {
+            setRegistrationData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+        }
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,96 +182,201 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, selectedUser, fe
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            type='email'
-                            name='email'
-                            value={formData.email}
-                            onChange={handleChange}
-                            placeholder='Enter email'
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>University Email</Form.Label>
-                        <Form.Control
-                            type='email'
-                            name='uni_email'
-                            value={formData.uni_email}
-                            onChange={handleChange}
-                            placeholder='Enter university email'
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Phone</Form.Label>
-                        <Form.Control
-                            type='text'
-                            name='phone'
-                            value={formData.phone}
-                            onChange={handleChange}
-                            placeholder='Enter phone number'
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control
-                            type='text'
-                            name='first_name'
-                            value={formData.first_name}
-                            onChange={handleChange}
-                            placeholder='Enter first name'
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Middle Name</Form.Label>
-                        <Form.Control
-                            type='text'
-                            name='middle_name'
-                            value={formData.middle_name}
-                            onChange={handleChange}
-                            placeholder='Enter middle name'
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                            type='text'
-                            name='last_name'
-                            value={formData.last_name}
-                            onChange={handleChange}
-                            placeholder='Enter last name'
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type='password'
-                            name='password'
-                            value={formData.password}
-                            onChange={handleChange}
-                            placeholder='Enter password'
-                            required
-                        />
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                        <Form.Label>Avatar</Form.Label>
-                        <Form.Control type='file' name='avatar' onChange={handleFileChange} />
-                        {selectedUser && (
-                            <div>
-                                <img
-                                    src={`https://ams-backend-gkxg.onrender.com/alumni/${selectedUser.avatar}`}
-                                    alt="Current Avatar"
-                                    style={{ maxHeight: '100px', marginTop: '10px' }}
+                    {isAdmin || selectedUser ? (
+                        <>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
+                                    type='email'
+                                    name='email'
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder='Enter email'
+                                    required
                                 />
-                            </div>
-                        )}
-                    </Form.Group>
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>University Email</Form.Label>
+                                <Form.Control
+                                    type='email'
+                                    name='uni_email'
+                                    value={formData.uni_email}
+                                    onChange={handleChange}
+                                    placeholder='Enter university email'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Phone</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='phone'
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    placeholder='Enter phone number'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>First Name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='first_name'
+                                    value={formData.first_name}
+                                    onChange={handleChange}
+                                    placeholder='Enter first name'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Middle Name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='middle_name'
+                                    value={formData.middle_name}
+                                    onChange={handleChange}
+                                    placeholder='Enter middle name'
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Last Name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='last_name'
+                                    value={formData.last_name}
+                                    onChange={handleChange}
+                                    placeholder='Enter last name'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
+                                    type='password'
+                                    name='password'
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder='Enter password'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Avatar</Form.Label>
+                                <Form.Control type='file' name='avatar' onChange={handleFileChange} />
+                                {selectedUser && (
+                                    <div>
+                                        <img
+                                            src={`https://ams-backend-gkxg.onrender.com/alumni/${selectedUser.avatar}`}
+                                            alt="Current Avatar"
+                                            style={{ maxHeight: '100px', marginTop: '10px' }}
+                                        />
+                                    </div>
+                                )}
+                            </Form.Group>
+                        </>
+                    ) : (
+                        <>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>University Email</Form.Label>
+                                <Form.Control
+                                    type='email'
+                                    name='uni_email'
+                                    value={registrationData.uni_email}
+                                    onChange={handleChange}
+                                    placeholder='Enter university email'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>First Name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='first_name'
+                                    value={registrationData.first_name}
+                                    onChange={handleChange}
+                                    placeholder='Enter first name'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Middle Name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='middle_name'
+                                    value={registrationData.middle_name}
+                                    onChange={handleChange}
+                                    placeholder='Enter middle name'
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Last Name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='last_name'
+                                    value={registrationData.last_name}
+                                    onChange={handleChange}
+                                    placeholder='Enter last name'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Qualification</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='qualification'
+                                    value={registrationData.qualification}
+                                    onChange={handleChange}
+                                    placeholder='Enter qualification'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Area</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='area'
+                                    value={registrationData.area}
+                                    onChange={handleChange}
+                                    placeholder='Enter area'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Registration Time</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='registration_time'
+                                    value={registrationData.registration_time}
+                                    onChange={handleChange}
+                                    placeholder='Enter registration time'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Graduation Time</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='graduation_time'
+                                    value={registrationData.graduation_time}
+                                    onChange={handleChange}
+                                    placeholder='Enter graduation time'
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>CGPA</Form.Label>
+                                <Form.Control
+                                    type='number'
+                                    name='cgpa'
+                                    value={registrationData.cgpa}
+                                    onChange={handleChange}
+                                    placeholder='Enter CGPA'
+                                    step="0.01"
+                                    required
+                                />
+                            </Form.Group>
+                        </>
+                    )}
                     <Button variant='primary' type='submit'>
                         {submitButtonText}
                     </Button>
