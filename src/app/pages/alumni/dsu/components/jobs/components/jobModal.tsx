@@ -68,7 +68,7 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
       toast.error('Please fill in all fields');
       return;
     }
-
+    debugger
     const accessToken = localStorage.getItem('token'); // Retrieve the access token from local storage
 
     if (!accessToken) {

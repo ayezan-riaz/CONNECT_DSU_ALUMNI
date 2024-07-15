@@ -1,6 +1,6 @@
 import {AuthModel} from './_models'
 
-const AUTH_LOCAL_STORAGE_KEY = 'kt-auth-react-v'
+const AUTH_LOCAL_STORAGE_KEY = 'token'
 const getAuth = (): AuthModel | undefined => {
   if (!localStorage) {
     return

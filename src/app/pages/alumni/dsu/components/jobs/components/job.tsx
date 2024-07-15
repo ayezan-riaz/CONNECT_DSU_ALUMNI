@@ -3,18 +3,22 @@ import axios from 'axios';
 import './job.css';
 import JobModal from './jobModal'; // Import the JobModal component
 import { Jobs } from './jobTypes';
+import { Modal, Button } from 'react-bootstrap';
 
 const Job: React.FC = () => {
   const [jobs, setJobs] = useState<Jobs[]>([]);
   const [selectedJob, setSelectedJob] = useState<Jobs | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const user_id = parseInt(localStorage.getItem('sub') || '0', 10)
-  const role_id = parseInt(localStorage.getItem('role') || '0', 10)
+  const [deleteJobId, setDeleteJobId] = useState<number | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const user_id = parseInt(localStorage.getItem('sub') || '0', 10);
+  const role = parseInt(localStorage.getItem('role') || '0', 10);
 
   const fetchJobs = () => {
     axios.get('https://ams-backend-gkxg.onrender.com/api/jobs')
       .then(response => {
-        setJobs(response.data);
+        setJobs(response.data.filter((job: Jobs) => job.isApproved));
       })
       .catch(error => {
         console.error('Error fetching jobs:', error);
@@ -38,23 +42,58 @@ const Job: React.FC = () => {
     setShowModal(false);
   };
 
+  const openDeleteModal = (jobId: number) => {
+    setDeleteJobId(jobId);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setDeleteJobId(null);
+  };
+
+  const handleDelete = () => {
+    if (deleteJobId !== null) {
+      axios.delete(`https://ams-backend-gkxg.onrender.com/api/jobs/${deleteJobId}`)
+        .then(() => {
+          fetchJobs();
+          closeDeleteModal();
+        })
+        .catch(error => {
+          console.error('Error deleting job:', error);
+        });
+    }
+  };
+
   return (
     <div>
-      <div className="row mb-5">
+      {role === 1 && (  
+         <div className="row mb-5">
         <div className="col-2 offset-10">
           <button className="btn btn-primary des" style={{ background: "rgb(255, 255, 255)" }} onClick={() => openModal()}>
             Add new Job
           </button>
         </div>
       </div>
+      )}
       <div className="row">
         {jobs.map((job) => (
           <div key={job.id} className="col-lg-4 col-md-4 col-sm-12">
             <div className="card card-custom card-stretch-50 shadow mb-5">
-              <div className="card-header">
-                <h3 className="card-title">
-                  <h5 className="card-title job-title">{job.title}</h5>
-                </h3>
+            {role === 1 && (
+                <span style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
+                  <i
+                    className="fa fa-times-circle"
+                    style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
+                    onClick={() => openDeleteModal(job.id)}
+                  ></i>
+                </span>
+              )}
+              <div className="card-header d-flex justify-content-between align-items-center">
+                <h5 className="card-title job-title">{job.title}</h5>
+                {/* {role === 1 && (    <button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(job.id)}>
+                  <i className="fas fa-times"></i>
+                </button>)} */}
               </div>
               <div className="card-body">
                 <div className="row">
@@ -69,7 +108,7 @@ const Job: React.FC = () => {
                   </div>
                   <div className="col-12">
                     <p className="">
-                      <i style={{ marginRight: "5px" }} className="fas fa-email" />
+                      <i style={{ marginRight: "5px" }} className="fas fa-envelope" />
                       {job.organization_email}
                     </p>
                   </div>
@@ -81,7 +120,7 @@ const Job: React.FC = () => {
                   </div>
                   <div className="col-12">
                     <p className="">
-                      <i style={{ marginRight: "5px" }} className="fas fa-clock" />
+                      <i style={{ marginRight: "5px" }} className="fas fa-calendar" />
                       {new Date(job.end_date).toLocaleDateString()}
                     </p>
                   </div>
@@ -102,16 +141,33 @@ const Job: React.FC = () => {
                   </div>
                 </div>
               </div>
+              {role === 1 && (
               <div className="card-footer">
                 <button className="btn btn-primary" onClick={() => openModal(job)}>
                   Edit
                 </button>
               </div>
+              )}
             </div>
           </div>
         ))}
       </div>
       <JobModal isOpen={showModal} onClose={closeModal} selectedJob={selectedJob} fetchJobs={fetchJobs} />
+      
+      <Modal show={showDeleteModal} onHide={closeDeleteModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this job?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeDeleteModal}>
+            No
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

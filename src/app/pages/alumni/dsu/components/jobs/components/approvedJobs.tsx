@@ -63,7 +63,10 @@ const ApprovedJobs: React.FC = () => {
   };
 
   const handleApprove = (jobId: number) => {
-    axios.post(`https://ams-backend-gkxg.onrender.com/api/jobs/approve`, { id: jobId })
+    const token = localStorage.getItem('token');
+    axios.post(`https://ams-backend-gkxg.onrender.com/api/jobs/approve`, { id: jobId }, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(response => {
         fetchJobs();
         console.log('Job approved successfully');

@@ -47,7 +47,7 @@ export function Login() {
         const { access_token } = response.data
         // console.log('AcessToken: ', access_token)
         saveAuth(access_token) // Save access token to local storage
-
+        localStorage.setItem('token', access_token)
         // Fetch user details using the access token
         const userResponse = await axios.get(
           `https://ams-backend-gkxg.onrender.com/api/protected`,

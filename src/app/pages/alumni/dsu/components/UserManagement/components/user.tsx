@@ -145,11 +145,11 @@ const User: React.FC = () => {
                             <thead>
                                 <tr className="fw-bold text-muted">
                                     <th className="min-w-50px">Sno</th>
-                                    <th className="min-w-200px">Name</th>
+                                    <th className="min-w-150px">Name</th>
                                     <th className="min-w-150px">Email</th>
                                     <th className="min-w-150px">University Email</th>
                                     <th className="min-w-150px">Phone</th>
-                                    <th className="min-w-100px text-end">Actions</th>
+                                    <th className="min-w-150px text-end">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
