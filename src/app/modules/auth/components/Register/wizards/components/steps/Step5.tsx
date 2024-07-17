@@ -5,32 +5,31 @@ import {inits} from '../../../../../../wizards/components/CreateAccountWizardHel
 
 const Step5: FC = () => {
   return (
-    <div className='w-100' style={{textAlign: 'center'}}>
+    <div className='w-100'>
       <div
         className='text-gray-400 fw-bold fs-6 mb-0'
         style={{display: 'flex', justifyContent: 'flex-end'}}
       >
         Having Issues?
-        <a href='/auth/login' className='fw-bolder' style={{color: '#80171D'}}>
-          Get Help
+        <a
+          href='https://www.dsu.edu.pk/contact-us/'
+          target='_blank'
+          rel='noreferrer'
+          className='fw-bolder'
+          style={{color: '#80171D'}}
+        >
+          &nbsp;Get Help
         </a>
       </div>
       <div className='pb-10 pb-lg-15'>
-        <h2 className='fw-bolder text-dark mb-4'>Your Account Has Been Created</h2>
-        <p>
-          Your Email<span> </span>
-          <br /> has been verified Login and complete your profile to become a part of ourl alumni
-          community
-        </p>
-        <a
-          href='/auth/login'
-          type='submit'
-          className='btn btn-lg me-3'
-          style={{backgroundColor: '#80171D', color: 'white'}}
-          target='_blank'
-        >
-          Head To Login
-        </a>
+        <h2 className='fw-bolder text-dark mb-4'>Account Created</h2>
+        <p>Your email has been verified, login to complete your profile.</p>
+
+        <Link to='/auth/login'>
+          <button className='btn btn-sm me-3' style={{backgroundColor: '#80171D', color: 'white'}}>
+            Login Now
+          </button>
+        </Link>
       </div>
     </div>
   )

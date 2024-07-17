@@ -16,8 +16,14 @@ export function Step3() {
         style={{display: 'flex', justifyContent: 'flex-end'}}
       >
         Having Issues?
-        <a href='/auth/login' className='fw-bolder' style={{color: '#80171D'}}>
-          Get Help
+        <a
+          href='https://www.dsu.edu.pk/contact-us/'
+          target='_blank'
+          rel='noreferrer'
+          className='fw-bolder'
+          style={{color: '#80171D'}}
+        >
+          &nbsp;Get Help
         </a>
       </div>
       <div className='container ' style={{marginTop: 20}}>

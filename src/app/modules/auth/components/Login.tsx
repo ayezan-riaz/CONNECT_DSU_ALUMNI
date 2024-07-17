@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import { Link, useNavigate } from 'react-router-dom'
-import { useFormik } from 'formik'
+import {Link, useNavigate} from 'react-router-dom'
+import {useFormik} from 'formik'
 import axios from 'axios' // Import Axios
-import { useAuth } from '../core/Auth'
+import {useAuth} from '../core/Auth'
 import React from 'react'
-import { Navigate } from 'react-router-dom'
-import { Console } from 'console'
+import {Navigate} from 'react-router-dom'
+import {Console} from 'console'
 // Load environment variables
 // require('dotenv').config();
 const loginSchema = Yup.object().shape({
@@ -23,20 +23,20 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: 'admin@demo.com',
-  password: 'demo',
+  email: '',
+  password: '',
 }
 
 const API = process.env.API_PATH
 export function Login() {
   const [loading, setLoading] = useState(false)
-  const { saveAuth, setCurrentUser } = useAuth()
+  const {saveAuth, setCurrentUser} = useAuth()
   // const history = useHistory(); // React Router history object to redirect
   // const navigate = useNavigate();
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values, { setStatus, setSubmitting }) => {
+    onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
         const response = await axios.post(`https://ams-backend-gkxg.onrender.com/api/login`, {
@@ -44,7 +44,7 @@ export function Login() {
           password: values.password,
         })
 
-        const { access_token } = response.data
+        const {access_token} = response.data
         // console.log('AcessToken: ', access_token)
         saveAuth(access_token) // Save access token to local storage
         localStorage.setItem('token', access_token)
@@ -58,8 +58,8 @@ export function Login() {
             },
           }
         )
-        const { sub } = userResponse.data
-        const { role } = userResponse.data
+        const {sub} = userResponse.data
+        const {role} = userResponse.data
         console.log('Sub', sub)
         localStorage.setItem('sub', sub)
         localStorage.setItem('role', role)
@@ -98,11 +98,11 @@ export function Login() {
             <span>
               <i
                 className='fas fa-arrow-circle-left'
-                style={{ color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer' }}
+                style={{color: '#81181b', fontSize: '20px', marginRight: '10px', cursor: 'pointer'}}
               ></i>
             </span>
           </Link>
-          Done Welcome To The Alumni Portal
+          Welcome To Alumni Portal
         </h1>
       </div>
 
@@ -118,11 +118,11 @@ export function Login() {
       <div className='fv-row mb-8'>
         <label className='form-label fs-6 fw-bolder text-dark'>Email</label>
         <input
-          placeholder='Email'
+          placeholder='someone@something.com'
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control bg-transparent',
-            { 'is-invalid': formik.touched.email && formik.errors.email },
+            {'is-invalid': formik.touched.email && formik.errors.email},
             {
               'is-valid': formik.touched.email && !formik.errors.email,
             }
@@ -144,6 +144,7 @@ export function Login() {
         <label className='form-label fw-bolder text-dark fs-6 mb-0'>Password</label>
         <input
           type='password'
+          placeholder='*****'
           autoComplete='off'
           {...formik.getFieldProps('password')}
           className={clsx(
@@ -171,8 +172,8 @@ export function Login() {
         <div />
 
         {/* begin::Link */}
-        <Link to='/auth/forgot-password' style={{ color: '#80171D' }}>
-          Forgot Password ?
+        <Link to='/auth/forgot-password' style={{color: '#80171D'}}>
+          Forgot Password
         </Link>
         {/* end::Link */}
       </div>
@@ -190,12 +191,12 @@ export function Login() {
           disabled={formik.isSubmitting || !formik.isValid}
         >
           {!loading && (
-            <span className='indicator-label' style={{ color: 'white' }}>
+            <span className='indicator-label' style={{color: 'white'}}>
               Sign In
             </span>
           )}
           {loading && (
-            <span className='indicator-progress' style={{ display: 'block' }}>
+            <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
@@ -205,9 +206,9 @@ export function Login() {
       {/* end::Action */}
 
       <div className='text-gray-500 text-center fw-semibold fs-6'>
-        Not a Member yet?{' '}
-        <Link to='/auth/registration' style={{ color: '#80171D' }}>
-          Create an Account
+        Not a member?
+        <Link to='/auth/registration' style={{color: '#80171D'}}>
+          &nbsp;Create an Account
         </Link>
       </div>
     </form>

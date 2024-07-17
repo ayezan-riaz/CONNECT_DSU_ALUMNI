@@ -165,6 +165,7 @@ const Vertical = () => {
           case 4:
             // Step 3 API Call
             try {
+              localStorage.setItem('p_mail', values.email)
               const responseStep4 = await axios.post(`${API}registrations/registerAccount`, {
                 email: values.email,
                 phone: values.phone,

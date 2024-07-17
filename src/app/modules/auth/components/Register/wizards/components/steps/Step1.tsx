@@ -1,6 +1,7 @@
 import React, {FC} from 'react'
 import {KTIcon} from '../../../../../../../../_metronic/helpers'
 import {ErrorMessage, Field} from 'formik'
+import {Link} from 'react-router-dom'
 
 const Step1: FC = () => {
   return (
@@ -11,9 +12,14 @@ const Step1: FC = () => {
           style={{display: 'flex', justifyContent: 'flex-end'}}
         >
           Having Issues?
-          <a href='/auth/login' className=' fw-bolder' style={{color: '#80171D'}}>
-            {' '}
-            Get Help{' '}
+          <a
+            href='https://www.dsu.edu.pk/contact-us/'
+            target='_blank'
+            rel='noreferrer'
+            className='fw-bolder'
+            style={{color: '#80171D'}}
+          >
+            &nbsp;Get Help
           </a>
         </div>
 
@@ -21,15 +27,16 @@ const Step1: FC = () => {
 
         <div className='text-gray-400 fw-bold fs-6'>
           Already have an Account?
-          <a href='/auth/login' className=' fw-bolder' style={{color: '#80171D'}}>
-            {' '}
-            Sign In Running{' '}
-          </a>
+          <Link to='/auth/login'>
+            <button className=' fw-bolder' style={{color: '#80171D'}}>
+              &nbsp;Sign In
+            </button>
+          </Link>
         </div>
       </div>
 
       <div className='mb-10 fv-row'>
-        <label className='form-label mb-3'>Registration Id</label>
+        <label className='form-label mb-3'>Registration ID</label>
 
         <Field
           type='text'
