@@ -166,7 +166,7 @@ export function Overview() {
                 <label className='col-lg-4 fw-bold text-muted'>Resume</label>
 
                 <div className='col-lg-8 fv-row'>
-                  {user.profile ? (
+                  {user?.profile?.resume ? (
                     <>
                       <a
                         href={`https://ams-backend-gkxg.onrender.com/alumni/${user.profile.resume}`}
