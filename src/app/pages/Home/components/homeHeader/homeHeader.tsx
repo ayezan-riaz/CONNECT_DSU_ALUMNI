@@ -1,10 +1,10 @@
-import {Nav, NavDropdown, Navbar, Form, Button, Container} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import { Nav, NavDropdown, Navbar, Form, Button, Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 // import Logo from '../../pages/alumni/assets/homelogo.png';
 import Logo from '../../../../pages/alumni/assets/homelogo.png'
 import './homeHeader.css'
-import React, {useState} from 'react'
-import {KTSVG, toAbsoluteUrl} from '../../../../../_metronic/helpers'
+import React, { useState } from 'react'
+import { KTSVG, toAbsoluteUrl } from '../../../../../_metronic/helpers'
 import path from 'path'
 
 const HomeHeader: React.FC = () => {
@@ -96,7 +96,7 @@ const HomeHeader: React.FC = () => {
                     <a
                       className='nav-link'
                       href='https://www.dsu.edu.pk/about-us/'
-                    
+
                       rel='noopener noreferrer'
                     >
                       <span className='bg'>About Us</span>
@@ -120,7 +120,7 @@ const HomeHeader: React.FC = () => {
                         role='button'
                         data-bs-toggle='dropdown'
                         aria-expanded='false'
-                        style={{color: 'white'}}
+                        style={{ color: 'white' }}
                       >
                         Reward & Benefits
                       </a>
@@ -154,14 +154,6 @@ const HomeHeader: React.FC = () => {
                         </li>
                         </Link>   */}
 
-                  <Link to='/alumni'>
-                    <li className='nav-item'>
-                      <a className='nav-link' href='#'>
-                        {' '}
-                        <span className='bg'>Alumni Association Election</span>
-                      </a>
-                    </li>
-                  </Link>
                   <Link to='#'>
                     <li className='nav-item dropdown'>
                       <a
@@ -171,7 +163,7 @@ const HomeHeader: React.FC = () => {
                         role='button'
                         data-bs-toggle='dropdown'
                         aria-expanded='false'
-                        style={{color: 'white'}}
+                        style={{ color: 'white' }}
                       >
                         News & Events
                       </a>
@@ -207,13 +199,20 @@ const HomeHeader: React.FC = () => {
                     <a
                       className='nav-link'
                       href='https://www.dsu.edu.pk/contact-us/'
-                    
+
                       rel='noopener noreferrer'
                     >
-                   <span className='bg'>Contact Us </span>
+                      <span className='bg'>Contact Us </span>
                     </a>
                   </li>
-            
+                  <Link to='/auth/registration'>
+                    <li className='nav-item'>
+                      <a className='nav-link' href='#'>
+                        {' '}
+                        <span className='bg'>Resgister as Alumni</span>
+                      </a>
+                    </li>
+                  </Link>
                   <Link to='/auth'>
                     <li className='nav-item'>
                       <a className='nav-link' href='#'>

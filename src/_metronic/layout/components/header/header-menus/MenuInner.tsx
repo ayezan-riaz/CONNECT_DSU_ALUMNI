@@ -1,11 +1,13 @@
 import { MenuItem } from './MenuItem'
 import { MenuInnerWithSub } from './MenuInnerWithSub'
-
+import { useIntl } from 'react-intl'
 export function MenuInner() {
-
+  const roleId = parseInt(localStorage.getItem('role') || '0', 10);
+  const intl = useIntl()
   return (
+
     <>
-      {/* <MenuItem title={intl.formatMessage({ id: 'MENU.DASHBOARD' })} to='/dashboard' /> */}
+      <MenuItem title={intl.formatMessage({ id: 'MENU.DASHBOARD' })} to='/dashboard' />
       <MenuInnerWithSub
         title='Account'
         to='/alumni/account'
@@ -18,8 +20,9 @@ export function MenuInner() {
         <MenuItem title='Academics' to='/alumni/account/academics' icon='classmates' />
         <MenuItem title='Work' to='/alumni/account/work' icon='badge' />
         <MenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
-        <MenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' />
+        {/* <MenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' /> */}
       </MenuInnerWithSub>
+
       <MenuInnerWithSub
         title='Job'
         to='/alumni/jobs'
@@ -27,7 +30,8 @@ export function MenuInner() {
         menuTrigger='click'
       >
         <MenuItem title='Jobs' to='/alumni/dsu/jobs' icon='archive' />
-        <MenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />
+
+        {roleId === 1 && (<MenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />)}
 
       </MenuInnerWithSub>
       <MenuInnerWithSub
@@ -44,7 +48,7 @@ export function MenuInner() {
       <MenuItem to='/alumni/dsu/card' title='Alumni Card' />
 
       <MenuItem to='/alumni/dsu/corporate' title='Corporate Partner' />
-      <MenuItem to='/alumni/dsu/directory' title='Alumni Directory' />
+      {roleId === 1 && (<MenuItem to='/alumni/dsu/directory' title='Alumni Directory' />)}
       <MenuItem to='/alumni/dsu/donation' title='Donations' />
       <MenuItem to='/alumni/dsu/testimonial' title='Testimonial' />
 

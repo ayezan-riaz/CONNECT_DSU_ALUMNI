@@ -7,6 +7,7 @@ interface CardApp {
   name: string;
   role: string;
   designation: string;
+  company: string;
 }
 
 const Carousel: React.FC = () => {
@@ -35,13 +36,15 @@ const Carousel: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://ams-backend-gkxg.onrender.com/api/users');
+        debugger
+        const response = await axios.get('https://ams-backend-gkxg.onrender.com/api/allAlumni');
         const filteredUsers = response.data.filter((user: any) => user.role === 2);
         const formattedUsers = filteredUsers.map((user: any) => ({
           imgSrc: `https://ams-backend-gkxg.onrender.com/alumni/${user.avatar || 'default-avatar.png'}`,
           name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
           role: 'User', // Adjust role text as needed
-          designation: user.designation || ''
+          designation: user.designation || '',
+          company: user.company || ''
         }));
         setCardData(formattedUsers);
       } catch (error) {
@@ -113,6 +116,7 @@ const Carousel: React.FC = () => {
           onMouseUp={dragStop}
           onMouseLeave={dragStop}
         >
+
           {cardData.map((card, index) => (
             <li className="card" key={index}>
               <div className="img">
@@ -120,7 +124,7 @@ const Carousel: React.FC = () => {
               </div>
               <h2>{card.name}</h2>
               <span>{card.designation}</span>
-              {/* <span>{card.company}</span>           */}
+              <span>{card.company}</span>
             </li>
           ))}
         </ul>

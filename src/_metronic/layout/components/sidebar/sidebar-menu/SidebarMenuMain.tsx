@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl'
 import { KTIcon } from '../../../../helpers'
 import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub'
 import { SidebarMenuItem } from './SidebarMenuItem'
+const roleId = parseInt(localStorage.getItem('role') || '0', 10);
 
 const SidebarMenuMain = () => {
   const intl = useIntl()
@@ -47,7 +48,7 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='Academics' to='/alumni/account/academics' icon='classmates' />
         <SidebarMenuItem title='Work' to='/alumni/account/work' icon='badge' />
         <SidebarMenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
-        <SidebarMenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' />
+        {/* <SidebarMenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' /> */}
       </SidebarMenuItemWithSub>
 
       {/* <SidebarMenuItemWithSub
@@ -73,7 +74,7 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       >
         <SidebarMenuItem title='Jobs' to='/alumni/dsu/jobs' icon='archive' />
-        <SidebarMenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />
+        {roleId === 1 && (<SidebarMenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />)}
       </SidebarMenuItemWithSub>
 
       <SidebarMenuItemWithSub
@@ -105,12 +106,12 @@ const SidebarMenuMain = () => {
         title='Corporate Partner'
         fontIcon='bi-app-indicator'
       />
-      <SidebarMenuItem
+      {roleId === 1 && (<SidebarMenuItem
         to='/alumni/dsu/directory'
         icon='element-11'
         title='Alumni Directory'
         fontIcon='bi-app-indicator'
-      />
+      />)}
       <SidebarMenuItem
         to='/alumni/dsu/donation'
         icon='element-11'

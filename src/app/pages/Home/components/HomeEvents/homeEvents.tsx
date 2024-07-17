@@ -66,7 +66,7 @@ const HomeEvents: React.FC = () => {
           <div key={event.id} className="col-md-4 mb-4">
             <div className="card h-100 shadow-sm">
 
-              <Link to={`/alumni/dsu/eventDetail/${event.id}`} className="d-block overlay mb-4">
+              <Link to={`/dsu/eventDetail/${event.id}`} className="d-block overlay mb-4">
                 <div
                   className="card-img-top"
                   style={{

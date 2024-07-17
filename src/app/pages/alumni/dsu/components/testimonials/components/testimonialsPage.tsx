@@ -15,7 +15,7 @@ const TestimonialsPage: React.FC = () => {
   const roleId = parseInt(localStorage.getItem('role') || '0', 10);
 
   const fetchTestimonials = () => {
-    debugger
+
     axios
       .get('https://ams-backend-gkxg.onrender.com/api/testimonial')
       .then((response) => {

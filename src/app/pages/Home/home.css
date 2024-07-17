@@ -37,8 +37,10 @@ body {
 /* Header and navigation styles */
 .navbar {
   width: 100%;
-  background-color: #81181b; /* Dark red background */
-  z-index: 1030; /* High z-index to stay on top */
+  background-color: #81181b;
+  /* Dark red background */
+  z-index: 1030;
+  /* High z-index to stay on top */
   transition: all 0.3s;
   color: white;
 }
@@ -60,8 +62,9 @@ body {
 /* Carousel styles */
 .carousel-item img {
   width: 100%;
-  height: auto;
-  object-fit: cover; /* Ensure images cover the carousel area without stretching */
+  height: 100%;
+  object-fit: cover;
+  /* Ensure images cover the carousel area without stretching */
 }
 
 .carousel-caption {
@@ -70,7 +73,7 @@ body {
   bottom: 20px;
   left: 15%;
   z-index: 10;
-  padding-top: 20px;
+  padding-top: 20px !important;
   padding-bottom: 20px;
   color: #fff;
   text-align: center;
@@ -81,23 +84,27 @@ body {
   .carousel-caption {
     right: 10%;
     left: 10%;
-    font-size: 90%; /* Smaller text on smaller screens */
+    font-size: 90%;
+    /* Smaller text on smaller screens */
   }
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  background-color: #000; /* Better visibility */
+  background-color: #000;
+  /* Better visibility */
   border-radius: 50%;
   width: 40px;
   height: 40px;
 }
 
 @media (max-width: 576px) {
+
   .carousel-control-prev-icon,
   .carousel-control-next-icon {
     width: 30px;
-    height: 30px; /* Smaller arrows on very small devices */
+    height: 30px;
+    /* Smaller arrows on very small devices */
   }
 }
 
@@ -105,7 +112,7 @@ body {
 
 /* Ensure container adapts to different screen sizes */
 .container {
-  width: 100%;
+  width: 100% !important;
   padding-left: 15px;
   padding-right: 15px;
   margin-right: auto;
@@ -133,5 +140,40 @@ body {
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
+  }
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

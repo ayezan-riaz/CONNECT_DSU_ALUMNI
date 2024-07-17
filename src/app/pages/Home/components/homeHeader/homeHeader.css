@@ -144,6 +144,11 @@
   color: white;
 }
 
+.bg:hover {
+  background-color: #81181b;
+  color: lightgray;
+}
+
 .slider {
   position: relative;
   overflow: hidden;
@@ -170,6 +175,7 @@
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -186,7 +192,8 @@
 .noLightbox.social_bookmarks li {
   display: flex;
   align-items: center;
-  margin-right: 15px; /* Space between icons */
+  margin-right: 15px;
+  /* Space between icons */
 }
 
 .noLightbox.social_bookmarks li a {
@@ -208,14 +215,17 @@
 
 */
 
-
 /* Navigation bar fixed and full width */
 .navbar {
-  position: fixed; /* Fixed position to stay on top */
+  position: fixed;
+  /* Fixed position to stay on top */
   top: 0;
-  width: 100%; /* Full width */
-  background-color: #81181b; /* Dark red background */
-  z-index: 1030; /* High z-index to stay on top */
+  width: 100%;
+  /* Full width */
+  background-color: #81181b;
+  /* Dark red background */
+  z-index: 1030;
+  /* High z-index to stay on top */
   transition: all 0.3s;
   color: white;
 }
@@ -227,7 +237,8 @@
   }
 
   .navbar-toggler {
-    display: none; /* Hide toggler on large screens */
+    display: none;
+    /* Hide toggler on large screens */
   }
 
   .collapse {
@@ -251,12 +262,15 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  position: absolute; /* Ensure it does not push navbar items */
-  left: 10px; /* Space from the left */
+  position: absolute;
+  /* Ensure it does not push navbar items */
+  left: 10px;
+  /* Space from the left */
 }
 
 .noLightbox.social_bookmarks li {
-  margin-right: 15px; /* Space between icons */
+  margin-right: 15px;
+  /* Space between icons */
 }
 
 /* Sliding Text Styling */
@@ -286,6 +300,7 @@
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -293,7 +308,8 @@
 
 .navbar {
   width: 100%;
-  background-color: #81181b; /* Example: Ensure consistent background */
+  background-color: #81181b;
+  /* Example: Ensure consistent background */
   color: white;
 }
 
