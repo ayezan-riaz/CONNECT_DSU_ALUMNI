@@ -102,21 +102,23 @@ const AlumniDirectory: React.FC = () => {
 
   return (
     <>
-      <div className='row flex-nowrap mb-3 mt-5'>
-        <div className='col-md-3'>
-          <Form.Control
-            type='text'
-            placeholder='Search by name'
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <div className='col-md-2 '>
-          <Form.Select value={filterRole} onChange={(e) => setFilterRole(e.target.value)}>
-            <option value='All'>All</option>
-            <option value='Admin'>Admin</option>
-            <option value='User'>User</option>
-          </Form.Select>
+      <div className='card card-ad shadow-sm d-flex flex-row p-5 mb-3 justify-content-between'>
+        <div className='d-flex gap-5'>
+          <div className=''>
+            <Form.Control
+              type='text'
+              placeholder='Search by name'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className=''>
+            <Form.Select value={filterRole} onChange={(e) => setFilterRole(e.target.value)}>
+              <option value='All'>All</option>
+              <option value='Admin'>Admin</option>
+              <option value='User'>User</option>
+            </Form.Select>
+          </div>
         </div>
         <div className='d-flex gap-5'>
           <div>
@@ -131,7 +133,7 @@ const AlumniDirectory: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className='card mb-5 mb-xl-8'>
+      <div className='card card-ad hover shadow-md mb-5 mb-xl-8 mt-8'>
         <div className='card-header border-0 pt-5'>
           <h3 className='card-title align-items-start flex-column'>
             <span className='card-label fw-bold fs-3 mb-1'>Users</span>
@@ -147,7 +149,7 @@ const AlumniDirectory: React.FC = () => {
                   <th className='min-w-200px'>Name</th>
                   <th className='min-w-150px'>Email</th>
                   <th className='min-w-150px'>University Email</th>
-                  <th className='min-w-150px text-end'>Actions</th>
+                  <th className='min-w-150px'>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -159,7 +161,7 @@ const AlumniDirectory: React.FC = () => {
                         <div className='symbol symbol-50px me-5'>
                           <img
                             src={`https://ams-backend-gkxg.onrender.com/alumni/${
-                              user.avatar || 'default-avatar.png'
+                              user.avatar || 'avatar.jpg'
                             }`}
                             alt={`${user.first_name} ${user.last_name}`}
                           />
@@ -174,26 +176,16 @@ const AlumniDirectory: React.FC = () => {
                     <td>{user.email}</td>
                     <td>{user.uni_email}</td>
 
-                    <td className='text-end'>
-                      <div className='d-flex justify-content-end flex-shrink-0'>
-                        <Button
-                          variant='primary'
-                          size='sm'
-                          className='me-1'
-                          onClick={() => openModal(user, false)}
-                        >
+                    <td className=''>
+                      <div className='d-flex gap-2 flex-shrink-0'>
+                        <Button variant='info' size='sm' onClick={() => openViewUserModal(user)}>
+                          View
+                        </Button>
+                        <Button variant='primary' size='sm' onClick={() => openModal(user, false)}>
                           Edit
                         </Button>
                         <Button variant='danger' size='sm' onClick={() => openDeleteModal(user)}>
                           Delete
-                        </Button>
-                        <Button
-                          variant='info'
-                          size='sm'
-                          className='me-1'
-                          onClick={() => openViewUserModal(user)}
-                        >
-                          View
                         </Button>
                       </div>
                     </td>
