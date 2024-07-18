@@ -12,4 +12,8 @@ export interface Users {
     active_status: boolean;
     avatar: string | File;
     password_reset_token: string;
+    designation: string;
+    company: string;
+    qualification: string;
+    noOfJobsPosted: number;
 }

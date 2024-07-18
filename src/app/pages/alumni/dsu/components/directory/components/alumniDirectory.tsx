@@ -232,39 +232,44 @@ const AlumniDirectory: React.FC = () => {
         </Modal.Footer>
       </Modal>
       {viewUser && (
-        <Modal show={viewUser !== null} onHide={closeViewUserModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>User Details</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className='card'>
-              <div className='card-body'>
-                <div className='d-flex align-items-center mb-3'>
-                  <img
-                    src={`https://ams-backend-gkxg.onrender.com/alumni/${
-                      viewUser.avatar || 'default-avatar.png'
-                    }`}
-                    alt={`${viewUser.first_name} ${viewUser.last_name}`}
-                    className='img-fluid rounded-circle'
-                    style={{width: '100px', height: '100px', objectFit: 'cover'}}
-                  />
-                  <div className='ms-3'></div>
-                </div>
-                <h5>{`${viewUser.first_name} ${viewUser.middle_name} ${viewUser.last_name}`}</h5>
-                <p>Email: {viewUser.email}</p>
-                <p>University Email: {viewUser.uni_email}</p>
-                <p>Phone: {viewUser.phone}</p>
-                {/* Add other user details as needed */}
-              </div>
+  <Modal show={viewUser !== null} onHide={closeViewUserModal}>
+    <Modal.Header closeButton>
+      <Modal.Title>User Details</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <div className="card">
+        <div className="card-body">
+          <div className="d-flex align-items-center mb-3">
+            <img
+              src={`https://ams-backend-gkxg.onrender.com/alumni/${viewUser.avatar || 'default-avatar.png'}`}
+              alt={`${viewUser.first_name} ${viewUser.last_name}`}
+              className="img-fluid rounded-circle"
+              style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+            />
+            <div className="ms-3">
+              <h5 className="mb-0">{`${viewUser.first_name} ${viewUser.middle_name} ${viewUser.last_name}`}</h5>
             </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant='secondary' onClick={closeViewUserModal}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
+          </div>
+          <div className="user-details">
+            <p><strong>Email:</strong> {viewUser.email}</p>
+            <p><strong>University Email:</strong> {viewUser.uni_email}</p>
+            <p><strong>Phone:</strong> {viewUser.phone}</p>
+            <p><strong>Number of Jobs Posted:</strong> {viewUser.noOfJobsPosted}</p>
+            <p><strong>Designation:</strong> {viewUser.designation}</p>
+            <p><strong>Qualification:</strong> {viewUser.qualification}</p>
+            <p><strong>Company:</strong> {viewUser.company}</p>
+          </div>
+        </div>
+      </div>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={closeViewUserModal}>
+        Close
+      </Button>
+    </Modal.Footer>
+  </Modal>
+)}
+
     </>
   );
 };
