@@ -78,7 +78,7 @@ const TestimonialsPage: React.FC = () => {
       <div className='container'>
         <div className='row mb-5'>
           <div className='col-3 offset-9'>
-            {roleId === 1 && (
+            {roleId === 2 && (
               <button className='btn btn-primary des' onClick={() => openModal()}>
                 Add new Testimonial
               </button>
