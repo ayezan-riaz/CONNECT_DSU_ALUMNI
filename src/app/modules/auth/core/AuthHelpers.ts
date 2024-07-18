@@ -12,7 +12,10 @@ const getAuth = (): AuthModel | undefined => {
   }
 
   try {
-    const auth: AuthModel = JSON.parse(lsValue) as AuthModel
+    const auth: AuthModel = {
+      api_token: lsValue,
+      refreshToken: '',
+    }
     if (auth) {
       // You can easily check auth_token expiration also
       return auth
