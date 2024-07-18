@@ -15,7 +15,6 @@ const TestimonialsPage: React.FC = () => {
   const roleId = parseInt(localStorage.getItem('role') || '0', 10);
 
   const fetchTestimonials = () => {
-
     axios
       .get('https://ams-backend-gkxg.onrender.com/api/testimonial')
       .then((response) => {
@@ -73,13 +72,15 @@ const TestimonialsPage: React.FC = () => {
       ? testimonials
       : testimonials.filter((testimonial) => testimonial.id === userId);
 
+  const userHasTestimonial = testimonials.some((testimonial) => testimonial.id === userId);
+
   return (
     <>
       <div className='container'>
         <div className='row mb-5'>
-          <div className='col-3 offset-9'>
-            {roleId === 1 && (
-              <button className='btn btn-primary des' onClick={() => openModal()}>
+          <div className='col-12 text-end'>
+            {roleId === 2 && !userHasTestimonial && (
+              <button className='btn btn-primary' onClick={() => openModal()}>
                 Add new Testimonial
               </button>
             )}
@@ -87,55 +88,61 @@ const TestimonialsPage: React.FC = () => {
         </div>
         <div className='row'>
           {filteredTestimonials.map((testimonial) => (
-            <div key={testimonial.id} className='col-lg-4 col-md-4 col-sm-12'>
-              <div className='card card-dashed'>
-                <span style={{ textAlign: 'right', paddingTop: '5px', paddingRight: '5px' }}>
-                  {roleId === 1 && (
-                    <i
-                      className='fa fa-times-circle'
-                      style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
-                      onClick={() => openDeleteModal(testimonial.id)}
-                    ></i>
-                  )}
-                </span>
-                <div
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    marginBottom: '10px',
-                  }}
-                >
-                  <div className='symbol symbol-circle symbol-50px '>
+            <div key={testimonial.id} className={`mb-4 ${roleId === 1 ? 'col-lg-4 col-md-6 col-sm-12' : 'col-12'}`}>
+              {roleId === 1 ? (
+                <div className='admin-testimonial-card'>
+                  <div className='admin-testimonial-image'>
                     <img
-                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'
-                        }`}
+                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`}
                       alt={`${testimonial.first_name} ${testimonial.last_name}`}
                     />
                   </div>
-                </div>
-                <div className='card-body'>
-                  <div>
-                    <p>{testimonial.testimony}</p>
+                  <div className='admin-testimonial-text'>
+                    <p>“{testimonial.testimony}”</p>
+                    <p><strong>{`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}</strong></p>
+                    <p><strong>{testimonial.designation} / {testimonial.company}</strong></p>
                   </div>
                 </div>
-                <div className='card-footer'>
-                  <div style={{ textAlign: 'center' }}>
-                    <p>
-                      {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
-                      <span
-                        style={{ marginLeft: '10px', cursor: 'pointer' }}
-                        onClick={() => openModal(testimonial)}
-                      >
-                        <i className='fa fa-pencil' style={{ fontSize: '15px', color: '#80171d' }}></i>
-                      </span>
-                    </p>
-                    <p>
-                      {testimonial.designation} / {testimonial.company}
-                    </p>
+              ) : (
+                <div className='testimonial-outer-card'>
+                  <div className='testimonial-name'>
+                    <strong> TESTIMONIALS</strong>
+                  </div>
+                  <div className='testimonial-inner-card'>
+                    <span className='delete-icon'>
+                      {roleId === 1 && (
+                        <i
+                          className='fa fa-times-circle'
+                          style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
+                          onClick={() => openDeleteModal(testimonial.id)}
+                        ></i>
+                      )}
+                    </span>
+                    <div className='testimonial-content'>
+                      <div className='testimonial-image'>
+                        <img
+                          src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`}
+                          alt={`${testimonial.first_name} ${testimonial.last_name}`}
+                        />
+                      </div>
+                      <div className='testimonial-text'>
+                        <p>“{testimonial.testimony}”</p>
+                        <p><strong>{`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}</strong></p>
+                        <p><strong>{testimonial.designation} / {testimonial.company}</strong></p>
+                        <div className='edit-icon'>
+                          {roleId === 1 && (
+                            <i
+                              className='fa fa-pencil'
+                              style={{ fontSize: '15px', color: '#80171d', cursor: 'pointer' }}
+                              onClick={() => openModal(testimonial)}
+                            ></i>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           ))}
         </div>

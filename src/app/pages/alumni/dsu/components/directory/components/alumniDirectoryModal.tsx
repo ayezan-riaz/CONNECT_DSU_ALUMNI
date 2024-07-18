@@ -27,6 +27,10 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
     active_status: false,
     avatar: '',
     password_reset_token: '',
+    designation : '',
+    company: '',
+    qualification: '',
+    noOfJobsPosted:0
   });
 
   const [registrationData, setRegistrationData] = useState({
@@ -61,6 +65,10 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
             active_status: userData.active_status,
             avatar: '', // Do not pre-fill avatar for edit
             password_reset_token: userData.password_reset_token,
+            designation: userData.designation,
+            company: userData.company,
+            qualification: userData.qualification,
+            noOfJobsPosted: userData.noOfJobsPosted
           });
         })
         .catch((error) => {
@@ -82,6 +90,10 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
         active_status: false,
         avatar: '',
         password_reset_token: '',
+        designation: '',
+        company: '',
+        qualification: '',
+        noOfJobsPosted:0
       });
       setRegistrationData({
         uni_email: '',

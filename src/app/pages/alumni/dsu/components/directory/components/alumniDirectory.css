@@ -1,3 +1,26 @@
-.card-ad:hover {
-  transform: none !important;
-}
+.user-details p {
+    margin-bottom: 10px;
+  }
+  
+  .user-details strong {
+    font-weight: bold;
+  }
+  
+  .modal-header, .modal-footer {
+    background-color: #f8f9fa;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .card {
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  

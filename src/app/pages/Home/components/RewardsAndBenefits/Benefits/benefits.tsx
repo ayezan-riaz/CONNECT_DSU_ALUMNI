@@ -4,7 +4,7 @@ import axios from 'axios';
 import { CorporatePartner } from '../../../../../pages/alumni/dsu/components/corporatePartner/components/corporatePartner'; // Import the CorporatePartner type
 import './benefits.css'
 import { Link } from 'react-router-dom';
-
+import background from '../../../../alumni/assets/DefaultImage.jpg'
 const Benefits: React.FC = () => {
   const [corporates, setCorporates] = useState<CorporatePartner[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -56,55 +56,28 @@ const Benefits: React.FC = () => {
           </div>
 
         </div>
-        <div className="card mb-5 mb-xl-8">
-          <div className="card-header border-0 pt-5">
-            <h3 className="card-title align-items-start flex-column">
-              <span className="card-label fw-bold fs-3 mb-1">Corporate Partners</span>
-              <span className="text-muted mt-1 fw-semibold fs-7">List of corporate partners</span>
-            </h3>
-          </div>
-          <div className="card-body py-3">
-            <div className="table-responsive">
-              <table className="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
-                <thead>
-                  <tr className="fw-bold text-muted">
-                    <th className="min-w-50px">Sno</th>
-                    <th className="min-w-200px">Facilities</th>
-                    <th className="min-w-150px">Discount Offer</th>
-                    <th className="min-w-150px">Validate Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {corporates.map((corporate, index) => (
-                    <tr key={corporate.id}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <div className="symbol symbol-50px me-5">
-                            <img
-                              // src={`${Imageurl}${corporate.image}`}
-                              src={`https://ams-backend-gkxg.onrender.com/corporate-partners/${corporate.image || 'default-avatar.png'}`}
-                              alt={`${corporate.name}`}
-                              className="img-fluid"
-                              style={{ maxHeight: '100px' }}
-                            />
-                          </div>
-                          <div className="d-flex justify-content-start flex-column">
-                            <span className="text-dark fw-bold text-hover-primary fs-6">
-                              {corporate.name}
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td>{corporate.discounted_offer}</td>
-                      <td>{new Date(corporate.valid_date).toDateString()}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        <div className="container corporate-partners-container">
+      <div className="row">
+        {corporates.map((corporate, index) => (
+          <div key={corporate.id} className="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div className="corporate-card">
+              <div className="corporate-card-image">
+                <img
+                  src={`https://ams-backend-gkxg.onrender.com/corporate-partners/${corporate.image || 'default-avatar.png'}`}
+                  alt={`${corporate.name}`}
+                  className="img-fluid"
+                />
+              </div>
+              <div className="corporate-card-details">
+                <h5 className="corporate-name">{corporate.name}</h5>
+                <p className="corporate-discount">Discount Offer: {corporate.discounted_offer}</p>
+                <p className="corporate-date">Valid Date: {new Date(corporate.valid_date).toDateString()}</p>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
+      </div>
+    </div>
       </div>
     </>
   );

@@ -8,7 +8,7 @@ export function MenuInner() {
 
     <>
       <MenuItem title={intl.formatMessage({ id: 'MENU.DASHBOARD' })} to='/dashboard' />
-      <MenuInnerWithSub
+      {roleId === 2 && ( <MenuInnerWithSub
         title='Account'
         to='/alumni/account'
         menuPlacement='bottom-start'
@@ -21,7 +21,7 @@ export function MenuInner() {
         <MenuItem title='Work' to='/alumni/account/work' icon='badge' />
         <MenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
         {/* <MenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' /> */}
-      </MenuInnerWithSub>
+      </MenuInnerWithSub>)}
 
       <MenuInnerWithSub
         title='Job'
@@ -54,6 +54,7 @@ export function MenuInner() {
 
       {/* <MenuInnerWithSub
         title='Account'
+
         to='/alumni/account'
         fontIcon='bi-person'
         icon='profile-circle'

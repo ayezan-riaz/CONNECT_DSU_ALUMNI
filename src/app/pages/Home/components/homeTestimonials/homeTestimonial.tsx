@@ -31,48 +31,21 @@ const HomeTestimonial: React.FC = () => {
     </div>
         <div className="row">
           {testimonials.map((testimonial) => (
-            
-            <div key={testimonial.id} className="col-lg-4 col-md-4 col-sm-12">
-             
-              <div className="card card-dashed">
-{/*          
-                <div className="card-header" style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <div className="symbol symbol-circle symbol-50px "  >
-                  <img 
-              
-                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`} 
-                      alt={`${testimonial.first_name} ${testimonial.last_name}`} 
+                <div key={testimonial.id} className='mb-4 col-lg-4 col-md-4 col-sm-12'>
+                <div className='admin-testimonial-card'>
+                  <div className='admin-testimonial-image'>
+                    <img
+                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`}
+                      alt={`${testimonial.first_name} ${testimonial.last_name}`}
                     />
                   </div>
-                 
-                </div> */}
-                <div className="card-body">
-                  <div style={{ justifyContent: 'center', alignItems: 'center', textAlign: 'center', marginBottom:'10px' }}>  
-                  <div className="symbol symbol-circle symbol-50px "  >
-                  <img 
-              
-                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`} 
-                      alt={`${testimonial.first_name} ${testimonial.last_name}`} 
-                    />
+                  <div className='admin-testimonial-text'>
+                    <p>“{testimonial.testimony}”</p>
+                    <p><strong>{`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}</strong></p>
+                    <p><strong>{testimonial.designation} / {testimonial.company}</strong></p>
                   </div>
-                  </div>
-             <div>
-             <p>{testimonial.testimony}</p>
-             </div>
-          
                 </div>
-                <div className="card-footer">
-                <div  style={{ textAlign: 'center' }}>
-                <p>
-                    {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
-                    
-                  </p>
-                  <p>{testimonial.designation} / {testimonial.company}</p>
                 </div>
-              
-                </div>
-              </div>
-            </div>
           ))}
         </div>
       </div>
