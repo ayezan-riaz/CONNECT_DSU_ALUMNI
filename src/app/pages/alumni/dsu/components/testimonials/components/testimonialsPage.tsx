@@ -1,119 +1,157 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Testimonial } from './testimonialType';
-import TestimonialsModal from './testimonialsModal';
-import { Modal, Button } from 'react-bootstrap';
-import './testimonials.css';
+import React, {useEffect, useState} from 'react'
+import axios from 'axios'
+import {Testimonial} from './testimonialType'
+import TestimonialsModal from './testimonialsModal'
+import {Modal, Button} from 'react-bootstrap'
+import './testimonials.css'
 
 const TestimonialsPage: React.FC = () => {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [testimonialToDelete, setTestimonialToDelete] = useState<number | null>(null);
-  const userId = parseInt(localStorage.getItem('sub') || '0', 10);
-  const roleId = parseInt(localStorage.getItem('role') || '0', 10);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null)
+  const [showModal, setShowModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [testimonialToDelete, setTestimonialToDelete] = useState<number | null>(null)
+  const userId = parseInt(localStorage.getItem('sub') || '0', 10)
+  const roleId = parseInt(localStorage.getItem('role') || '0', 10)
 
   const fetchTestimonials = () => {
     axios
       .get('https://ams-backend-gkxg.onrender.com/api/testimonial')
       .then((response) => {
-        setTestimonials(response.data);
+        setTestimonials(response.data)
       })
       .catch((error) => {
-        console.error('Error fetching testimonials:', error);
-      });
-  };
+        console.error('Error fetching testimonials:', error)
+      })
+  }
 
   useEffect(() => {
-    fetchTestimonials();
-  }, []);
+    fetchTestimonials()
+  }, [])
 
   const openModal = (testimonial?: Testimonial) => {
     if (testimonial) {
-      setSelectedTestimonial(testimonial);
+      setSelectedTestimonial(testimonial)
     } else {
-      setSelectedTestimonial(null);
+      setSelectedTestimonial(null)
     }
-    setShowModal(true);
-  };
+    setShowModal(true)
+  }
 
   const closeModal = () => {
-    setShowModal(false);
-  };
+    setShowModal(false)
+  }
 
   const openDeleteModal = (testimonialId: number) => {
-    setTestimonialToDelete(testimonialId);
-    setShowDeleteModal(true);
-  };
+    setTestimonialToDelete(testimonialId)
+    setShowDeleteModal(true)
+  }
 
   const closeDeleteModal = () => {
-    setShowDeleteModal(false);
-    setTestimonialToDelete(null);
-  };
+    setShowDeleteModal(false)
+    setTestimonialToDelete(null)
+  }
 
   const handleDelete = () => {
     if (testimonialToDelete !== null) {
       axios
         .delete(`https://ams-backend-gkxg.onrender.com/api/testimonial/${testimonialToDelete}`)
         .then(() => {
-          fetchTestimonials(); // Refresh the testimonials list after deletion
-          closeDeleteModal();
+          fetchTestimonials() // Refresh the testimonials list after deletion
+          closeDeleteModal()
         })
         .catch((error) => {
-          console.error('Error deleting testimonial:', error);
-        });
+          console.error('Error deleting testimonial:', error)
+        })
     }
-  };
+  }
 
   // Filter testimonials based on role
   const filteredTestimonials =
     roleId === 1
       ? testimonials
-      : testimonials.filter((testimonial) => testimonial.id === userId);
+      : testimonials.filter((testimonial) => testimonial.userId === userId)
 
-  const userHasTestimonial = testimonials.some((testimonial) => testimonial.id === userId);
+  const userHasTestimonial = testimonials.some((testimonial) => testimonial.userId === userId)
 
   return (
     <>
       <div className='container'>
         <div className='row mb-5'>
-          <div className='col-12 text-end'>
+          <div className='col-12'>
             {roleId === 2 && !userHasTestimonial && (
-              <button className='btn btn-primary' onClick={() => openModal()}>
-                Add new Testimonial
-              </button>
+              <div className='d-flex flex-column'>
+                <div>
+                  <h1>No testimony found</h1>
+                  <p>
+                    You can add testimony to share your academic experience at DHA Suffa University
+                  </p>
+                </div>
+                <button
+                  className='btn btn-primary width-2 col-2 mt-5'
+                  type='button'
+                  onClick={() => openModal()}
+                >
+                  Add Testimonial
+                </button>
+              </div>
             )}
           </div>
         </div>
         <div className='row'>
           {filteredTestimonials.map((testimonial) => (
-            <div key={testimonial.id} className={`mb-4 ${roleId === 1 ? 'col-lg-4 col-md-6 col-sm-12' : 'col-12'}`}>
+            <div
+              key={testimonial.id}
+              className={`mb-4 ${roleId === 1 ? 'col-lg-4 col-md-6 col-sm-12' : 'col-12'}`}
+            >
               {roleId === 1 ? (
-                <div className='admin-testimonial-card'>
-                  <div className='admin-testimonial-image'>
-                    <img
-                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`}
-                      alt={`${testimonial.first_name} ${testimonial.last_name}`}
-                    />
-                  </div>
-                  <div className='admin-testimonial-text'>
-                    <p>“{testimonial.testimony}”</p>
-                    <p><strong>{`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}</strong></p>
-                    <p><strong>{testimonial.designation} / {testimonial.company}</strong></p>
+                <div className='card card-ab'>
+                  <img
+                    className='card-img-top object-fit-contain'
+                    src={`https://ams-backend-gkxg.onrender.com/alumni/${
+                      testimonial.avatar || 'default/avatar.jpg'
+                    }`}
+                    alt={`${testimonial.first_name} ${testimonial.last_name}`}
+                  />
+
+                  <div className='card-body'>
+                    <p className='text-center'>
+                      <strong>
+                        {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
+                      </strong>
+                    </p>
+                    <p className='text-center'>
+                      <strong>
+                        {testimonial.designation} / {testimonial.company}
+                      </strong>
+                    </p>
+
+                    <div className='border-top border-secondary py-2'>
+                      <span className='fw-bolder fs-4 mx-1'>“</span>
+                      <span className='lh-lg'>{testimonial.testimony}</span>
+                      <span className='fw-bolder fs-4 mx-1'>”</span>
+                    </div>
                   </div>
                 </div>
               ) : (
                 <div className='testimonial-outer-card'>
                   <div className='testimonial-name'>
-                    <strong> TESTIMONIALS</strong>
+                    <strong>Testimony</strong>
                   </div>
                   <div className='testimonial-inner-card'>
-                    <span className='delete-icon'>
-                      {roleId === 1 && (
+                    <span className='delete-icon d-flex align-items-center gap-2'>
+                      {roleId === 2 && (
+                        <i
+                          className='fa fa-pencil'
+                          style={{fontSize: '15px', color: '#80171d', cursor: 'pointer'}}
+                          onClick={() => openModal(testimonial)}
+                        ></i>
+                      )}
+
+                      {roleId === 2 && (
                         <i
                           className='fa fa-times-circle'
-                          style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
+                          style={{fontSize: '20px', color: '#80171d', cursor: 'pointer'}}
                           onClick={() => openDeleteModal(testimonial.id)}
                         ></i>
                       )}
@@ -121,23 +159,25 @@ const TestimonialsPage: React.FC = () => {
                     <div className='testimonial-content'>
                       <div className='testimonial-image'>
                         <img
-                          src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`}
+                          src={`https://ams-backend-gkxg.onrender.com/alumni/${
+                            testimonial.avatar || 'default/avatar.jpg'
+                          }`}
                           alt={`${testimonial.first_name} ${testimonial.last_name}`}
                         />
                       </div>
                       <div className='testimonial-text'>
-                        <p>“{testimonial.testimony}”</p>
-                        <p><strong>{`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}</strong></p>
-                        <p><strong>{testimonial.designation} / {testimonial.company}</strong></p>
-                        <div className='edit-icon'>
-                          {roleId === 1 && (
-                            <i
-                              className='fa fa-pencil'
-                              style={{ fontSize: '15px', color: '#80171d', cursor: 'pointer' }}
-                              onClick={() => openModal(testimonial)}
-                            ></i>
-                          )}
-                        </div>
+                        <span className='fw-bolder fs-2 mx-1'>“</span>
+                        <span className='fs-3'>{testimonial.testimony}</span>
+                        <span className='fw-bolder fs-2 mx-1'>”</span>
+
+                        <section className='my-5'>
+                          <p className='fw-bold m-0'>
+                            {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
+                          </p>
+                          <p>
+                            {testimonial.designation} / {testimonial.company}
+                          </p>
+                        </section>
                       </div>
                     </div>
                   </div>
@@ -169,7 +209,7 @@ const TestimonialsPage: React.FC = () => {
         </Modal.Footer>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default TestimonialsPage;
+export default TestimonialsPage

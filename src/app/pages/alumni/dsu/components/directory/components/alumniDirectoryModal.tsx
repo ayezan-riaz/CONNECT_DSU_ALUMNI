@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import axios, { AxiosError } from 'axios';
-import { Users } from './alumniDirectoryTypes'; // Import the Directory type
+import React, {useEffect, useState} from 'react'
+import {Modal, Button, Form} from 'react-bootstrap'
+import {toast} from 'react-toastify'
+import axios, {AxiosError} from 'axios'
+import {Users} from './alumniDirectoryTypes' // Import the Directory type
 
 interface UserModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  selectedUser: Users | null;
-  fetchUsers: () => void;
-  isAdmin: boolean; // Add isAdmin prop
+  isOpen: boolean
+  onClose: () => void
+  selectedUser: Users | null
+  fetchUsers: () => void
+  isAdmin: boolean // Add isAdmin prop
 }
 
-const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selectedUser, fetchUsers, isAdmin }) => {
+const AlumniDirectoryModal: React.FC<UserModalProps> = ({
+  isOpen,
+  onClose,
+  selectedUser,
+  fetchUsers,
+  isAdmin,
+}) => {
   const [formData, setFormData] = useState<Users>({
     id: -1,
     email: '',
@@ -27,11 +33,11 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
     active_status: false,
     avatar: '',
     password_reset_token: '',
-    designation : '',
+    designation: '',
     company: '',
     qualification: '',
-    noOfJobsPosted:0
-  });
+    noOfJobsPosted: 0,
+  })
 
   const [registrationData, setRegistrationData] = useState({
     uni_email: '',
@@ -43,14 +49,14 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
     registration_time: '',
     graduation_time: '',
     cgpa: 0,
-  });
+  })
 
   useEffect(() => {
     if (selectedUser) {
       axios
         .get(`https://ams-backend-gkxg.onrender.com/api/users/${selectedUser.id}`)
         .then((response) => {
-          const userData = response.data;
+          const userData = response.data
           setFormData({
             id: userData.id,
             email: userData.email,
@@ -68,13 +74,13 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
             designation: userData.designation,
             company: userData.company,
             qualification: userData.qualification,
-            noOfJobsPosted: userData.noOfJobsPosted
-          });
+            noOfJobsPosted: userData.noOfJobsPosted,
+          })
         })
         .catch((error) => {
-          console.error('Error fetching user details:', error);
-          toast.error('Failed to fetch user details');
-        });
+          console.error('Error fetching user details:', error)
+          toast.error('Failed to fetch user details')
+        })
     } else {
       setFormData({
         id: -1,
@@ -93,8 +99,8 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
         designation: '',
         company: '',
         qualification: '',
-        noOfJobsPosted:0
-      });
+        noOfJobsPosted: 0,
+      })
       setRegistrationData({
         uni_email: '',
         first_name: '',
@@ -105,87 +111,99 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
         registration_time: '',
         graduation_time: '',
         cgpa: 0,
-      });
+      })
     }
-  }, [selectedUser, isOpen]);
+  }, [selectedUser, isOpen])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!formData.email.trim() || !formData.first_name.trim() || !formData.last_name.trim()) {
-      toast.error('Please fill in all required fields');
-      return;
+      toast.error('Please fill in all required fields')
+      return
     }
 
-    const payload = new FormData();
-    payload.append('email', formData.email);
-    payload.append('uni_email', formData.uni_email);
-    payload.append('phone', formData.phone);
-    payload.append('first_name', formData.first_name);
-    payload.append('middle_name', formData.middle_name);
-    payload.append('last_name', formData.last_name);
-    payload.append('password', formData.password);
+    const payload = new FormData()
+    payload.append('email', formData.email)
+    payload.append('uni_email', formData.uni_email)
+    payload.append('phone', formData.phone)
+    payload.append('first_name', formData.first_name)
+    payload.append('middle_name', formData.middle_name)
+    payload.append('last_name', formData.last_name)
+    payload.append('password', formData.password)
 
     if (typeof formData.avatar !== 'string') {
-      payload.append('avatar', formData.avatar); // Only append the first file
+      payload.append('avatar', formData.avatar) // Only append the first file
     }
 
     const headers = {
       'Content-Type': 'multipart/form-data',
-    };
+    }
 
     try {
       if (selectedUser) {
         await axios.patch(
           `https://ams-backend-gkxg.onrender.com/api/users/${selectedUser.id}`,
           payload,
-          { headers }
-        );
-        toast.success(isAdmin ? 'Admin updated successfully' : 'User updated successfully');
+          {headers}
+        )
+        toast.success(isAdmin ? 'Admin updated successfully' : 'User updated successfully')
       } else {
         const endpoint = isAdmin
           ? 'https://ams-backend-gkxg.onrender.com/api/users/admin'
-          : 'https://ams-backend-gkxg.onrender.com/api/registrations';
-        const finalPayload = isAdmin ? payload : registrationData;
-        await axios.post(endpoint, finalPayload, { headers });
-        toast.success(isAdmin ? 'Admin added successfully' : 'User added successfully');
+          : 'https://ams-backend-gkxg.onrender.com/api/registrations'
+        const finalPayload = isAdmin ? payload : registrationData
+        await axios.post(endpoint, finalPayload, {headers})
+        toast.success(isAdmin ? 'Admin added successfully' : 'User added successfully')
       }
-      fetchUsers();
-      onClose();
+      fetchUsers()
+      onClose()
     } catch (err) {
-      const error = err as AxiosError;
-      console.error('Error submitting user:', error.response ? error.response.data : error.message);
-      toast.error('Failed to submit user');
+      const error = err as AxiosError
+      console.error('Error submitting user:', error.response ? error.response.data : error.message)
+      toast.error('Failed to submit user')
     }
-  };
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target
     if (isAdmin || selectedUser) {
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
-      }));
+      }))
     } else {
       setRegistrationData((prevData) => ({
         ...prevData,
         [name]: value,
-      }));
+      }))
     }
-  };
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0]; // Only select the first file
+      const file = e.target.files[0] // Only select the first file
       setFormData((prevData) => ({
         ...prevData,
         avatar: file,
-      }));
+      }))
     }
-  };
+  }
 
-  const modalTitle = selectedUser ? (isAdmin ? 'Edit Admin' : 'Edit User') : (isAdmin ? 'Add New Admin' : 'Add New User');
-  const submitButtonText = selectedUser ? (isAdmin ? 'Update Admin' : 'Update User') : (isAdmin ? 'Add Admin' : 'Add User');
+  const modalTitle = selectedUser
+    ? isAdmin
+      ? 'Edit Admin'
+      : 'Edit User'
+    : isAdmin
+    ? 'Add New Admin'
+    : 'Add New User'
+  const submitButtonText = selectedUser
+    ? isAdmin
+      ? 'Update Admin'
+      : 'Update User'
+    : isAdmin
+    ? 'Add Admin'
+    : 'Add User'
 
   return (
     <Modal show={isOpen} onHide={onClose}>
@@ -279,8 +297,8 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
                   <div>
                     <img
                       src={`https://ams-backend-gkxg.onrender.com/alumni/${selectedUser.avatar}`}
-                      alt="Current Avatar"
-                      style={{ maxHeight: '100px', marginTop: '10px' }}
+                      alt='Current Avatar'
+                      style={{maxHeight: '100px', marginTop: '10px'}}
                     />
                   </div>
                 )}
@@ -383,21 +401,21 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({ isOpen, onClose, selec
                   value={registrationData.cgpa}
                   onChange={handleChange}
                   placeholder='Enter CGPA'
-                  step="0.01"
+                  step='0.01'
                   required
                 />
               </Form.Group>
             </>
           )}
-          <Button variant='primary' type='submit'>
-            {submitButtonText}
-          </Button>
+          <div className='d-flex justify-content-end'>
+            <Button variant='primary' type='submit'>
+              {submitButtonText}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
-export default AlumniDirectoryModal;
-
-
+export default AlumniDirectoryModal
