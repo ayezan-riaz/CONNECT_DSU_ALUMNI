@@ -13,6 +13,8 @@ const userAvatarClass = 'symbol-35px symbol-md-40px'
 const btnIconClass = 'fs-1'
 
 const localid = localStorage.getItem('sub')
+const roleId = parseInt(localStorage.getItem('role') || '0', 10);
+
 const Navbar = () => {
   const [img, setImg] = useState<string>('')
   const fetchAcademicsByUserId = async () => {
