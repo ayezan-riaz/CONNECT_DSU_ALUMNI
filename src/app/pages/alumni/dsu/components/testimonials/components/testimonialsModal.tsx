@@ -56,7 +56,9 @@ const TestimonialsModal: React.FC<TestimonialModalProps> = ({
       if (selectedTestimonial) {
         await axios.patch(
           `https://ams-backend-gkxg.onrender.com/api/testimonial/${selectedTestimonial.id}`,
-          formData,
+          {
+            testimony: formData.testimony,
+          },
           {
             headers: {'Content-Type': 'application/json'},
           }
@@ -108,9 +110,11 @@ const TestimonialsModal: React.FC<TestimonialModalProps> = ({
               placeholder='Enter testimony'
             />
           </Form.Group>
-          <Button variant='primary' type='submit'>
-            {selectedTestimonial ? 'Update Testimonial' : 'Add Testimonial'}
-          </Button>
+          <div className='d-flex justify-content-end'>
+            <Button variant='primary' type='submit'>
+              {selectedTestimonial ? 'Update Testimonial' : 'Add Testimonial'}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
