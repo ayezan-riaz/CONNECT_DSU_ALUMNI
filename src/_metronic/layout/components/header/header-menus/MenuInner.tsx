@@ -29,7 +29,7 @@ export function MenuInner() {
         menuPlacement='bottom-start'
         menuTrigger='click'
       >
-        <MenuItem title='Jobs' to='/alumni/dsu/jobs' icon='archive' />
+        <MenuItem title='Jobs' to='/alumni/dsu/jobs' icon='subtitle' />
 
         {roleId === 1 && (<MenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />)}
 
@@ -40,8 +40,8 @@ export function MenuInner() {
         menuPlacement='bottom-start'
         menuTrigger='click'
       >
-        <MenuItem title='Event' to='/alumni/dsu/event' icon='archive' />
-        <MenuItem title='News' to='/alumni/dsu/news' icon='setting-2' />
+        <MenuItem title='Event' to='/alumni/dsu/event' icon='note-2' />
+        <MenuItem title='News' to='/alumni/dsu/news' icon='note' />
       </MenuInnerWithSub>
 
       <MenuItem to='/alumni/dsu/association' title='Association' />

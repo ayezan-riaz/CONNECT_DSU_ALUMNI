@@ -28,6 +28,7 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
     schedule_metrics: '',
     isApproved: false,
     isCreatedByAdmin: false,
+    userId:0
   });
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
         schedule_metrics: '',
         isApproved: false,
         isCreatedByAdmin: false,
+        userId:0
       });
     }
   }, [selectedJob, isOpen]);
@@ -76,13 +78,14 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
       return;
     }
 
-    const { id, ...jobData } = formData; // Exclude the id when posting new job data
+
 
     try {
       if (selectedJob) {
+        const { userId, ...jobData } = formData;
         await axios.patch(
           `https://ams-backend-gkxg.onrender.com/api/jobs/${selectedJob.id}`,
-          formData,
+          jobData,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -92,6 +95,7 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
         );
         toast.success('Job updated successfully');
       } else {
+        const { id,userId, ...jobData } = formData; // Exclude the id when posting new job data
         await axios.post(
           'https://ams-backend-gkxg.onrender.com/api/jobs',
           jobData,
@@ -103,6 +107,7 @@ const JobModal: React.FC<JobModalProps> = ({ isOpen, onClose, selectedJob, fetch
           }
         );
         toast.success('Job added successfully');
+        toast.info('Wait For Approve by Admin');
       }
       fetchJobs();
       onClose();

@@ -67,20 +67,30 @@ const Job: React.FC = () => {
 
   return (
     <div>
-      {role === 1 && (  
-         <div className="row mb-5">
-        <div className="col-2 offset-10">
-          <button className="btn btn-primary des" style={{ background: "rgb(255, 255, 255)" }} onClick={() => openModal()}>
-            Add new Job
-          </button>
+      
+        <div className="row mb-5">
+          <div className="col-2 offset-10">
+            <button className="btn btn-primary des" style={{ background: "rgb(255, 255, 255)" }} onClick={() => openModal()}>
+              Add new Job
+            </button>
+          </div>
         </div>
-      </div>
-      )}
+
+  
       <div className="row">
         {jobs.map((job) => (
           <div key={job.id} className="col-lg-4 col-md-4 col-sm-12">
             <div className="card card-custom card-stretch-50 shadow mb-5">
-            {role === 1 && (
+              {role === 1 && (
+                <span style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
+                  <i
+                    className="fa fa-times-circle"
+                    style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
+                    onClick={() => openDeleteModal(job.id)}
+                  ></i>
+                </span>
+              )}
+              {role === 2 && job.userId === user_id && (
                 <span style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
                   <i
                     className="fa fa-times-circle"
@@ -91,9 +101,6 @@ const Job: React.FC = () => {
               )}
               <div className="card-header d-flex justify-content-between align-items-center">
                 <h5 className="card-title job-title">{job.title}</h5>
-                {/* {role === 1 && (    <button className="btn btn-sm btn-danger" onClick={() => openDeleteModal(job.id)}>
-                  <i className="fas fa-times"></i>
-                </button>)} */}
               </div>
               <div className="card-body">
                 <div className="row">
@@ -142,11 +149,18 @@ const Job: React.FC = () => {
                 </div>
               </div>
               {role === 1 && (
-              <div className="card-footer">
-                <button className="btn btn-primary" onClick={() => openModal(job)}>
-                  Edit
-                </button>
-              </div>
+                <div className="card-footer">
+                  <button className="btn btn-primary" onClick={() => openModal(job)}>
+                    Edit
+                  </button>
+                </div>
+              )}
+              {role === 2 && job.userId === user_id && (
+                <div className="card-footer">
+                  <button className="btn btn-primary" onClick={() => openModal(job)}>
+                    Edit
+                  </button>
+                </div>
               )}
             </div>
           </div>

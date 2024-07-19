@@ -73,7 +73,7 @@ const SidebarMenuMain = () => {
         title='Jobs'
         fontIcon='bi-app-indicator'
       >
-        <SidebarMenuItem title='Jobs' to='/alumni/dsu/jobs' icon='archive' />
+        <SidebarMenuItem title='Jobs' to='/alumni/dsu/jobs' icon='subtitle' />
         {roleId === 1 && (<SidebarMenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />)}
       </SidebarMenuItemWithSub>
 
@@ -81,10 +81,10 @@ const SidebarMenuMain = () => {
         title='Events'
         to='/alumni/dsu'
         fontIcon='bi-person'
-        icon='profile-circle'
+        icon='note-2'
       >
-        <SidebarMenuItem title='Events' to='/alumni/dsu/event' icon='archive' />
-        <SidebarMenuItem title='News' to='/alumni/dsu/news' icon='archive' />
+        <SidebarMenuItem title='Events' to='/alumni/dsu/event' icon='note-2' />
+        <SidebarMenuItem title='News' to='/alumni/dsu/news' icon='note' />
       </SidebarMenuItemWithSub>
 
       <SidebarMenuItem
@@ -122,7 +122,7 @@ const SidebarMenuMain = () => {
         to='/alumni/dsu/testimonial'
         icon='element-11'
         title='Testimonial'
-        fontIcon='bi-app-indicator'
+        fontIcon='people'
       />
       {/* <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>

@@ -12,6 +12,7 @@ const CardPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const userId = parseInt(localStorage.getItem('sub') || '0', 10);
   const [isApproved, setIsApproved] = useState<boolean | null>(null);
+  const [userHasCard, setUserHasCard] = useState<boolean>(false);
 
   useEffect(() => {
     const userRole = localStorage.getItem('role');
@@ -24,7 +25,7 @@ const CardPage: React.FC = () => {
     if (role === 1) {
       fetchAlumniCards();
     } else if (role === 2) {
-      checkUserApprovalStatus();
+      fetchAlumniCards();
     }
   }, [role]);
 
@@ -33,23 +34,18 @@ const CardPage: React.FC = () => {
       .then(response => {
         setAlumniCards(response.data);
         setFilteredCards(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching alumni cards:', error);
-      });
-  };
-
-  const checkUserApprovalStatus = () => {
-    axios.get(`https://ams-backend-gkxg.onrender.com/api/alumni-card/${userId}`)
-      .then(response => {
-        if (response.data && response.data.isApproved) {
-          setIsApproved(true);
-        } else {
-          setIsApproved(false);
+        if (role === 2) {
+          const userCard = response.data.find((card: AlumniCard) => card.user.id === userId);
+          if (userCard) {
+            setUserHasCard(true);
+            setIsApproved(userCard.isApproved);
+          } else {
+            setUserHasCard(false);
+          }
         }
       })
       .catch(error => {
-        console.error('Error checking approval status:', error);
+        console.error('Error fetching alumni cards:', error);
       });
   };
 
@@ -58,7 +54,7 @@ const CardPage: React.FC = () => {
       axios.post('https://ams-backend-gkxg.onrender.com/api/alumni-card', { userId })
         .then(response => {
           console.log('Application submitted successfully');
-          checkUserApprovalStatus(); // Refresh the approval status after applying
+          fetchAlumniCards(); // Refresh the cards after applying
         })
         .catch(error => {
           console.error('Error applying for alumni card:', error);
@@ -99,7 +95,7 @@ const CardPage: React.FC = () => {
 
   return (
     <div className="container">
-      {role === 2 && isApproved === false && (
+      {role === 2 && userHasCard && isApproved === false && (
         <div className="apply-card">
           <Button variant="primary" onClick={handleApply}>
             Apply For Alumni Card
@@ -107,10 +103,18 @@ const CardPage: React.FC = () => {
         </div>
       )}
 
-      {role === 2 && isApproved === true && (
+      {role === 2 && userHasCard && isApproved === true && (
         <Alert variant="success">
           Your alumni card has been approved. Please collect it from the registration office.
         </Alert>
+      )}
+
+      {role === 2 && !userHasCard && (
+        <div className="apply-card">
+          <Button variant="primary" onClick={handleApply}>
+            Apply For Alumni Card
+          </Button>
+        </div>
       )}
 
       {role === 1 && (
@@ -157,7 +161,7 @@ const CardPage: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredCards.map((card, index) => (
+                    {filteredCards.filter(card => card.isRequested).map((card, index) => (
                       <tr key={card.id}>
                         <td>{index + 1}</td>
                         <td>

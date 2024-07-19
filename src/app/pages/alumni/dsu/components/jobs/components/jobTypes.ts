@@ -14,4 +14,5 @@ export interface Jobs {
     schedule_metrics: string;
     isApproved: boolean;
     isCreatedByAdmin: boolean;
+    userId: number;
 }
