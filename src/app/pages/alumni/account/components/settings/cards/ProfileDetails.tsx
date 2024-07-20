@@ -34,9 +34,7 @@ const ProfileDetails: React.FC = () => {
 
   const fetchRecordByUserId = async () => {
     try {
-      const response = await axios.get(
-        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
-      )
+      const response = await axios.get(`http://13.200.151.68:3000/api/users/${localid}/profile`)
       setData(response?.data)
     } catch (error) {
       console.error(error)
@@ -109,7 +107,7 @@ const ProfileDetails: React.FC = () => {
     setLoading(false)
 
     await axios.patch(
-      `https://ams-backend-gkxg.onrender.com/api/profiles/${data?.profile?.id}`,
+      `http://13.200.151.68:3000/api/profiles/${data?.profile?.id}`,
       {
         country: data?.profile?.country,
         date_of_birth: data?.profile?.date_of_birth,

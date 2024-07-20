@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { Testimonial } from './testimonialType'
+import {Testimonial} from './testimonialType'
 import TestimonialsModal from './testimonialsModal'
-import { Modal, Button } from 'react-bootstrap'
+import {Modal, Button} from 'react-bootstrap'
 import './testimonials.css'
 
 const AllTestimonials: React.FC = () => {
@@ -15,15 +15,13 @@ const AllTestimonials: React.FC = () => {
 
   const roleId = parseInt(localStorage.getItem('role') || '0', 10)
 
-
   const fetchTestimonials = () => {
     axios
-      .get('https://ams-backend-gkxg.onrender.com/api/testimonial')
+      .get('http://13.200.151.68:3000/api/testimonial')
       .then((response) => {
         debugger
         setTestimonials(response.data)
-        console.log("user_id", user_id)
-
+        console.log('user_id', user_id)
       })
       .catch((error) => {
         console.error('Error fetching testimonials:', error)
@@ -60,7 +58,7 @@ const AllTestimonials: React.FC = () => {
   const handleDelete = () => {
     if (testimonialToDelete !== null) {
       axios
-        .delete(`https://ams-backend-gkxg.onrender.com/api/testimonial/${testimonialToDelete}`)
+        .delete(`http://13.200.151.68:3000/api/testimonial/${testimonialToDelete}`)
         .then((response) => {
           fetchTestimonials() // Refresh the testimonials list after deletion
           console.log('Testimonial deleted successfully')
@@ -86,10 +84,10 @@ const AllTestimonials: React.FC = () => {
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className='col-lg-4 col-md-4 col-sm-12'>
               <div className='card card-dashed'>
-                <span style={{ textAlign: 'right', paddingTop: '5px', paddingRight: '5px' }}>
+                <span style={{textAlign: 'right', paddingTop: '5px', paddingRight: '5px'}}>
                   <i
                     className='fa fa-times-circle'
-                    style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
+                    style={{fontSize: '20px', color: '#80171d', cursor: 'pointer'}}
                     onClick={() => openDeleteModal(testimonial.id)}
                   ></i>
                 </span>
@@ -97,7 +95,7 @@ const AllTestimonials: React.FC = () => {
                   <div className="symbol symbol-circle symbol-50px "  >
                   <img 
               
-                      src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'}`} 
+                      src={`http://13.200.151.68:3000/alumni/${testimonial.avatar || 'default-avatar.png'}`} 
                       alt={`${testimonial.first_name} ${testimonial.last_name}`} 
                     />
                   </div>
@@ -114,8 +112,9 @@ const AllTestimonials: React.FC = () => {
                   >
                     <div className='symbol symbol-circle symbol-50px '>
                       <img
-                        src={`https://ams-backend-gkxg.onrender.com/alumni/${testimonial.avatar || 'default-avatar.png'
-                          }`}
+                        src={`http://13.200.151.68:3000/alumni/${
+                          testimonial.avatar || 'default-avatar.png'
+                        }`}
                         alt={`${testimonial.first_name} ${testimonial.last_name}`}
                       />
                     </div>
@@ -125,16 +124,16 @@ const AllTestimonials: React.FC = () => {
                   </div>
                 </div>
                 <div className='card-footer'>
-                  <div style={{ textAlign: 'center' }}>
+                  <div style={{textAlign: 'center'}}>
                     <p>
                       {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
                       <span
-                        style={{ marginLeft: '10px', cursor: 'pointer' }}
+                        style={{marginLeft: '10px', cursor: 'pointer'}}
                         onClick={() => openModal(testimonial)}
                       >
                         <i
                           className='fa fa-pencil'
-                          style={{ fontSize: '15px', color: '#80171d' }}
+                          style={{fontSize: '15px', color: '#80171d'}}
                         ></i>
                       </span>
                     </p>

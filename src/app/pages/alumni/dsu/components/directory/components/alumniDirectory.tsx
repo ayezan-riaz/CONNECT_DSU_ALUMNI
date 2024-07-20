@@ -16,12 +16,12 @@ const AlumniDirectory: React.FC = () => {
   const [viewUser, setViewUser] = useState<Users | null>(null) // State for viewing user details
   const [searchQuery, setSearchQuery] = useState('')
   const [filterRole, setFilterRole] = useState('All')
-  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/alumni/'
+  const Imageurl = 'http://13.200.151.68:3000/api/alumni/'
   const loggedInUserId = parseInt(localStorage.getItem('sub') || '0', 10)
 
   const fetchUsers = () => {
     axios
-      .get<Users[]>('https://ams-backend-gkxg.onrender.com/api/users/directory')
+      .get<Users[]>('http://13.200.151.68:3000/api/users/directory')
       .then((response) => {
         setUsers(response.data)
         setFilteredUsers(response.data) // Initialize filteredUsers with all users
@@ -85,7 +85,7 @@ const AlumniDirectory: React.FC = () => {
   const handleDelete = () => {
     if (userToDelete) {
       axios
-        .delete(`https://ams-backend-gkxg.onrender.com/api/users/${userToDelete.id}`)
+        .delete(`http://13.200.151.68:3000/api/users/${userToDelete.id}`)
         .then(() => {
           setUsers(users.filter((e) => e.id !== userToDelete.id))
           closeDeleteModal()
@@ -166,9 +166,7 @@ const AlumniDirectory: React.FC = () => {
                       <div className='d-flex align-items-center'>
                         <div className='symbol symbol-50px me-5'>
                           <img
-                            src={`https://ams-backend-gkxg.onrender.com/alumni/${
-                              user.avatar || 'avatar.jpg'
-                            }`}
+                            src={`http://13.200.151.68:3000/alumni/${user.avatar || 'avatar.jpg'}`}
                             alt={`${user.first_name} ${user.last_name}`}
                           />
                         </div>
@@ -235,7 +233,7 @@ const AlumniDirectory: React.FC = () => {
               <div className='card-body'>
                 <div className='d-flex align-items-center mb-3'>
                   <img
-                    src={`https://ams-backend-gkxg.onrender.com/alumni/${
+                    src={`http://13.200.151.68:3000/alumni/${
                       viewUser.avatar || 'default-avatar.png'
                     }`}
                     alt={`${viewUser.first_name} ${viewUser.last_name}`}

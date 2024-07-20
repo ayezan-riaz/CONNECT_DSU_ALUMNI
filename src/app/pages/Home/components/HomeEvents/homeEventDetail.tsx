@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import { Event } from '../../../../pages/alumni/dsu/components/event/components/eventTypes'
-const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
+import {useParams} from 'react-router-dom'
+import {Event} from '../../../../pages/alumni/dsu/components/event/components/eventTypes'
+const Imageurl = 'http://13.200.151.68:3000/api/event/'
 const HomeEventDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>()
+  const {id} = useParams<{id: string}>()
   const [event, setEvent] = useState<Event | null>(null)
 
   useEffect(() => {
     if (id) {
       axios
-        .get<Event>(`https://ams-backend-gkxg.onrender.com/api/events/${id}`)
+        .get<Event>(`http://13.200.151.68:3000/api/events/${id}`)
         .then((response) => {
           setEvent(response.data)
           console.log('response.data', response.data)

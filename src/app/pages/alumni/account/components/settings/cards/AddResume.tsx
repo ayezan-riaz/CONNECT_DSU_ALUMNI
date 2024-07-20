@@ -15,15 +15,11 @@ const AddResume: React.FC = () => {
       payload.append('file', fileData)
 
       axios
-        .post(
-          `https://ams-backend-gkxg.onrender.com/api/profiles/${localId}/uploadResume`,
-          payload,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        )
+        .post(`http://13.200.151.68:3000/api/profiles/${localId}/uploadResume`, payload, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
         .then((response) => {
           toast.success('New Resume Added', {
             position: 'top-right',

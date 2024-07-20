@@ -23,7 +23,7 @@ const EventModal: React.FC<EventModalProps> = ({isOpen, onClose, selectedEvent, 
   useEffect(() => {
     if (selectedEvent) {
       axios
-        .get(`https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`)
+        .get(`http://13.200.151.68:3000/api/events/${selectedEvent.id}`)
         .then((response) => {
           const eventData = response.data
           setFormData({
@@ -87,16 +87,12 @@ const EventModal: React.FC<EventModalProps> = ({isOpen, onClose, selectedEvent, 
 
     try {
       if (selectedEvent) {
-        await axios.patch(
-          `https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`,
-          payload,
-          {
-            headers,
-          }
-        )
+        await axios.patch(`http://13.200.151.68:3000/api/events/${selectedEvent.id}`, payload, {
+          headers,
+        })
         toast.success('Event updated successfully')
       } else {
-        await axios.post('https://ams-backend-gkxg.onrender.com/api/events', payload, {
+        await axios.post('http://13.200.151.68:3000/api/events', payload, {
           headers,
         })
         toast.success('Event added successfully')

@@ -36,12 +36,10 @@ const Carousel: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://ams-backend-gkxg.onrender.com/api/allAlumni')
+        const response = await axios.get('http://13.200.151.68:3000/api/allAlumni')
         const filteredUsers = response.data.filter((user: any) => user.role === 2)
         const formattedUsers = filteredUsers.map((user: any) => ({
-          imgSrc: `https://ams-backend-gkxg.onrender.com/alumni/${
-            user.avatar || 'default-avatar.png'
-          }`,
+          imgSrc: `http://13.200.151.68:3000/alumni/${user.avatar || 'default-avatar.png'}`,
           name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
           role: 'User', // Adjust role text as needed
           designation: user.designation || '',
