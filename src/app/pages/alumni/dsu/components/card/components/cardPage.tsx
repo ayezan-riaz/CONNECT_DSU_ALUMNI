@@ -3,16 +3,21 @@ import axios from 'axios'
 import {AlumniCard} from './cardTypes'
 import {Button, Table, Form, Alert} from 'react-bootstrap'
 import './card.css'
+import {toast} from 'react-toastify'
+import {useLocation} from 'react-router-dom'
 
 const CardPage: React.FC = () => {
   const [alumniCards, setAlumniCards] = useState<AlumniCard[]>([])
   const [filteredCards, setFilteredCards] = useState<AlumniCard[]>([])
   const [role, setRole] = useState<number | null>(null)
+  const [count, setCount] = useState<number>(0)
   const [searchField, setSearchField] = useState<string>('name')
   const [searchQuery, setSearchQuery] = useState<string>('')
   const userId = parseInt(localStorage.getItem('sub') || '0', 10)
   const [isApproved, setIsApproved] = useState<boolean | null>(null)
+  const [isRequested, setIsRequested] = useState<boolean | null>(null)
   const [userHasCard, setUserHasCard] = useState<boolean>(false)
+  const location = useLocation()
 
   useEffect(() => {
     const userRole = localStorage.getItem('role')
@@ -22,12 +27,12 @@ const CardPage: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (role === 1) {
-      fetchAlumniCards()
-    } else if (role === 2) {
-      fetchAlumniCards()
-    }
-  }, [role])
+    setCount((prev) => prev + 1)
+  }, [location])
+
+  useEffect(() => {
+    fetchAlumniCards()
+  }, [count])
 
   const fetchAlumniCards = () => {
     axios
@@ -36,10 +41,12 @@ const CardPage: React.FC = () => {
         setAlumniCards(response.data)
         setFilteredCards(response.data)
         if (role === 2) {
+          console.log(alumniCards)
           const userCard = response.data.find((card: AlumniCard) => card.user.id === userId)
           if (userCard) {
             setUserHasCard(true)
             setIsApproved(userCard.isApproved)
+            setIsRequested(userCard.isRequested)
           } else {
             setUserHasCard(false)
           }
@@ -76,9 +83,11 @@ const CardPage: React.FC = () => {
       )
       .then((response) => {
         fetchAlumniCards() // Refresh the list after approval
+        toast.success('Alumni card approved')
         console.log('Card approved successfully')
       })
       .catch((error) => {
+        toast.error('Cannot approve alumni card')
         console.error('Error approving card:', error)
       })
   }
@@ -102,7 +111,26 @@ const CardPage: React.FC = () => {
 
   return (
     <div className='container'>
-      {role === 2 && userHasCard && isApproved === false && (
+      {role === 2 && (
+        <div>
+          <h1>Alumni Card</h1>
+          <p className='col-8'>
+            You can apply for the Alumni Card. You will be entitled to certain benefits which can be
+            availed with the help of Alumni Card, some of these benefits are
+          </p>
+          <ul>
+            <li className='text-lowercase'>FACILITATION OF ENTRY INTO DSU PREMISES</li>
+            <li className='text-lowercase'>
+              ACCESS TO UNIVERSITY RESOURCES LIKE LIBRARY AND SPORTS FACILITIES
+            </li>
+            <li className='text-lowercase'>
+              DISCOUNTED REGISTRATION FEE FOR VARIOUS ALUMNI EVENTS
+            </li>
+          </ul>
+        </div>
+      )}
+
+      {role === 2 && userHasCard && !isRequested && !isApproved && (
         <div className='apply-card'>
           <Button variant='primary' onClick={handleApply}>
             Apply For Alumni Card
@@ -110,23 +138,21 @@ const CardPage: React.FC = () => {
         </div>
       )}
 
-      {role === 2 && userHasCard && isApproved === true && (
-        <Alert variant='success'>
-          Your alumni card has been approved. Please collect it from the Alumni Department.
+      {role === 2 && userHasCard && isRequested && !isApproved && (
+        <Alert className='mt-12 col-6' variant='info'>
+          Your alumni card has been request, kindly wait until approval.
         </Alert>
       )}
 
-      {role === 2 && !userHasCard && (
-        <div className='apply-card'>
-          <Button variant='primary' onClick={handleApply}>
-            Apply For Alumni Card
-          </Button>
-        </div>
+      {role === 2 && userHasCard && isRequested && isApproved && (
+        <Alert className='mt-12 col-6' variant='success'>
+          Your alumni card has been approved. You can collect it from the Alumni Department.
+        </Alert>
       )}
 
       {role === 1 && (
         <>
-          <div className='row mb-3'>
+          <div className='card card-ab d-flex flex-row p-5 gap-3 shadow-sm mb-3'>
             <div className='col-3'>
               <Form.Control
                 type='text'
@@ -144,7 +170,7 @@ const CardPage: React.FC = () => {
               </Form.Select>
             </div>
           </div>
-          <div className='card mb-5 mb-xl-8'>
+          <div className='card card-ab shadow-sm mb-5 mb-xl-8 mt-8'>
             <div className='card-header border-0 pt-5'>
               <h3 className='card-title align-items-start flex-column'>
                 <span className='card-label fw-bold fs-3 mb-1'>Alumni Cards</span>
@@ -163,7 +189,7 @@ const CardPage: React.FC = () => {
                       <th className='min-w-150px'>Roll Number</th>
                       <th className='min-w-150px'>University Email</th>
                       <th className='min-w-100px'>Status</th>
-                      <th className='min-w-100px text-end'>Actions</th>
+                      <th className='min-w-100px'>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -185,7 +211,7 @@ const CardPage: React.FC = () => {
                           <td>{card.user.uni_email}</td>
                           <td>{card.isApproved ? 'Approved' : 'Pending'}</td>
                           <td className='text-end'>
-                            <div className='d-flex justify-content-end flex-shrink-0'>
+                            <div className='d-flex flex-shrink-0'>
                               {!card.isApproved && (
                                 <Button
                                   variant='success'
