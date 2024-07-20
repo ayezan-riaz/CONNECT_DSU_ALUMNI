@@ -69,8 +69,10 @@ const Job: React.FC = () => {
 
   return (
     <div>
-      <div className='row mb-5'>
-        <div className='col-2 offset-10'>
+      <div className='card p-5'>
+        <h1 className='card-header'>Job Posting</h1>
+        <div className='card-body'>
+          <p>You can post jobs you have info about.</p>
           <button
             className='btn btn-primary des'
             style={{background: 'rgb(255, 255, 255)'}}
