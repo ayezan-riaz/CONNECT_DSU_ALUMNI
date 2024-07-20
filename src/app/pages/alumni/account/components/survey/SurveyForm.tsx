@@ -29,15 +29,11 @@ interface SurveyFormProps {
 const SurveyForm: React.FC<SurveyFormProps> = ({onSubmit, setFormFilled}) => {
   const postSurveyForm = async (data: any, userId: number) => {
     try {
-      const response = await axios.post(
-        `https://ams-backend-gkxg.onrender.com/api/survey/${localid}`,
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const response = await axios.post(`http://13.200.151.68:3000/api/survey/${localid}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
       console.log(response.data) // This will log the response data from the server.
     } catch (error) {

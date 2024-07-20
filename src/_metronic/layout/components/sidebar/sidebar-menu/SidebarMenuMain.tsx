@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react'
-import { useIntl } from 'react-intl'
-import { KTIcon } from '../../../../helpers'
-import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub'
-import { SidebarMenuItem } from './SidebarMenuItem'
-const roleId = parseInt(localStorage.getItem('role') || '0', 10);
+import {useIntl} from 'react-intl'
+import {KTIcon} from '../../../../helpers'
+import {SidebarMenuItemWithSub} from './SidebarMenuItemWithSub'
+import {SidebarMenuItem} from './SidebarMenuItem'
+const roleId = parseInt(localStorage.getItem('role') || '0', 10)
 
 const SidebarMenuMain = () => {
   const intl = useIntl()
@@ -14,7 +14,7 @@ const SidebarMenuMain = () => {
       <SidebarMenuItem
         to='/dashboard'
         icon='element-11'
-        title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
+        title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
       {/* <SidebarMenuItem to='/builder' icon='switch' title='Layout Builder' fontIcon='bi-layers' />
@@ -36,20 +36,22 @@ const SidebarMenuMain = () => {
         </div>
       </div> */}
 
-{roleId === 2 && (  <SidebarMenuItemWithSub
-        title='Account'
-        to='/alumni/account'
-        fontIcon='bi-person'
-        icon='profile-circle'
-      >
-        <SidebarMenuItem title='Overview' to='/alumni/account/overview' icon='archive' />
-        <SidebarMenuItem title='Settings' to='/alumni/account/settings' icon='setting-2' />
-        <SidebarMenuItem title='Skills' to='/alumni/account/skills' icon='yii' />
-        <SidebarMenuItem title='Academics' to='/alumni/account/academics' icon='classmates' />
-        <SidebarMenuItem title='Work' to='/alumni/account/work' icon='badge' />
-        <SidebarMenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
-        {/* <SidebarMenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' /> */}
-      </SidebarMenuItemWithSub>)}
+      {roleId === 2 && (
+        <SidebarMenuItemWithSub
+          title='Account'
+          to='/alumni/account'
+          fontIcon='bi-person'
+          icon='profile-circle'
+        >
+          <SidebarMenuItem title='Overview' to='/alumni/account/overview' icon='archive' />
+          <SidebarMenuItem title='Settings' to='/alumni/account/settings' icon='setting-2' />
+          <SidebarMenuItem title='Skills' to='/alumni/account/skills' icon='yii' />
+          <SidebarMenuItem title='Academics' to='/alumni/account/academics' icon='classmates' />
+          <SidebarMenuItem title='Work' to='/alumni/account/work' icon='badge' />
+          <SidebarMenuItem title='Survey' to='/alumni/account/survey' icon='information-4' />
+          {/* <SidebarMenuItem title='User Management' to='/alumni/dsu/usermanagement' icon='information-4' /> */}
+        </SidebarMenuItemWithSub>
+      )}
 
       {/* <SidebarMenuItemWithSub
         title='Job'
@@ -74,15 +76,12 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       >
         <SidebarMenuItem title='Jobs' to='/alumni/dsu/jobs' icon='subtitle' />
-        {roleId === 1 && (<SidebarMenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />)}
+        {roleId === 1 && (
+          <SidebarMenuItem title='Approve Jobs' to='/alumni/dsu/approvejobs' icon='archive' />
+        )}
       </SidebarMenuItemWithSub>
 
-      <SidebarMenuItemWithSub
-        title='Events'
-        to='/alumni/dsu'
-        fontIcon='bi-person'
-        icon='note-2'
-      >
+      <SidebarMenuItemWithSub title='Events' to='/alumni/dsu' fontIcon='bi-person' icon='note-2'>
         <SidebarMenuItem title='Events' to='/alumni/dsu/event' icon='note-2' />
         <SidebarMenuItem title='News' to='/alumni/dsu/news' icon='note' />
       </SidebarMenuItemWithSub>
@@ -106,12 +105,14 @@ const SidebarMenuMain = () => {
         title='Corporate Partner'
         fontIcon='bi-app-indicator'
       />
-      {roleId === 1 && (<SidebarMenuItem
-        to='/alumni/dsu/directory'
-        icon='element-11'
-        title='Alumni Directory'
-        fontIcon='bi-app-indicator'
-      />)}
+      {roleId === 1 && (
+        <SidebarMenuItem
+          to='/alumni/dsu/directory'
+          icon='element-11'
+          title='Alumni Directory'
+          fontIcon='bi-app-indicator'
+        />
+      )}
       <SidebarMenuItem
         to='/alumni/dsu/donation'
         icon='element-11'
@@ -227,4 +228,4 @@ const SidebarMenuMain = () => {
   )
 }
 
-export { SidebarMenuMain }
+export {SidebarMenuMain}

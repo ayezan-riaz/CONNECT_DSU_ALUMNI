@@ -38,7 +38,7 @@
 //     onSubmit: async (values, { setStatus, setSubmitting }) => {
 //       setLoading(true);
 //       try {
-//         const response = await axios.post('https://ams-backend-gkxg.onrender.com/api/login', {
+//         const response = await axios.post('http://13.200.151.68:3000/api/login', {
 //           email: values.email,
 //           password: values.password,
 //         });
@@ -48,7 +48,7 @@
 //         saveAuth(access_token); // Save access token to local storage
 
 //         // Fetch user details using the access token
-//         const userResponse = await axios.get('https://ams-backend-gkxg.onrender.com/api/protected', {
+//         const userResponse = await axios.get('http://13.200.151.68:3000/api/protected', {
 //           headers: {
 //             Authorization: `Bearer ${access_token}`,
 //           },
@@ -234,7 +234,7 @@ export function Login() {
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        const response = await axios.post('https://ams-backend-gkxg.onrender.com/api/login', {
+        const response = await axios.post('http://13.200.151.68:3000/api/login', {
           email: values.email,
           password: values.password,
         })
@@ -244,14 +244,11 @@ export function Login() {
         saveAuth(access_token) // Save token using context
 
         // Fetch user details using the access token
-        const userResponse = await axios.get(
-          'https://ams-backend-gkxg.onrender.com/api/protected',
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
-        )
+        const userResponse = await axios.get('http://13.200.151.68:3000/api/protected', {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        })
         const {sub} = userResponse.data
         console.log('Sub', sub)
         localStorage.setItem('sub', sub)

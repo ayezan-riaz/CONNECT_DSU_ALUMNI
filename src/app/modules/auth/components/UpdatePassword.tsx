@@ -34,7 +34,7 @@ export function UpdatePassword() {
         // Use Axios to send the reset password request
         const token = new URLSearchParams(window.location.search).get('token')
         const response = await axios.post(
-          `https://ams-backend-gkxg.onrender.com/api/resetPassword?token=${token}`,
+          `http://13.200.151.68:3000/api/resetPassword?token=${token}`,
           {password: values.password}
         )
         setHasErrors(false)

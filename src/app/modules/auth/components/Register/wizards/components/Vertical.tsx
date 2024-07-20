@@ -18,7 +18,7 @@ import axios from 'axios'
 // Assuming dotenv is configured to load environment variables
 // const API = process.env.API_PATH;
 
-const API = 'https://ams-backend-gkxg.onrender.com/api/'
+const API = 'http://13.200.151.68:3000/api/'
 
 // Load environment variables
 // require('dotenv').config();
@@ -125,7 +125,7 @@ const Vertical = () => {
               } else {
                 const responseStep2 = await axios.post(
                   `${API}registrations/getUniversityEmailTokenData`,
-                  // 'https://ams-backend-gkxg.onrender.com/api/registrations/getUniversityEmailTokenData',
+                  // 'http://13.200.151.68:3000/api/registrations/getUniversityEmailTokenData',
                   {token: step2Token} // Pass the token as part of the request body
                 )
 
@@ -201,7 +201,7 @@ const Vertical = () => {
               try {
                 const responseStep5 = await axios.post(
                   `${API}registrations/getUniversityEmailTokenData`,
-                  // 'https://ams-backend-gkxg.onrender.com/api/registrations/getUniversityEmailTokenData',
+                  // 'http://13.200.151.68:3000/api/registrations/getUniversityEmailTokenData',
                   {token: step2Token} // Pass the token as part of the request body
                 )
               } catch (error) {

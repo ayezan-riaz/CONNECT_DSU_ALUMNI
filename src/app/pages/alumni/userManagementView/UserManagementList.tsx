@@ -15,7 +15,7 @@ interface User {
   imageName: string
 }
 
-const API_BASE_URL = 'https://ams-backend-gkxg.onrender.com/api'
+const API_BASE_URL = 'http://13.200.151.68:3000/api'
 
 const fetchUsers = async () => {
   const response = await axios.get(`${API_BASE_URL}/users`)

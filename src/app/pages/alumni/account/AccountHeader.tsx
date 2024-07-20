@@ -16,11 +16,9 @@ const AccountHeader: React.FC = () => {
   const [user, setUsers] = useState<any>({})
   const fetchAcademicsByUserId = async () => {
     try {
-      const response = await axios.get(
-        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
-      )
+      const response = await axios.get(`http://13.200.151.68:3000/api/users/${localid}/profile`)
       const userData = response.data
-      setImg(`https://ams-backend-gkxg.onrender.com/alumni/${userData.avatar}`)
+      setImg(`http://13.200.151.68:3000/alumni/${userData.avatar}`)
       console.log(userData.avatar)
       setUsers(userData)
     } catch (error) {
@@ -49,7 +47,10 @@ const AccountHeader: React.FC = () => {
                 <div className='d-flex align-items-center mb-2'>
                   <a href='#' className='text-gray-800 text-hover-primary fs-2 fw-bolder me-1'>
                     {user && (
-                      <span> {user.first_name + ' ' + user.middle_name + '' + user.last_name}</span>
+                      <span>
+                        {' '}
+                        {user.first_name + ' ' + user.middle_name + ' ' + user.last_name}
+                      </span>
                     )}
                   </a>
                   {/* <a href='#'>

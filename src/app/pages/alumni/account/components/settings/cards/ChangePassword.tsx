@@ -46,7 +46,7 @@ const ChangePassword: React.FC = () => {
 
         axios
           .post(
-            `https://ams-backend-gkxg.onrender.com/api/users/changePassword/${localId}`,
+            `http://13.200.151.68:3000/api/users/changePassword/${localId}`,
             {
               currentPassword: data?.currentPassword,
               newPassword: data?.newPassword,

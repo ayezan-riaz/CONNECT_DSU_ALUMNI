@@ -3,7 +3,7 @@ import axios from 'axios'
 import {useParams} from 'react-router-dom'
 import {Event} from './eventTypes'
 
-const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
+const Imageurl = 'http://13.200.151.68:3000/api/event/'
 
 const ViewEventDetail: React.FC = () => {
   const {id} = useParams<{id: string}>()
@@ -12,7 +12,7 @@ const ViewEventDetail: React.FC = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get<Event>(`https://ams-backend-gkxg.onrender.com/api/events/${id}`)
+        .get<Event>(`http://13.200.151.68:3000/api/events/${id}`)
         .then((response) => {
           setEvent(response.data)
           console.log('response.data', response.data)

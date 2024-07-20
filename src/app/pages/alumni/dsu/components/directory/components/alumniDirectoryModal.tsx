@@ -54,7 +54,7 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({
   useEffect(() => {
     if (selectedUser) {
       axios
-        .get(`https://ams-backend-gkxg.onrender.com/api/users/${selectedUser.id}`)
+        .get(`http://13.200.151.68:3000/api/users/${selectedUser.id}`)
         .then((response) => {
           const userData = response.data
           setFormData({
@@ -118,10 +118,10 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!formData.email.trim() || !formData.first_name.trim() || !formData.last_name.trim()) {
-      toast.error('Please fill in all required fields')
-      return
-    }
+    // if (!formData.email.trim() || !formData.first_name.trim() || !formData.last_name.trim()) {
+    //   toast.error('Please fill in all required fields')
+    //   return
+    // }
 
     const payload = new FormData()
     payload.append('email', formData.email)
@@ -136,24 +136,27 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({
       payload.append('avatar', formData.avatar) // Only append the first file
     }
 
-    const headers = {
+    const header1 = {
+      'Content-Type': 'multipart/form-data',
+    }
+
+    const header2 = {
       'Content-Type': 'multipart/form-data',
     }
 
     try {
       if (selectedUser) {
-        await axios.patch(
-          `https://ams-backend-gkxg.onrender.com/api/users/${selectedUser.id}`,
-          payload,
-          {headers}
-        )
+        await axios.patch(`http://13.200.151.68:3000/api/users/${selectedUser.id}`, payload, {
+          headers: header1,
+        })
         toast.success(isAdmin ? 'Admin updated successfully' : 'User updated successfully')
       } else {
         const endpoint = isAdmin
-          ? 'https://ams-backend-gkxg.onrender.com/api/users/admin'
-          : 'https://ams-backend-gkxg.onrender.com/api/registrations'
+          ? 'http://13.200.151.68:3000/api/users/admin'
+          : 'http://13.200.151.68:3000/api/registrations'
         const finalPayload = isAdmin ? payload : registrationData
-        await axios.post(endpoint, finalPayload, {headers})
+        console.log(finalPayload)
+        await axios.post(endpoint, finalPayload, {headers: header2})
         toast.success(isAdmin ? 'Admin added successfully' : 'User added successfully')
       }
       fetchUsers()
@@ -296,7 +299,7 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({
                 {selectedUser && (
                   <div>
                     <img
-                      src={`https://ams-backend-gkxg.onrender.com/alumni/${selectedUser.avatar}`}
+                      src={`http://13.200.151.68:3000/alumni/${selectedUser.avatar}`}
                       alt='Current Avatar'
                       style={{maxHeight: '100px', marginTop: '10px'}}
                     />
@@ -374,7 +377,7 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({
               <Form.Group className='mb-3'>
                 <Form.Label>Registration Time</Form.Label>
                 <Form.Control
-                  type='text'
+                  type='date'
                   name='registration_time'
                   value={registrationData.registration_time}
                   onChange={handleChange}
@@ -385,7 +388,7 @@ const AlumniDirectoryModal: React.FC<UserModalProps> = ({
               <Form.Group className='mb-3'>
                 <Form.Label>Graduation Time</Form.Label>
                 <Form.Control
-                  type='text'
+                  type='date'
                   name='graduation_time'
                   value={registrationData.graduation_time}
                   onChange={handleChange}

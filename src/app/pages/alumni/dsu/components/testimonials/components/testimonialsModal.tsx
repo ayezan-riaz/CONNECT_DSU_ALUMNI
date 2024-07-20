@@ -25,7 +25,7 @@ const TestimonialsModal: React.FC<TestimonialModalProps> = ({
   useEffect(() => {
     if (selectedTestimonial) {
       axios
-        .get(`https://ams-backend-gkxg.onrender.com/api/testimonial/${selectedTestimonial.id}`)
+        .get(`http://13.200.151.68:3000/api/testimonial/${selectedTestimonial.id}`)
         .then((response) => {
           setFormData({
             testimony: response.data.testimony,
@@ -55,7 +55,7 @@ const TestimonialsModal: React.FC<TestimonialModalProps> = ({
     try {
       if (selectedTestimonial) {
         await axios.patch(
-          `https://ams-backend-gkxg.onrender.com/api/testimonial/${selectedTestimonial.id}`,
+          `http://13.200.151.68:3000/api/testimonial/${selectedTestimonial.id}`,
           {
             testimony: formData.testimony,
           },
@@ -65,7 +65,7 @@ const TestimonialsModal: React.FC<TestimonialModalProps> = ({
         )
         toast.success('Testimonial updated successfully')
       } else {
-        await axios.post('https://ams-backend-gkxg.onrender.com/api/testimonial', formData, {
+        await axios.post('http://13.200.151.68:3000/api/testimonial', formData, {
           headers: {'Content-Type': 'application/json'},
         })
         toast.success('Testimonial added successfully')

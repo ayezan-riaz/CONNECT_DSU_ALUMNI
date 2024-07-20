@@ -17,9 +17,7 @@ const AcademicTable = () => {
 
   const fetchAcademicsByUserId = async (userId: number) => {
     try {
-      const response = await axios.get(
-        `https://ams-backend-gkxg.onrender.com/api/academics/user/${localid}`
-      )
+      const response = await axios.get(`http://13.200.151.68:3000/api/academics/user/${localid}`)
       const userData = response.data
       console.log(userData, localid)
       const filteredUsers: any[] = []
@@ -43,7 +41,7 @@ const AcademicTable = () => {
       formData.append('file', crt.certificate)
 
       const response = await axios.post(
-        `https://ams-backend-gkxg.onrender.com/api/academics/${userId}/uploadCertificate`,
+        `http://13.200.151.68:3000/api/academics/${userId}/uploadCertificate`,
         formData
       )
 
@@ -60,7 +58,7 @@ const AcademicTable = () => {
   const addAcademic = async (academicData: any) => {
     try {
       const response = await axios.post(
-        `https://ams-backend-gkxg.onrender.com/api/academics/${localid}`,
+        `http://13.200.151.68:3000/api/academics/${localid}`,
         academicData,
         {
           headers: {
@@ -78,9 +76,7 @@ const AcademicTable = () => {
 
   const deleteAcademic = async (userId: number) => {
     try {
-      const response = await axios.delete(
-        `https://ams-backend-gkxg.onrender.com/api/academics/${userId}`
-      )
+      const response = await axios.delete(`http://13.200.151.68:3000/api/academics/${userId}`)
       return response.data
     } catch (error) {
       console.log(error)
@@ -93,7 +89,7 @@ const AcademicTable = () => {
       console.log(updatedUser)
 
       const response = await axios.patch(
-        `https://ams-backend-gkxg.onrender.com/api/academics/${updatedUser.id}`,
+        `http://13.200.151.68:3000/api/academics/${updatedUser.id}`,
         updatedUser,
         {
           headers: {
@@ -302,7 +298,7 @@ const AcademicTable = () => {
                     {user.certificate ? (
                       <>
                         <a
-                          href={`https://ams-backend-gkxg.onrender.com/api/alumni/${user.certificate}`}
+                          href={`http://13.200.151.68:3000/api/alumni/${user.certificate}`}
                           target='_blank'
                         >
                           {user.certificate}

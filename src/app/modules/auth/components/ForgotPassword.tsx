@@ -31,10 +31,9 @@ export function ForgotPassword() {
       setHasErrors(undefined)
 
       try {
-        const response = await axios.post(
-          `https://ams-backend-gkxg.onrender.com/api/applyPasswordReset`,
-          {email: values.email}
-        )
+        const response = await axios.post(`http://13.200.151.68:3000/api/applyPasswordReset`, {
+          email: values.email,
+        })
 
         // Assuming the token is returned in the API response as response.data.token
         const token = response.data

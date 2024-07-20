@@ -16,7 +16,7 @@ const TestimonialsPage: React.FC = () => {
 
   const fetchTestimonials = () => {
     axios
-      .get('https://ams-backend-gkxg.onrender.com/api/testimonial')
+      .get('http://13.200.151.68:3000/api/testimonial')
       .then((response) => {
         setTestimonials(response.data)
       })
@@ -55,7 +55,7 @@ const TestimonialsPage: React.FC = () => {
   const handleDelete = () => {
     if (testimonialToDelete !== null) {
       axios
-        .delete(`https://ams-backend-gkxg.onrender.com/api/testimonial/${testimonialToDelete}`)
+        .delete(`http://13.200.151.68:3000/api/testimonial/${testimonialToDelete}`)
         .then(() => {
           fetchTestimonials() // Refresh the testimonials list after deletion
           closeDeleteModal()
@@ -108,7 +108,7 @@ const TestimonialsPage: React.FC = () => {
                 <div className='card card-ab'>
                   <img
                     className='card-img-top object-fit-contain'
-                    src={`https://ams-backend-gkxg.onrender.com/alumni/${
+                    src={`http://13.200.151.68:3000/alumni/${
                       testimonial.avatar || 'default/avatar.jpg'
                     }`}
                     alt={`${testimonial.first_name} ${testimonial.last_name}`}
@@ -159,7 +159,7 @@ const TestimonialsPage: React.FC = () => {
                     <div className='testimonial-content'>
                       <div className='testimonial-image'>
                         <img
-                          src={`https://ams-backend-gkxg.onrender.com/alumni/${
+                          src={`http://13.200.151.68:3000/alumni/${
                             testimonial.avatar || 'default/avatar.jpg'
                           }`}
                           alt={`${testimonial.first_name} ${testimonial.last_name}`}

@@ -3,7 +3,7 @@ import axios from 'axios'
 import {useParams} from 'react-router-dom'
 import {News} from './newsTypes'
 
-const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/news/'
+const Imageurl = 'http://13.200.151.68:3000/api/news/'
 
 const ViewNewsDetail: React.FC = () => {
   const {id} = useParams<{id: string}>()
@@ -12,7 +12,7 @@ const ViewNewsDetail: React.FC = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get<News>(`https://ams-backend-gkxg.onrender.com/api/news/${id}`)
+        .get<News>(`http://13.200.151.68:3000/api/news/${id}`)
         .then((response) => {
           setEvent(response.data)
           console.log('response.data', response.data)

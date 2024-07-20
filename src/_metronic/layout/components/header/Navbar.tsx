@@ -13,17 +13,15 @@ const userAvatarClass = 'symbol-35px symbol-md-40px'
 const btnIconClass = 'fs-1'
 
 const localid = localStorage.getItem('sub')
-const roleId = parseInt(localStorage.getItem('role') || '0', 10);
+const roleId = parseInt(localStorage.getItem('role') || '0', 10)
 
 const Navbar = () => {
   const [img, setImg] = useState<string>('')
   const fetchAcademicsByUserId = async () => {
     try {
-      const response = await axios.get(
-        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
-      )
+      const response = await axios.get(`http://13.200.151.68:3000/api/users/${localid}/profile`)
       const userData = response.data
-      setImg(`https://ams-backend-gkxg.onrender.com/alumni/${userData.avatar}`)
+      setImg(`http://13.200.151.68:3000/alumni/${userData.avatar}`)
       console.log(userData.avatar)
     } catch (error) {
       console.error(error) // Handle any errors that occur during the request.

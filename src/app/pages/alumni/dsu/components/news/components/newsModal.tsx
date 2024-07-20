@@ -23,7 +23,7 @@ const NewsModal: React.FC<NewsModalProps> = ({isOpen, onClose, selectedNews, fet
   useEffect(() => {
     if (selectedNews) {
       axios
-        .get(`https://ams-backend-gkxg.onrender.com/api/news/${selectedNews.id}`)
+        .get(`http://13.200.151.68:3000/api/news/${selectedNews.id}`)
         .then((response) => {
           const newsData = response.data
           setFormData({
@@ -87,16 +87,12 @@ const NewsModal: React.FC<NewsModalProps> = ({isOpen, onClose, selectedNews, fet
 
     try {
       if (selectedNews) {
-        await axios.patch(
-          `https://ams-backend-gkxg.onrender.com/api/news/${selectedNews.id}`,
-          payload,
-          {
-            headers,
-          }
-        )
+        await axios.patch(`http://13.200.151.68:3000/api/news/${selectedNews.id}`, payload, {
+          headers,
+        })
         toast.success('News updated successfully')
       } else {
-        await axios.post('https://ams-backend-gkxg.onrender.com/api/news', payload, {
+        await axios.post('http://13.200.151.68:3000/api/news', payload, {
           headers,
         })
         toast.success('News added successfully')

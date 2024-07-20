@@ -21,14 +21,11 @@ function Survey() {
 
   const getSurveyForm = async (userId: number) => {
     try {
-      const response = await axios.get(
-        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/survey`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const response = await axios.get(`http://13.200.151.68:3000/api/users/${localid}/survey`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
       const data: SurveyResponse = response.data
       if (data) {

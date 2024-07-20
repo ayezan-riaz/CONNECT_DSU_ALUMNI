@@ -12,12 +12,12 @@ const ViewEvent: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
-  const Imageurl = 'https://ams-backend-gkxg.onrender.com/api/event/'
+  const Imageurl = 'http://13.200.151.68:3000/api/event/'
   const roleId = parseInt(localStorage.getItem('role') || '0', 10)
 
   const fetchEvents = () => {
     axios
-      .get<Event[]>('https://ams-backend-gkxg.onrender.com/api/events')
+      .get<Event[]>('http://13.200.151.68:3000/api/events')
       .then((response) => {
         setEvents(response.data)
       })
@@ -42,7 +42,7 @@ const ViewEvent: React.FC = () => {
   const handleDeleteConfirmation = () => {
     if (selectedEvent) {
       axios
-        .delete(`https://ams-backend-gkxg.onrender.com/api/events/${selectedEvent.id}`)
+        .delete(`http://13.200.151.68:3000/api/events/${selectedEvent.id}`)
         .then(() => {
           setEvents(events.filter((e) => e.id !== selectedEvent.id))
           setDeleteConfirmation(false)

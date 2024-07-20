@@ -22,9 +22,7 @@ export function Overview() {
   const [sub, setSub] = useState<any>('')
   const fetchAcademicsByUserId = async (userId: number) => {
     try {
-      const response = await axios.get(
-        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/profile`
-      )
+      const response = await axios.get(`http://13.200.151.68:3000/api/users/${localid}/profile`)
       const userData = response.data
       setUsers(userData)
       console.log(userData.profile)
@@ -169,7 +167,7 @@ export function Overview() {
                   {user?.profile?.resume ? (
                     <>
                       <a
-                        href={`https://ams-backend-gkxg.onrender.com/alumni/${user.profile.resume}`}
+                        href={`http://13.200.151.68:3000/alumni/${user.profile.resume}`}
                         target='_blank'
                         className='fw-bold'
                         rel='noreferrer'

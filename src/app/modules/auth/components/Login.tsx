@@ -39,7 +39,7 @@ export function Login() {
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        const response = await axios.post(`https://ams-backend-gkxg.onrender.com/api/login`, {
+        const response = await axios.post(`http://13.200.151.68:3000/api/login`, {
           email: values.email,
           password: values.password,
         })
@@ -50,8 +50,8 @@ export function Login() {
         localStorage.setItem('token', access_token)
         // Fetch user details using the access token
         const userResponse = await axios.get(
-          `https://ams-backend-gkxg.onrender.com/api/protected`,
-          // 'https://ams-backend-gkxg.onrender.com/api/protected',
+          `http://13.200.151.68:3000/api/protected`,
+          // 'http://13.200.151.68:3000/api/protected',
           {
             headers: {
               Authorization: `Bearer ${access_token}`,

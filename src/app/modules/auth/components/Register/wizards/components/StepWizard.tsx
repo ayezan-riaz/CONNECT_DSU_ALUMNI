@@ -48,7 +48,7 @@ const StepWizard: FC = () => {
       // Call the API to verify university email
       const response = await axios.post(
         `${API}/registrations/verifyUniversityEmail`,
-        // 'https://ams-backend-gkxg.onrender.com/api/registrations/verifyUniversityEmail',
+        // 'http://13.200.151.68:3000/api/registrations/verifyUniversityEmail',
         {registrationId}
       )
       // Handle the API response as needed
@@ -63,7 +63,7 @@ const StepWizard: FC = () => {
       // Call the API to validate account email with the token
       const response = await axios.get(
         `${API}/registrations/validateAccountEmail?token=${token}`
-        // `https://ams-backend-gkxg.onrender.com/api/registrations/validateAccountEmail?token=${token}`
+        // `http://13.200.151.68:3000/api/registrations/validateAccountEmail?token=${token}`
       )
       // Handle the API response as needed
       console.log(response.data)
@@ -77,7 +77,7 @@ const StepWizard: FC = () => {
       // Call the API to register the account
       const response = await axios.post(
         `${API}/registrations/registerAccount`,
-        // 'https://ams-backend-gkxg.onrender.com/api/registrations/registerAccount',
+        // 'http://13.200.151.68:3000/api/registrations/registerAccount',
         values
       )
       // Handle the API response as needed

@@ -20,9 +20,7 @@ const Work = () => {
 
   const fetchExperiencesByUserId = async (userId: number) => {
     try {
-      const response = await axios.get(
-        `https://ams-backend-gkxg.onrender.com/api/users/${localid}/experiences`
-      )
+      const response = await axios.get(`http://13.200.151.68:3000/api/users/${localid}/experiences`)
       const userData = response.data
       console.log(userData.experiences)
 
@@ -57,7 +55,7 @@ const Work = () => {
   const postExperiencesByUserId = async (data: any, userId: number) => {
     try {
       const response = await axios.post(
-        `https://ams-backend-gkxg.onrender.com/api/experiences/${localid}`,
+        `http://13.200.151.68:3000/api/experiences/${localid}`,
         data,
         {
           headers: {
@@ -75,15 +73,11 @@ const Work = () => {
   const editExperienceByUserId = async (data: Experience, Id: number | undefined) => {
     try {
       console.log(Id)
-      const response = await axios.patch(
-        `https://ams-backend-gkxg.onrender.com/api/experiences/${Id}`,
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const response = await axios.patch(`http://13.200.151.68:3000/api/experiences/${Id}`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
       console.log(response.data) // This will log the response data from the server.
     } catch (error) {
@@ -94,14 +88,11 @@ const Work = () => {
   const deleteExperiencesByUserId = async (Id: number | undefined) => {
     try {
       console.log(Id)
-      const response = await axios.delete(
-        `https://ams-backend-gkxg.onrender.com/api/experiences/${Id}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const response = await axios.delete(`http://13.200.151.68:3000/api/experiences/${Id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
       console.log(response.data) // This will log the response data from the server.
     } catch (error) {
