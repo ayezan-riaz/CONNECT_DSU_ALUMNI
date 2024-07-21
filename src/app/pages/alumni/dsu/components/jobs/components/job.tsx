@@ -69,24 +69,33 @@ const Job: React.FC = () => {
 
   return (
     <div>
-      <div className='card p-5'>
-        <h1 className='card-header'>Job Posting</h1>
-        <div className='card-body'>
-          <p>You can post jobs you have info about.</p>
-          <button
-            className='btn btn-primary des'
-            style={{background: 'rgb(255, 255, 255)'}}
-            onClick={() => openModal()}
-          >
-            Add new Job
-          </button>
+      <div className='card card-ab shadow-sm d-flex flex-row align-items-center justify-content-between p-5'>
+        <div>
+          <h1 className='fs-1'>Job Posting</h1>
+          <em>post jobs you have information about</em>
         </div>
+        <button
+          className='btn btn-primary des'
+          style={{background: 'rgb(255, 255, 255)'}}
+          onClick={() => openModal()}
+        >
+          Add Job
+        </button>
       </div>
+
+      {!(jobs.length > 0) && (
+        <div className='container d-flex justify-content-center align-items-center'>
+          <div className='mt-20 text-center'>
+            <h1 className='fs-3'>No Job Posted</h1>
+            <p className='fw-light'>new posted jobs will appear here</p>
+          </div>
+        </div>
+      )}
 
       <div className='row'>
         {jobs.map((job) => (
-          <div key={job.id} className='col-lg-4 col-md-4 col-sm-12'>
-            <div className='card card-custom card-stretch-50 shadow mb-5'>
+          <div key={job.id} className='col-lg-4 col-md-4 col-sm-12 mt-5'>
+            <div className='card card-ab card-custom card-stretch-50 shadow mb-5'>
               {role === 1 && (
                 <span style={{position: 'absolute', top: '10px', right: '10px', zIndex: 1}}>
                   <i
@@ -111,7 +120,10 @@ const Job: React.FC = () => {
               <div className='card-body'>
                 <div className='row'>
                   <div className='col-12'>
-                    <p>{job.organization_name}</p>
+                    <p>
+                      <i style={{marginRight: '5px'}} className='fa fa-building'></i>
+                      {job.organization_name}
+                    </p>
                   </div>
                   <div className='col-12'>
                     <p>
@@ -172,6 +184,7 @@ const Job: React.FC = () => {
           </div>
         ))}
       </div>
+
       <JobModal
         isOpen={showModal}
         onClose={closeModal}

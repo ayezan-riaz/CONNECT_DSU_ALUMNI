@@ -4,6 +4,8 @@ import {toast} from 'react-toastify'
 import axios, {AxiosError} from 'axios'
 import {Jobs} from './jobTypes' // Import the common Job type
 
+const role = parseInt(localStorage.getItem('role') || '1', 10)
+
 interface JobModalProps {
   isOpen: boolean
   onClose: () => void
@@ -71,7 +73,6 @@ const JobModal: React.FC<JobModalProps> = ({isOpen, onClose, selectedJob, fetchJ
       toast.error('Please fill in all fields')
       return
     }
-    debugger
     const accessToken = localStorage.getItem('token') // Retrieve the access token from local storage
 
     if (!accessToken) {
@@ -98,7 +99,7 @@ const JobModal: React.FC<JobModalProps> = ({isOpen, onClose, selectedJob, fetchJ
           },
         })
         toast.success('Job added successfully')
-        toast.info('Wait For Approve by Admin')
+        if (role === 2) toast.info('Wait For Approve by Admin')
       }
       fetchJobs()
       onClose()
@@ -159,7 +160,7 @@ const JobModal: React.FC<JobModalProps> = ({isOpen, onClose, selectedJob, fetchJ
             <Form.Label>Description</Form.Label>
             <Form.Control
               as='textarea'
-              rows={3}
+              rows={2}
               name='description'
               value={formData.description}
               onChange={handleChange}
@@ -224,12 +225,9 @@ const JobModal: React.FC<JobModalProps> = ({isOpen, onClose, selectedJob, fetchJ
               onChange={handleChange}
             >
               <option value=''>Select salary type</option>
-              <option value='$'>$ Dollar</option>
-              <option value='₹'>₹ Rupees</option>
-              <option value='€'>€ Euro</option>
-              <option value='£'>£ Pound</option>
-              <option value='¥'>¥ Yen</option>
-              {/* Add more salary types as needed */}
+              <option value='$'>Dollar</option>
+              <option value='RS'>Rupees</option>
+              <option value='Eur'>Euro</option>
             </Form.Control>
           </Form.Group>
           <Form.Group className='mb-3'>
@@ -250,9 +248,10 @@ const JobModal: React.FC<JobModalProps> = ({isOpen, onClose, selectedJob, fetchJ
               onChange={handleChange}
             >
               <option value=''>Select experience level</option>
-              <option value='Beginner'>Beginner</option>
+              <option value='Fresh'>Fresh</option>
+              <option value='Intern'>Intern</option>
               <option value='Intermediate'>Intermediate</option>
-              <option value='Advanced'>Advanced</option>
+              <option value='Experience'>Experience</option>
               {/* Add more experience levels as needed */}
             </Form.Control>
           </Form.Group>
@@ -286,9 +285,11 @@ const JobModal: React.FC<JobModalProps> = ({isOpen, onClose, selectedJob, fetchJ
               {/* Add more schedule metrics as needed */}
             </Form.Control>
           </Form.Group>
-          <Button variant='primary' type='submit'>
-            {selectedJob ? 'Update Job' : 'Add Job'}
-          </Button>
+          <div className='d-flex flex-row justify-content-end'>
+            <Button variant='primary' type='submit'>
+              {selectedJob ? 'Update Job' : 'Add Job'}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
