@@ -68,7 +68,7 @@
     font-size: 1.2rem;
 }
 
-/* Animations */
+
 @keyframes fadeInDown {
     0% {
         opacity: 0;
