@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import './ourAlumni.css' // Ensure your CSS styles are correctly set up for dragging and transitions
 import axios from 'axios'
 
@@ -104,7 +104,9 @@ const Carousel: React.FC = () => {
   }, [isAutoPlay])
 
   return (
+
     <div ref={wrapperRef} className='col-lg-12 col-md-12 col-sm-12 mt-15'>
+      <h1 style={{ textAlign: 'center' }}>Our Alumni - Our Assets</h1>
       <div className='wrapper'>
         <i id='left' className='fa-solid fa-angle-left' onClick={() => handleArrowClick('left')} />
         <ul
