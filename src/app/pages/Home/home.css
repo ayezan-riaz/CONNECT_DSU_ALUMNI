@@ -65,7 +65,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
- 
+
+}
+
+.bg {
+  background-color: #81181b;
+  color: white;
 }
 
 .carousel-caption {

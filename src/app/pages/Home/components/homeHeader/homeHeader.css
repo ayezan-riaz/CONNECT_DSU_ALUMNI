@@ -1,231 +1,11 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-/* body {
-    background-color: #f8f9fa;
-}
-.navbar-custom {
-    background-color: #81181b;
-}
-.navbar-custom .navbar-brand,
-.navbar-custom .nav-link {
-    color: white;
-}
-.navbar-toggler {
-    border-color: white;
-}
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-.navbar-collapse {
-    justify-content: center;
-}
-.nav-item {
-    transition: all 0.3s ease;
-}
-.nav-item:hover {
-    transform: scale(1.1);
-} */
 
-/* .navbar {
-    background-color: #81181b;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 1rem;
-}
-
-.navbar-brand {
-    color: white;
-    font-size: 1.5rem;
-    text-decoration: none;
-}
-
-.menu-icon {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-.nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-}
-
-.nav-link {
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.nav-links.open {
-    display: flex;
-}
-
-@media (min-width: 768px) {
-    .navbar-container {
-        flex-direction: row;
-    }
-
-    .menu-icon {
-        display: none;
-    }
-
-    .nav-links {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .nav-link {
-        padding: 0 1rem;
-    }
-} */
-
-/* 
-
-.bg{
-    background-color: #81181b;
-    color: white;
-}
 .navbar {
-    transition: all 0.3s;
-    background-color: #81181b;
-    color: white;
-    
-}
-
-@media (min-width: 992px) {
-    .navbar {
-        display: flex;
-        background-color: #81181b;
-        color: white;
-        justify-content: space-between;
-    }
-
-    .navbar-toggler {
-        display: none;
-    }
-
-    .collapse {
-        display: flex !important;
-        justify-content: flex-end;
-    }
-
-    .navbar-nav {
-        flex-direction: row;
-    }
-
-    .nav-item {
-        padding: 0 10px;
-    }
-    .bg-dark {
-        --bs-bg-rgb-color: var(white) !important;
-        background-color: var(#81181b) !important;
-    }
-}
-
-.bg {
+  width: 100%;
   background-color: #81181b;
   color: white;
-}
-
-.bg:hover {
-  background-color: #81181b;
-  color: lightgray;
-}
-
-.slider {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 30px;
-}
-
-.slider-inner {
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-#moving-text {
-  display: inline-block;
-  padding-left: 100%;
-  animation: moveText 150s linear infinite;
-  font-size: 12px;
-  color: white;
-}
-
-@keyframes moveText {
-  0% {
-    transform: translateX(0%);
-  }
-
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.noLightbox.social_bookmarks {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.noLightbox.social_bookmarks li {
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
-
-.noLightbox.social_bookmarks li a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #000;
-  font-size: 20px;
-}
-
-.noLightbox.social_bookmarks li:not(:last-child)::after {
-  content: '';
-  display: block;
-  width: 2px;
-  height: 24px;
-  background-color: #000;
-  margin-left: 10px;
-}
-
-*/
-
-/* Navigation bar fixed and full width */
-.navbar {
-  position: fixed;
-  /* Fixed position to stay on top */
-  top: 0;
-  width: 100%;
-  /* Full width */
-  background-color: #81181b;
-  /* Dark red background */
-  z-index: 1030;
-  /* High z-index to stay on top */
   transition: all 0.3s;
-  color: white;
+  z-index: 1030;
 }
 
 @media (min-width: 992px) {
@@ -236,7 +16,6 @@
 
   .navbar-toggler {
     display: none;
-    /* Hide toggler on large screens */
   }
 
   .collapse {
@@ -253,25 +32,11 @@
   }
 }
 
-/* Social Icons */
-.noLightbox.social_bookmarks {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  /* Ensure it does not push navbar items */
-  left: 10px;
-  /* Space from the left */
+.bg {
+  background-color: #81181b;
+  color: white;
 }
 
-.noLightbox.social_bookmarks li {
-  margin-right: 15px;
-  /* Space between icons */
-}
-
-/* Sliding Text Styling */
 .slider {
   position: relative;
   overflow: hidden;
@@ -304,9 +69,16 @@
   }
 }
 
-.navbar {
-  width: 100%;
-  background-color: #81181b;
-  /* Example: Ensure consistent background */
-  color: white;
+.noLightbox.social_bookmarks {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 10px;
+}
+
+.noLightbox.social_bookmarks li {
+  margin-right: 15px;
 }
