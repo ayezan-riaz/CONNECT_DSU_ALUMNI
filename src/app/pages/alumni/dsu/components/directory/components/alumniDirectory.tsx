@@ -234,7 +234,7 @@ const AlumniDirectory: React.FC = () => {
                 <div className='d-flex align-items-center mb-3'>
                   <img
                     src={`http://13.200.151.68:3000/alumni/${
-                      viewUser.avatar || 'default-avatar.png'
+                      viewUser.avatar || 'default/avatar.jpg'
                     }`}
                     alt={`${viewUser.first_name} ${viewUser.last_name}`}
                     className='img-fluid rounded-circle'

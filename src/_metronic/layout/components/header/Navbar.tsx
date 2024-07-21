@@ -21,7 +21,7 @@ const Navbar = () => {
     try {
       const response = await axios.get(`http://13.200.151.68:3000/api/users/${localid}/profile`)
       const userData = response.data
-      setImg(`http://13.200.151.68:3000/alumni/${userData.avatar}`)
+      setImg(`http://13.200.151.68:3000/alumni/${userData.avatar || 'default/avatar.jpg'}`)
       console.log(userData.avatar)
     } catch (error) {
       console.error(error) // Handle any errors that occur during the request.

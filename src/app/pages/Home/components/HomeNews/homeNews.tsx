@@ -12,7 +12,6 @@ const HomeNews: React.FC = () => {
     axios
       .get<News[]>('http://13.200.151.68:3000/api/news')
       .then((response) => {
-        debugger
         setNews(response.data)
         console.log('News', response.data)
         console.log('News', response.data[0].news_image[0])
@@ -35,7 +34,7 @@ const HomeNews: React.FC = () => {
 
   return (
     <div className='container'>
-      <div className='row mb-5'>
+      <div className='row mb-5 mt-8'>
         <div className='col-12'>
           <div
             className='position-relative'

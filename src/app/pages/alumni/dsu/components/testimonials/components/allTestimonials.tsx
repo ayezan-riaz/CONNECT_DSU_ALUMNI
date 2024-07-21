@@ -113,7 +113,7 @@ const AllTestimonials: React.FC = () => {
                     <div className='symbol symbol-circle symbol-50px '>
                       <img
                         src={`http://13.200.151.68:3000/alumni/${
-                          testimonial.avatar || 'default-avatar.png'
+                          testimonial.avatar || 'default/avatar.jpg'
                         }`}
                         alt={`${testimonial.first_name} ${testimonial.last_name}`}
                       />

@@ -12,7 +12,7 @@ const Reward: React.FC = () => {
         </div>
       </div>
 
-      <div className='row justify-content-center'>
+      <div className='row justify-content-center mb-8'>
         <div className='col-lg-8 col-md-10 col-sm-12'>
           <div className='video-container'>
             <iframe

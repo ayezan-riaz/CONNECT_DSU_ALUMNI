@@ -76,14 +76,14 @@ const HomeHeader: React.FC = () => {
                     <Link to='#'>
                       <li className='nav-item dropdown'>
                         <a className='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style={{ color: 'white' }}>
-                          Reward & Benefits
+                          Benefits
                         </a>
                         <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
-                          <li>
+                          {/* <li>
                             <Link className='dropdown-item' to='/dsu/reward'>
                               Reward
                             </Link>
-                          </li>
+                          </li> */}
                           <li>
                             <Link className='dropdown-item' to='/dsu/benefits'>
                               Benefits
@@ -118,13 +118,13 @@ const HomeHeader: React.FC = () => {
                         </ul>
                       </li>
                     </Link>
-                    <Link to='/donation'>
+                    {/* <Link to='/donation'>
                       <li className='nav-item'>
                         <a className='nav-link' href='#'>
                           <span className='bg'>Donation </span>
                         </a>
                       </li>
-                    </Link>
+                    </Link> */}
                     <li className='nav-item'>
                       <a className='nav-link' href='https://www.dsu.edu.pk/contact-us/' rel='noopener noreferrer'>
                         <span className='bg'>Contact Us </span>
