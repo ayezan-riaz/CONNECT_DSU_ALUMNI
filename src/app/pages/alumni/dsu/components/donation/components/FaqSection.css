@@ -1,0 +1,18 @@
+.no-hover .accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: inherit;
+}
+
+.no-hover .accordion-button {
+    background-color: transparent;
+    color: inherit;
+}
+
+.no-hover .accordion-button:hover {
+    background-color: transparent;
+    color: inherit;
+}
+
+.no-hover .accordion-button:focus {
+    box-shadow: none;
+}
