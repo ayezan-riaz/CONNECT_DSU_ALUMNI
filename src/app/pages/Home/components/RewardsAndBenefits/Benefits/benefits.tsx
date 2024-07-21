@@ -30,7 +30,7 @@ const Benefits: React.FC = () => {
   return (
     <>
       <div className='container'>
-        <div className='row mt-15 mb-5'>
+        <div className='row  mb-5'>
           <div className='col-lg-12 col-md-12 col-sm-12'>
             <h1 className='text-css'>Corporate Partners</h1>
           </div>
@@ -55,8 +55,8 @@ const Benefits: React.FC = () => {
                 <div className='corporate-card'>
                   <div className='corporate-card-image'>
                     <img
-                      src={`http://13.200.151.68:3000/corporate-partners/${
-                        corporate.image || 'default-avatar.png'
+                      src={`http://13.200.151.68:3000/corporate-partner/${
+                        corporate.image || 'avatar.jpg'
                       }`}
                       alt={`${corporate.name}`}
                       className='img-fluid'
