@@ -12,7 +12,6 @@ const HomeEvents: React.FC = () => {
     axios
       .get<Event[]>('http://13.200.151.68:3000/api/events')
       .then((response) => {
-        debugger
         setEvents(response.data)
         console.log('Event', response.data)
         console.log('Event', response.data[0].event_images[0])
@@ -35,7 +34,7 @@ const HomeEvents: React.FC = () => {
 
   return (
     <div className='container'>
-      <div className='row mb-5'>
+      <div className='row mb-5 mt-8'>
         <div className='col-12'>
           <div
             className='position-relative'

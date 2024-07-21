@@ -157,7 +157,7 @@ const User: React.FC = () => {
                         <div className='symbol symbol-50px me-5'>
                           <img
                             src={`http://13.200.151.68:3000/alumni/${
-                              user.avatar || 'default-avatar.png'
+                              user.avatar || 'default/avatar.jpg'
                             }`}
                             alt={`${user.first_name} ${user.last_name}`}
                           />
@@ -236,7 +236,7 @@ const User: React.FC = () => {
                 <div className='d-flex align-items-center mb-3'>
                   <img
                     src={`http://13.200.151.68:3000/alumni/${
-                      viewUser.avatar || 'default-avatar.png'
+                      viewUser.avatar || 'default/avatar.jpg'
                     }`}
                     alt={`${viewUser.first_name} ${viewUser.last_name}`}
                     className='img-fluid rounded-circle'

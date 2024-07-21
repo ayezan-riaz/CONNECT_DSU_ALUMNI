@@ -30,22 +30,9 @@ const Benefits: React.FC = () => {
   return (
     <>
       <div className='container'>
-        <div className='row  mb-5'>
+        <div className='row  mb-5 mt-5'>
           <div className='col-lg-12 col-md-12 col-sm-12'>
             <h1 className='text-css'>Corporate Partners</h1>
-          </div>
-
-          <div className='col-lg-12 col-md-12 col-sm-12 text-center mt-15'>
-            <div className='video-container'>
-              <iframe
-                src='https://www.youtube.com/embed/AiAQ3dnq6P0?si=tQxPQpW2V0HGTYhi'
-                title='YouTube video player'
-                frameBorder='0'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-                referrerPolicy='strict-origin-when-cross-origin'
-                allowFullScreen
-              ></iframe>
-            </div>
           </div>
         </div>
         <div className='container corporate-partners-container'>
@@ -74,6 +61,18 @@ const Benefits: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+        <div className='col-lg-12 col-md-12 col-sm-12 text-center mt-15 mb-10'>
+          <div className='video-container'>
+            <iframe
+              src='https://www.youtube.com/embed/AiAQ3dnq6P0?si=tQxPQpW2V0HGTYhi'
+              title='YouTube video player'
+              frameBorder='0'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+              referrerPolicy='strict-origin-when-cross-origin'
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </div>
