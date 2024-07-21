@@ -39,7 +39,7 @@ const Carousel: React.FC = () => {
         const response = await axios.get('http://13.200.151.68:3000/api/allAlumni')
         const filteredUsers = response.data.filter((user: any) => user.role === 2)
         const formattedUsers = filteredUsers.map((user: any) => ({
-          imgSrc: `http://13.200.151.68:3000/alumni/${user.avatar || 'default-avatar.png'}`,
+          imgSrc: `http://13.200.151.68:3000/alumni/${user.avatar || 'avatar.jpg'}`,
           name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
           role: 'User', // Adjust role text as needed
           designation: user.designation || '',
@@ -104,7 +104,7 @@ const Carousel: React.FC = () => {
   }, [isAutoPlay])
 
   return (
-    <div ref={wrapperRef} className='col-lg-12 col-md-12 col-sm-12 mt-15'>
+    <div ref={wrapperRef} className='col-lg-12 col-md-12 col-sm-12 mt-15 mb-10'>
       <div className='wrapper'>
         <i id='left' className='fa-solid fa-angle-left' onClick={() => handleArrowClick('left')} />
         <ul
@@ -116,7 +116,7 @@ const Carousel: React.FC = () => {
           onMouseLeave={dragStop}
         >
           {cardData.map((card, index) => (
-            <li className='card' key={index}>
+            <li className='card mb-10' key={index}>
               <div className='img'>
                 <img src={card.imgSrc} alt='img' draggable='false' />
               </div>
