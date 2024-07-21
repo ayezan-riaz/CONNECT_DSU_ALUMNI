@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import eventBackground from '../../../../pages/alumni/assets/eventBackground.jpg'
-import {Event} from '../../../../pages/alumni/dsu/components/event/components/eventTypes' // Import the common Event type
+import eventBackground from '../../../../pages/alumni/assets/event3.jpg'
+import { Event } from '../../../../pages/alumni/dsu/components/event/components/eventTypes' // Import the common Event type
 import './HomeEvents.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const HomeEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([])
@@ -62,7 +62,7 @@ const HomeEvents: React.FC = () => {
             <div className='position-absolute text-white mb-8 ms-10 bottom-0'>
               <h3 className='text-white fs-2qx fw-bold mb-3'>DSU EVENTS</h3>
               <div className='fs-5 fw-semibold'>
-                You sit down. You stare at your screen. The cursor blinks.
+
               </div>
             </div>
           </div>

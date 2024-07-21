@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {CorporatePartner} from '../../../../../pages/alumni/dsu/components/corporatePartner/components/corporatePartner' // Import the CorporatePartner type
+import { CorporatePartner } from '../../../../../pages/alumni/dsu/components/corporatePartner/components/corporatePartner' // Import the CorporatePartner type
 import './benefits.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import background from '../../../../alumni/assets/DefaultImage.jpg'
 const Benefits: React.FC = () => {
   const [corporates, setCorporates] = useState<CorporatePartner[]>([])
@@ -32,20 +32,16 @@ const Benefits: React.FC = () => {
       <div className='container'>
         <div className='row  mb-5'>
           <div className='col-lg-12 col-md-12 col-sm-12'>
-            <h1 className='text-css'>Corporate Partners</h1>
-          </div>
-
-          <div className='col-lg-12 col-md-12 col-sm-12 text-center mt-15'>
-            <div className='video-container'>
-              <iframe
-                src='https://www.youtube.com/embed/AiAQ3dnq6P0?si=tQxPQpW2V0HGTYhi'
-                title='YouTube video player'
-                frameBorder='0'
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-                referrerPolicy='strict-origin-when-cross-origin'
-                allowFullScreen
-              ></iframe>
-            </div>
+            <h1
+              style={{
+                textAlign: 'center',
+                color: '#80171d',
+                fontSize: '30px',
+                fontWeight: 'bold',
+              }}
+            >
+              Corporate Partners
+            </h1>
           </div>
         </div>
         <div className='container corporate-partners-container'>
@@ -55,9 +51,8 @@ const Benefits: React.FC = () => {
                 <div className='corporate-card'>
                   <div className='corporate-card-image'>
                     <img
-                      src={`http://13.200.151.68:3000/corporate-partner/${
-                        corporate.image || 'avatar.jpg'
-                      }`}
+                      src={`http://13.200.151.68:3000/corporate-partner/${corporate.image || 'avatar.jpg'
+                        }`}
                       alt={`${corporate.name}`}
                       className='img-fluid'
                     />
