@@ -21,6 +21,7 @@
 	border-radius: 50px;
 	transition: all 0.9s ease;
 } */
+
 /* Ensure there's no horizontal scrolling */
 body {
   overflow-x: hidden;

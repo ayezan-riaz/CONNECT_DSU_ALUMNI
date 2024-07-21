@@ -130,7 +130,7 @@ const CardPage: React.FC = () => {
             </ul>
           </div>
 
-          {role === 2 && userHasCard && !isRequested && !isApproved && (
+          {role === 2 && !userHasCard && !isRequested && !isApproved && (
             <div className='apply-card'>
               <Button variant='primary' onClick={handleApply}>
                 Apply For Alumni Card
