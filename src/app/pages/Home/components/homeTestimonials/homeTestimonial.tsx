@@ -21,47 +21,49 @@ const HomeTestimonial: React.FC = () => {
   }, [])
 
   return (
-    <>
-      <div className='container'>
-        <div className='row'>
-          <h1 style={{textAlign: 'center', color: '#80171d', fontSize: '30px', fontWeight: 'bold'}}>
-            Testimonials
-          </h1>
-        </div>
-        <div className='row mt-10'>
-          {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className='mb-4 col-lg-4 col-md-4 col-sm-12'>
-              <div className='card card-ab'>
-                <img
-                  className='card-img-top object-fit-cover'
-                  src={`http://13.200.151.68:3000/alumni/${testimonial.avatar || 'avatar.jpg'}`}
-                  alt={`${testimonial.first_name} ${testimonial.last_name}`}
-                />
-
-                <div className='card-body'>
-                  <p className='text-center'>
-                    <strong>
-                      {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
-                    </strong>
+    <div className='container'>
+      <div className='row'>
+        <h1
+          style={{
+            textAlign: 'center',
+            color: '#80171d',
+            fontSize: '30px',
+            fontWeight: 'bold',
+          }}
+        >
+          Testimonials
+        </h1>
+      </div>
+      <div className='row'>
+        {testimonials.map((testimonial) => (
+          <div key={testimonial.id} className='mb-4 col-lg-4 col-md-6 col-sm-12'>
+            <div className='card h-100'>
+              <div className='card-body'>
+                <div className='testimonial-image text-center mb-3'>
+                  <img
+                    src={`http://13.200.151.68:3000/alumni/${
+                      testimonial.avatar || 'default-avatar.png'
+                    }`}
+                    alt={`${testimonial.first_name} ${testimonial.last_name}`}
+                    className='img-fluid rounded-circle'
+                    style={{width: '100px', height: '100px', objectFit: 'cover'}}
+                  />
+                </div>
+                <div className='testimonial-text text-center'>
+                  <p className='blockquote'>“{testimonial.testimony}”</p>
+                  <p className='font-weight-bold mb-1'>
+                    {`${testimonial.first_name} ${testimonial.middle_name} ${testimonial.last_name}`.trim()}
                   </p>
-                  <p className='text-center'>
-                    <strong>
-                      {testimonial.designation} / {testimonial.company}
-                    </strong>
+                  <p className='text-muted mb-0'>
+                    {testimonial.designation} / {testimonial.company}
                   </p>
-
-                  <div className='border-top border-secondary py-2'>
-                    <span className='fw-bolder fs-4 mx-1 text-black'>“</span>
-                    <span className='lh-lg text-black'>{testimonial.testimony}</span>
-                    <span className='fw-bolder fs-4 mx-1 text-black'>”</span>
-                  </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   )
 }
 
