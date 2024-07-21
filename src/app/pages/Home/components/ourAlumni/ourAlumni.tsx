@@ -106,7 +106,7 @@ const Carousel: React.FC = () => {
   return (
 
     <div ref={wrapperRef} className='col-lg-12 col-md-12 col-sm-12 mt-15'>
-      <h1 style={{ textAlign: 'center' }}>Our Alumni - Our Assets</h1>
+      <h1 className='mb-15' style={{ textAlign: 'center' }}>Our Alumni - Our Assets</h1>
       <div className='wrapper'>
         <i id='left' className='fa-solid fa-angle-left' onClick={() => handleArrowClick('left')} />
         <ul

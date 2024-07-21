@@ -115,8 +115,10 @@ const TestimonialsPage: React.FC = () => {
               {roleId === 1 ? (
                 <div className='card card-ab'>
                   <img
-                    className='card-img-top object-fit-contain'
-                    src={`http://13.200.151.68:3000/alumni/${testimonial.avatar || 'avatar.jpg'}`}
+                    className='card-img-top object-fit-cover'
+                    src={`http://13.200.151.68:3000/alumni/${
+                      testimonial.avatar || 'default/avatar.jpg'
+                    }`}
                     alt={`${testimonial.first_name} ${testimonial.last_name}`}
                   />
 
