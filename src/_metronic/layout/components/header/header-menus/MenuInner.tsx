@@ -44,7 +44,7 @@ export function MenuInner() {
         <MenuItem title='News' to='/alumni/dsu/news' icon='note' />
       </MenuInnerWithSub>
 
-      <MenuItem to='/alumni/dsu/association' title='Association' />
+      {/* <MenuItem to='/alumni/dsu/association' title='Association' /> */}
       <MenuItem to='/alumni/dsu/card' title='Alumni Card' />
 
       <MenuItem to='/alumni/dsu/corporate' title='Corporate Partner' />

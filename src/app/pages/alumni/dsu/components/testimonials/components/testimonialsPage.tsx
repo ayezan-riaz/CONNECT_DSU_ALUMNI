@@ -76,7 +76,15 @@ const TestimonialsPage: React.FC = () => {
 
   return (
     <>
-      <div className='container'>
+      <div>
+        {roleId === 1 && (
+          <div className='card card-ab shadow-sm d-flex flex-row align-items-center justify-content-between p-5'>
+            <div>
+              <h1 className='fs-1'>Testimonies</h1>
+              <em>all of the testimonies given by dsu alumni</em>
+            </div>
+          </div>
+        )}
         <div className='row mb-5'>
           <div className='col-12'>
             {roleId === 2 && !userHasTestimonial && (
@@ -108,9 +116,7 @@ const TestimonialsPage: React.FC = () => {
                 <div className='card card-ab'>
                   <img
                     className='card-img-top object-fit-contain'
-                    src={`http://13.200.151.68:3000/alumni/${
-                      testimonial.avatar || 'default/avatar.jpg'
-                    }`}
+                    src={`http://13.200.151.68:3000/alumni/${testimonial.avatar || 'avatar.jpg'}`}
                     alt={`${testimonial.first_name} ${testimonial.last_name}`}
                   />
 
@@ -127,9 +133,9 @@ const TestimonialsPage: React.FC = () => {
                     </p>
 
                     <div className='border-top border-secondary py-2'>
-                      <span className='fw-bolder fs-4 mx-1'>“</span>
-                      <span className='lh-lg'>{testimonial.testimony}</span>
-                      <span className='fw-bolder fs-4 mx-1'>”</span>
+                      <span className='fw-bolder fs-4 mx-1 text-black'>“</span>
+                      <span className='lh-lg text-black'>{testimonial.testimony}</span>
+                      <span className='fw-bolder fs-4 mx-1 text-black'>”</span>
                     </div>
                   </div>
                 </div>
@@ -160,15 +166,15 @@ const TestimonialsPage: React.FC = () => {
                       <div className='testimonial-image'>
                         <img
                           src={`http://13.200.151.68:3000/alumni/${
-                            testimonial.avatar || 'default/avatar.jpg'
+                            testimonial.avatar || 'avatar.jpg'
                           }`}
                           alt={`${testimonial.first_name} ${testimonial.last_name}`}
                         />
                       </div>
                       <div className='testimonial-text'>
-                        <span className='fw-bolder fs-2 mx-1'>“</span>
-                        <span className='fs-3'>{testimonial.testimony}</span>
-                        <span className='fw-bolder fs-2 mx-1'>”</span>
+                        <span className='fw-bolder fs-2 mx-1 text-black'>“</span>
+                        <span className='fs-3 text-black'>{testimonial.testimony}</span>
+                        <span className='fw-bolder fs-2 mx-1 text-black'>”</span>
 
                         <section className='my-5'>
                           <p className='fw-bold m-0'>
