@@ -2,7 +2,6 @@ import React from 'react'
 import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
 import { PageLink, PageTitle } from '../../../../_metronic/layout/core'
 import { Events } from './components/event/Events'
-import { Association } from './components/association/Association'
 import { Card } from './components/card/Card'
 import { CorportaePartner } from './components/corporatePartner/CorportaePartner'
 import { Directory } from './components/directory/Directory'
@@ -51,15 +50,6 @@ const DsuPage: React.FC = () => {
         />
         {/* <Route path='eventDetail/:id' element={<EventDetails />} /> Add this route */}
 
-        <Route
-          path='association'
-          element={
-            <>
-              {/* <PageTitle breadcrumbs={accountBreadCrumbs}>Settings</PageTitle> */}
-              <Association />
-            </>
-          }
-        />
 
         <Route
           path='eventDetail/:id'

@@ -110,31 +110,33 @@ const CardPage: React.FC = () => {
   }, [handleSearch])
 
   return (
-    <div className='container'>
+    <div>
       {role === 2 && (
-        <div>
-          <h1>Alumni Card</h1>
-          <p className='col-8'>
-            You can apply for the Alumni Card. You will be entitled to certain benefits which can be
-            availed with the help of Alumni Card, some of these benefits are
-          </p>
-          <ul>
-            <li className='text-lowercase'>FACILITATION OF ENTRY INTO DSU PREMISES</li>
-            <li className='text-lowercase'>
-              ACCESS TO UNIVERSITY RESOURCES LIKE LIBRARY AND SPORTS FACILITIES
-            </li>
-            <li className='text-lowercase'>
-              DISCOUNTED REGISTRATION FEE FOR VARIOUS ALUMNI EVENTS
-            </li>
-          </ul>
-        </div>
-      )}
+        <div className='card card-ab shadow-sm d-flex flex-row m-0  justify-content-between p-5'>
+          <div>
+            <h1 className='fs-1'>Alumni Card</h1>
+            <em>
+              You will be entitled to certain benefits which can be availed with the help of Alumni
+              Card
+            </em>
+            <ul className='mt-2'>
+              <li className='text-lowercase'>FACILITATION OF ENTRY INTO DSU PREMISES</li>
+              <li className='text-lowercase'>
+                ACCESS TO UNIVERSITY RESOURCES LIKE LIBRARY AND SPORTS FACILITIES
+              </li>
+              <li className='text-lowercase'>
+                DISCOUNTED REGISTRATION FEE FOR VARIOUS ALUMNI EVENTS
+              </li>
+            </ul>
+          </div>
 
-      {role === 2 && userHasCard && !isRequested && !isApproved && (
-        <div className='apply-card'>
-          <Button variant='primary' onClick={handleApply}>
-            Apply For Alumni Card
-          </Button>
+          {role === 2 && userHasCard && !isRequested && !isApproved && (
+            <div className='apply-card'>
+              <Button variant='primary' onClick={handleApply}>
+                Apply For Alumni Card
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
@@ -152,7 +154,7 @@ const CardPage: React.FC = () => {
 
       {role === 1 && (
         <>
-          <div className='card card-ab d-flex flex-row p-5 gap-3 shadow-sm mb-3'>
+          <div className='card m-0 card-ab d-flex flex-row p-5 gap-3 shadow-sm mb-5'>
             <div className='col-3'>
               <Form.Control
                 type='text'
@@ -170,10 +172,10 @@ const CardPage: React.FC = () => {
               </Form.Select>
             </div>
           </div>
-          <div className='card card-ab shadow-sm mb-5 mb-xl-8 mt-8'>
+          <div className='card card-ab shadow-sm mb-xl-8 m-0'>
             <div className='card-header border-0 pt-5'>
               <h3 className='card-title align-items-start flex-column'>
-                <span className='card-label fw-bold fs-3 mb-1'>Alumni Cards</span>
+                <span className='card-label fw-bold fs-1 mb-1'>Requested Alumni Cards</span>
                 <span className='text-muted mt-1 fw-semibold fs-7'>
                   List of alumni card applications
                 </span>

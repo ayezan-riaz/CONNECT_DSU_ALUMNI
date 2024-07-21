@@ -86,12 +86,7 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem title='News' to='/alumni/dsu/news' icon='note' />
       </SidebarMenuItemWithSub>
 
-      <SidebarMenuItem
-        to='/alumni/dsu/association'
-        icon='element-11'
-        title='Association'
-        fontIcon='bi-app-indicator'
-      />
+      
       <SidebarMenuItem
         to='/alumni/dsu/card'
         icon='element-11'
