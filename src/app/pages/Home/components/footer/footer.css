@@ -1,0 +1,19 @@
+.footer {
+    background-color: #81181b;
+    padding: 1rem 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer p {
+    margin: 0;
+}

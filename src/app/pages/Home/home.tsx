@@ -10,6 +10,7 @@ import HomeEvents from './components/HomeEvents/homeEvents'
 import Reward from './components/RewardsAndBenefits/Reward/reward'
 import OurAlumni from './components/ourAlumni/ourAlumni'
 import AlumniMeetup from './components/alumniMeetUp/alumnimeetup'
+import Footer from './components/footer/footer'
 
 const Home: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const Home: React.FC = () => {
       <div className='container'>
         <OurAlumni />
       </div>
+
 
     </>
   )
