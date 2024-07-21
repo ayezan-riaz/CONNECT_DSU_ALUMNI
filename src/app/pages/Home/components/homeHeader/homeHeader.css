@@ -94,7 +94,9 @@
         padding: 0 1rem;
     }
 } */
+
 /* 
+
 .bg{
     background-color: #81181b;
     color: white;
@@ -135,9 +137,6 @@
         background-color: var(#81181b) !important;
     }
 }
-
-
-/* ///MOVING  */
 
 .bg {
   background-color: #81181b;
@@ -193,7 +192,6 @@
   display: flex;
   align-items: center;
   margin-right: 15px;
-  /* Space between icons */
 }
 
 .noLightbox.social_bookmarks li a {
@@ -312,7 +310,3 @@
   /* Example: Ensure consistent background */
   color: white;
 }
-
-/* Add any specific navbar styles here */
-
-/* //NEW */
