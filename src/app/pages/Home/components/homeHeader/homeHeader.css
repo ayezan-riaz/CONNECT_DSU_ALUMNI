@@ -23,9 +23,11 @@
 }
 .nav-item:hover {
     transform: scale(1.1);
-} */
+} 
+*/
 
-/* .navbar {
+/* 
+.navbar {
     background-color: #81181b;
     color: white;
     display: flex;
@@ -93,10 +95,10 @@
     .nav-link {
         padding: 0 1rem;
     }
-} */
+} 
+*/
 
 /* 
-
 .bg{
     background-color: #81181b;
     color: white;
@@ -137,6 +139,8 @@
         background-color: var(#81181b) !important;
     }
 }
+
+*/
 
 .bg {
   background-color: #81181b;
@@ -211,19 +215,13 @@
   margin-left: 10px;
 }
 
-*/
-
-/* Navigation bar fixed and full width */
-.navbar {
+*/ .navbar {
   position: fixed;
-  /* Fixed position to stay on top */
+
   top: 0;
   width: 100%;
-  /* Full width */
   background-color: #81181b;
-  /* Dark red background */
   z-index: 1030;
-  /* High z-index to stay on top */
   transition: all 0.3s;
   color: white;
 }
@@ -236,7 +234,6 @@
 
   .navbar-toggler {
     display: none;
-    /* Hide toggler on large screens */
   }
 
   .collapse {
@@ -253,7 +250,6 @@
   }
 }
 
-/* Social Icons */
 .noLightbox.social_bookmarks {
   display: flex;
   align-items: center;
@@ -261,17 +257,13 @@
   padding: 0;
   margin: 0;
   position: absolute;
-  /* Ensure it does not push navbar items */
   left: 10px;
-  /* Space from the left */
 }
 
 .noLightbox.social_bookmarks li {
   margin-right: 15px;
-  /* Space between icons */
 }
 
-/* Sliding Text Styling */
 .slider {
   position: relative;
   overflow: hidden;
@@ -307,6 +299,5 @@
 .navbar {
   width: 100%;
   background-color: #81181b;
-  /* Example: Ensure consistent background */
   color: white;
 }
