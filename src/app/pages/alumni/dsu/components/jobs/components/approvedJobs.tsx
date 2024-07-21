@@ -3,6 +3,7 @@ import axios from 'axios'
 import {Modal, Button} from 'react-bootstrap'
 import './job.css'
 import {Jobs} from './jobTypes'
+import {toast} from 'react-toastify'
 
 const ApprovedJobs: React.FC = () => {
   const [jobs, setJobs] = useState<Jobs[]>([])
@@ -57,8 +58,10 @@ const ApprovedJobs: React.FC = () => {
           fetchJobs()
           console.log('Job deleted successfully')
           closeDeleteModal()
+          toast.success('Job deleted successfully')
         })
         .catch((error) => {
+          toast.error('Cannot delete the job')
           console.error('Error deleting job:', error)
         })
     }
@@ -75,66 +78,77 @@ const ApprovedJobs: React.FC = () => {
         }
       )
       .then((response) => {
+        toast.success('Job approved successfully')
         fetchJobs()
         console.log('Job approved successfully')
       })
       .catch((error) => {
+        toast.success('Cannot approve the job')
         console.error('Error approving job:', error)
       })
   }
 
   return (
     <>
-      <div className='card mb-5 mb-xl-8'>
-        <div className='card-header border-0 pt-5'>
-          <h3 className='card-title align-items-start flex-column'>
-            <span className='card-label fw-bold fs-3 mb-1'>Approved Jobs</span>
-            <span className='text-muted mt-1 fw-semibold fs-7'>List of unapproved jobs</span>
-          </h3>
-        </div>
-        <div className='card-body py-3'>
-          <div className='table-responsive'>
-            <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
-              <thead>
-                <tr className='fw-bold text-muted'>
-                  <th className='min-w-200px'>Title</th>
-                  <th className='min-w-150px'>Organization Name</th>
-                  <th className='min-w-150px'>Organization Email</th>
-                  <th className='min-w-150px'>Location</th>
-                  <th className='min-w-100px'>Salary</th>
-                  <th className='min-w-100px text-end'>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {jobs.map((job) => (
-                  <tr key={job.id}>
-                    <td>{job.title}</td>
-                    <td>{job.organization_name}</td>
-                    <td>{job.organization_email}</td>
-                    <td>{job.location}</td>
-                    <td>{job.salary}</td>
-                    <td className='text-end'>
-                      <div className='d-flex justify-content-end flex-shrink-0'>
-                        <Button
-                          variant='success'
-                          size='sm'
-                          className='me-1'
-                          onClick={() => handleApprove(job.id)}
-                        >
-                          Approve
-                        </Button>
-                        <Button variant='danger' size='sm' onClick={() => openDeleteModal(job.id)}>
-                          Remove
-                        </Button>
-                      </div>
-                    </td>
+      {jobs.length > 0 ? (
+        <div className='card card-ab mb-5 mb-xl-8'>
+          <div className='card-header border-0 pt-5'>
+            <h3 className='card-title align-items-start flex-column'>
+              <span className='card-label fw-bold fs-3 mb-1'>Unapproved Jobs</span>
+            </h3>
+          </div>
+          <div className='card-body py-3'>
+            <div className='table-responsive'>
+              <table className='table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4'>
+                <thead>
+                  <tr className='fw-bold text-muted'>
+                    <th className='min-w-200px'>Title</th>
+                    <th className='min-w-150px'>Organization Name</th>
+                    <th className='min-w-150px'>Organization Email</th>
+                    <th className='min-w-150px'>Location</th>
+                    <th className='min-w-100px'>Salary</th>
+                    <th className='min-w-100px'>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {jobs.map((job) => (
+                    <tr key={job.id}>
+                      <td>{job.title}</td>
+                      <td>{job.organization_name}</td>
+                      <td>{job.organization_email}</td>
+                      <td>{job.location}</td>
+                      <td>{job.salary}</td>
+                      <td className='text-end'>
+                        <div className='d-flex flex-shrink-0 gap-2'>
+                          <Button variant='success' size='sm' onClick={() => handleApprove(job.id)}>
+                            Approve
+                          </Button>
+                          <Button
+                            variant='danger'
+                            size='sm'
+                            onClick={() => openDeleteModal(job.id)}
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className='container'>
+          <div className='card card-ab shadow-sm d-flex flex-row justify-content-center p-5'>
+            <div className='text-center'>
+              <h1 className='fs-1'>Unapproved Jobs</h1>
+              <p className='fs-4 mt-5'>no job pending approval</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
