@@ -12,7 +12,7 @@ const ViewEvent: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
-  const Imageurl = 'http://13.200.151.68:3000/api/event/'
+  const Imageurl = 'http://13.200.151.68:3000/event/'
   const roleId = parseInt(localStorage.getItem('role') || '0', 10)
 
   const fetchEvents = () => {

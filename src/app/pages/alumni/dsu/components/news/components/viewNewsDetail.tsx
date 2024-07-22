@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { News } from './newsTypes'
 
-const Imageurl = 'http://13.200.151.68:3000/api/news/'
+const Imageurl = 'http://13.200.151.68:3000/news/'
 
 const ViewNewsDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Event } from './eventTypes';
 
-const Imageurl = 'http://13.200.151.68:3000/api/event/';
+const Imageurl = 'http://13.200.151.68:3000/event/';
 
 const ViewEventDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

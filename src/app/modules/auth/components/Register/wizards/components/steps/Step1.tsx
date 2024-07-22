@@ -28,7 +28,7 @@ const Step1: FC = () => {
         <div className='text-gray-400 fw-bold fs-6'>
           Already have an Account?
           <Link to='/auth/login'>
-            <button className=' fw-bolder' style={{color: '#80171D'}}>
+            <button className=' fw-bolder' style={{color: '#80171D', marginLeft:'9px', border:'2px solid white'}}>
               &nbsp;Sign In
             </button>
           </Link>

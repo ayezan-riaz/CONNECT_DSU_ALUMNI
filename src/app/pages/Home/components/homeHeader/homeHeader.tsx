@@ -118,7 +118,7 @@ const HomeHeader: React.FC = () => {
                         </ul>
                       </li>
                     </Link>
-                    <Link to='/donation'>
+                    <Link to='/dsu/donation'>
                       <li className='nav-item'>
                         <a className='nav-link' href='#'>
                           <span className='bg'>Donation</span>
