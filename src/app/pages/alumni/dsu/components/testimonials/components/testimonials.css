@@ -60,10 +60,10 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #80171d;
+  border: 3px solid #80171cb6;
   background: #fff;
   position: relative;
-  top: -40px;
+  top: -55px;
   left: -40px;
 }
 
