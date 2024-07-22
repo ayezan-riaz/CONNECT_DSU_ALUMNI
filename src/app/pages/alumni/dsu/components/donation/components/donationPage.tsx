@@ -5,7 +5,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 
 const DonationPage: React.FC = () => {
   return (
-    <Container>
+    <>
       {/* <h1>Donate to DHA Suffa</h1> */}
       <Row>
         <Col md={8}>
@@ -15,7 +15,7 @@ const DonationPage: React.FC = () => {
           <FaqSection />
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
 
