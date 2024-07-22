@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import { News } from './newsTypes'
-
-const Imageurl = 'http://13.200.151.68:3000/api/news/'
+import {useParams} from 'react-router-dom'
+import {News} from './newsTypes'
 
 const ViewNewsDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>()
+  const {id} = useParams<{id: string}>()
   const [event, setEvent] = useState<News | null>(null)
 
   useEffect(() => {
@@ -27,39 +25,24 @@ const ViewNewsDetail: React.FC = () => {
     return <div>Loading...</div>
   }
 
-  const renderImages = () => {
-    debugger
-    if (typeof event.news_image === 'string') {
-      // If news_image is a single string, display it
-      return (
-        <div className='col-md-4'>
-          <img src={`${Imageurl}${event.news_image}`} alt='News' className='img-fluid' />
-        </div>
-      )
-    } else if (Array.isArray(event.news_image)) {
-      // If news_image is an array, map through and display each image
-      return event.news_image.map((image, index) => (
-        <div key={index} className='col-md-4'>
-          <img src={`${Imageurl}${image}`} alt={`News ${index + 1}`} className='img-fluid' />
-        </div>
-      ))
-    }
-    return null
-  }
-
   return (
-    <div className="card" style={{ borderRadius: '10px', overflow: 'hidden' }}>
-      <div className="card-body">
-        <h1 className="card-title">{event.name}</h1>
-        <p className="card-text">{event.description}</p>
+    <div className='card' style={{borderRadius: '10px', overflow: 'hidden'}}>
+      <div className='card-body'>
+        <h1 className='card-title'>{event.name}</h1>
+        <p className='card-text'>{event.description}</p>
       </div>
-      <div className="card-img-top">
-        <div className="row">
-          {renderImages()}
+      <div className='card-footer container'>
+        <div className='row'>
+          <div className='col'>
+            <img
+              src={`http://13.200.151.68:3000/news/${event.news_image}`}
+              alt='News'
+              className='w-100 shadow-1-strong rounded mb-4'
+            />
+          </div>
         </div>
       </div>
     </div>
-
   )
 }
 
