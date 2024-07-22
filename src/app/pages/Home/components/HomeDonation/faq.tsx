@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Accordion } from 'react-bootstrap';
-import './FaqSection.css';
-import pay from '../../../../assets/payment.png';
+import './faq.css';
+import pay from '../../../../../app/pages/alumni/assets/payment.png';
 
-const FaqSection: React.FC = () => {
+const Faq: React.FC = () => {
     const [activeKey, setActiveKey] = useState<string | null>(null);
 
     const handleToggle = (key: string) => {
@@ -45,4 +45,4 @@ const FaqSection: React.FC = () => {
     );
 };
 
-export default FaqSection;
+export default Faq;

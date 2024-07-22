@@ -118,13 +118,13 @@ const HomeHeader: React.FC = () => {
                         </ul>
                       </li>
                     </Link>
-                    {/* <Link to='/donation'>
+                    <Link to='/donation'>
                       <li className='nav-item'>
                         <a className='nav-link' href='#'>
-                          <span className='bg'>Donation </span>
+                          <span className='bg'>Donation</span>
                         </a>
                       </li>
-                    </Link> */}
+                    </Link>
                     <li className='nav-item'>
                       <a className='nav-link' href='https://www.dsu.edu.pk/contact-us/' rel='noopener noreferrer'>
                         <span className='bg'>Contact Us </span>

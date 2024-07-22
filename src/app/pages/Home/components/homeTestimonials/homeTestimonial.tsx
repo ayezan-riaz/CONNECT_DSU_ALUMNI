@@ -33,7 +33,7 @@ const HomeTestimonial: React.FC = () => {
         >
           Testimonials
         </h1>
-      </div>
+      </div>hom
       <div className='row'>
         {testimonials.map((testimonial) => (
           <div key={testimonial.id} className='mb-4 col-lg-4 col-md-6 col-sm-12'>

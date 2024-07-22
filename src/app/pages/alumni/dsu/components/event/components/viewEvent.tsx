@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {Modal, Button} from 'react-bootstrap'
-import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg'
+import { Modal, Button } from 'react-bootstrap'
+import eventBackground from '../../../../../../../app/pages/alumni/assets/event3.jpg'
 import EventModal from './eventModal'
-import {Event} from './eventTypes'
+import { Event } from './eventTypes'
 import './event.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const ViewEvent: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([])
@@ -104,7 +104,7 @@ const ViewEvent: React.FC = () => {
             <div className='position-absolute text-white mb-8 ms-10 bottom-0'>
               <h3 className='text-white fs-2qx fw-bold mb-3'>DSU EVENTS</h3>
               <div className='fs-5 fw-semibold'>
-                You sit down. You stare at your screen. The cursor blinks.
+
               </div>
             </div>
           </div>
@@ -116,10 +116,10 @@ const ViewEvent: React.FC = () => {
           <div key={event.id} className='col-md-4 mb-4 my-5'>
             <div className='card h-100 shadow-md'>
               {roleId === 1 && (
-                <span style={{position: 'absolute', top: '10px', right: '10px', zIndex: 1}}>
+                <span style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
                   <i
                     className='fa fa-times-circle'
-                    style={{fontSize: '20px', color: '#80171d', cursor: 'pointer'}}
+                    style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
                     onClick={() => handleDelete(event)}
                   ></i>
                 </span>

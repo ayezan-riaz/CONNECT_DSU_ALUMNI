@@ -1,0 +1,38 @@
+.form-inline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+
+.form-inline .form-label {
+    margin-bottom: 0;
+    width: 30%;
+}
+
+.form-inline .form-control {
+    margin-bottom: 0;
+    width: 60%;
+}
+
+.form-inline .input-group {
+    margin-bottom: 0;
+    width: 60%;
+}
+
+.text-danger {
+    color: red;
+}
+
+label.btn.btn-outline-white {
+    background-color: lightgray;
+}
+
+.h1_st {
+    color: #80171d;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    font-size: 30px;
+}

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {Modal, Button} from 'react-bootstrap'
-import eventBackground from '../../../../../../../app/pages/alumni/assets/eventBackground.jpg'
+import { Modal, Button } from 'react-bootstrap'
+import eventBackground from '../../../../../../../app/pages/alumni/assets/new1.png'
 import NewsModal from './newsModal' // Import the NewsModal component
-import {News} from './newsTypes' // Import the common News type
+import { News } from './newsTypes' // Import the common News type
 import './news.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const NewsPage: React.FC = () => {
   const [news, setNews] = useState<News[]>([])
@@ -104,7 +104,7 @@ const NewsPage: React.FC = () => {
             <div className='position-absolute text-white mb-8 ms-10 bottom-0'>
               <h3 className='text-white fs-2qx fw-bold mb-3'>DSU NEWS</h3>
               <div className='fs-5 fw-semibold'>
-                You sit down. You stare at your screen. The cursor blinks.
+
               </div>
             </div>
           </div>
@@ -116,10 +116,10 @@ const NewsPage: React.FC = () => {
           <div key={newss.id} className='col-md-4 mb-4'>
             <div className='card h-100 shadow-sm'>
               {roleId === 1 && (
-                <span style={{position: 'absolute', top: '10px', right: '10px', zIndex: 1}}>
+                <span style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1 }}>
                   <i
                     className='fa fa-times-circle'
-                    style={{fontSize: '20px', color: '#80171d', cursor: 'pointer'}}
+                    style={{ fontSize: '20px', color: '#80171d', cursor: 'pointer' }}
                     onClick={() => handleDelete(newss)}
                   ></i>
                 </span>
