@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 const HomeNews: React.FC = () => {
   const [news, setNews] = useState<News[]>([])
-  const Imageurl = 'http://13.200.151.68:3000/api/news/'
+  const Imageurl = 'http://13.200.151.68:3000/news/'
   const fetchNews = () => {
     axios
       .get<News[]>('http://13.200.151.68:3000/api/news')

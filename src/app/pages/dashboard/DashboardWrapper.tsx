@@ -159,7 +159,7 @@ const DashboardPage: FC = () => {
                 {/*begin::Title*/}
                 <div className="card-title d-flex flex-column">
                   {/*begin::Amount*/}
-                  <span className="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">{userCount}</span>
+                  <span className="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">{cardData.length}</span>
                   {/*end::Amount*/}
                   {/*begin::Subtitle*/}
                   <span className="text-gray-400 pt-1 fw-semibold fs-6">
@@ -374,11 +374,11 @@ const DashboardWrapper: FC = () => {
 
   return (
     <>
-      <PageTitle breadcrumbs={[]}>{intl.formatMessage({id: 'MENU.DASHBOARD'})}</PageTitle>
+      <PageTitle breadcrumbs={[]}>{intl.formatMessage({ id: 'MENU.DASHBOARD' })}</PageTitle>
       <DashboardPage />
       <ToastContainer />
     </>
   )
 }
 
-export {DashboardWrapper}
+export { DashboardWrapper }

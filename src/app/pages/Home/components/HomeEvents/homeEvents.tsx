@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 const HomeEvents: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([])
-  const Imageurl = 'http://13.200.151.68:3000/api/event/'
+  const Imageurl = 'http://13.200.151.68:3000/event/'
   const fetchEvents = () => {
     axios
       .get<Event[]>('http://13.200.151.68:3000/api/events')

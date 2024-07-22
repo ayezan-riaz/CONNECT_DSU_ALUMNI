@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {useParams} from 'react-router-dom'
-import {News} from '../../../../pages/alumni/dsu/components/news/components/newsTypes'
+import { useParams } from 'react-router-dom'
+import { News } from '../../../../pages/alumni/dsu/components/news/components/newsTypes'
 
-const Imageurl = 'http://13.200.151.68:3000/api/news/'
+const Imageurl = 'http://13.200.151.68:3000/news/'
 
 const HomeNewsDetail: React.FC = () => {
-  const {id} = useParams<{id: string}>()
+  const { id } = useParams<{ id: string }>()
   const [event, setEvent] = useState<News | null>(null)
 
   useEffect(() => {
@@ -48,11 +48,15 @@ const HomeNewsDetail: React.FC = () => {
   }
 
   return (
-    <div className='container mt-20'>
-      <div className='row'>
-        <h1>{event.name}</h1>
-        <p>{event.description}</p>
-        <div className='row'>{renderImages()}</div>
+    <div className="card" style={{ borderRadius: '10px', overflow: 'hidden' }}>
+      <div className="card-body">
+        <h1 className="card-title">{event.name}</h1>
+        <p className="card-text">{event.description}</p>
+      </div>
+      <div className="card-img-top">
+        <div className="row">
+          {renderImages()}
+        </div>
       </div>
     </div>
   )

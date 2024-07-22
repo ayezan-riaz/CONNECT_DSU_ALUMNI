@@ -126,15 +126,12 @@ const ViewEvent: React.FC = () => {
               )}
               <Link to={`/alumni/dsu/eventDetail/${event.id}`} className='d-block overlay mb-4'>
                 <div
-                  className='card-img-top'
+                  className="card-img-top"
                   style={{
                     height: '200px',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundImage:
-                      event.event_images.length > 0
-                        ? `url(${Imageurl}${event.event_images[0]})`
-                        : 'url(/path/to/placeholder-image.jpg)',
+                    backgroundImage: `url('http://13.200.151.68:3000/event/${event.event_images[0] || 'default/avatar.jpg'}')`,
                     borderTopLeftRadius: '10px',
                     borderTopRightRadius: '10px',
                   }}

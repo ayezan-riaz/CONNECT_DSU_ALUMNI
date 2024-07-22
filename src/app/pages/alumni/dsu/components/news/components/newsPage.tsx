@@ -12,7 +12,7 @@ const NewsPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedNews, setSelectedNews] = useState<News | null>(null)
   const [deleteConfirmation, setDeleteConfirmation] = useState(false)
-  const Imageurl = 'http://13.200.151.68:3000/api/news/'
+  const Imageurl = 'http://13.200.151.68:3000/news/'
   const roleId = parseInt(localStorage.getItem('role') || '0', 10)
 
   const fetchNews = () => {
